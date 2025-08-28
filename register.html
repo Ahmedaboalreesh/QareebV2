@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل حساب جديد - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+                </div>
+                <div class="nav-buttons">
+                    <a href="index.html" class="btn btn-outline">
+                        <i class="fas fa-arrow-right"></i>
+                        العودة للرئيسية
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Registration Section -->
+    <section class="register-section">
+        <div class="container">
+            <div class="register-container">
+                <div class="register-header">
+                    <h1>سجل حسابك الجديد</h1>
+                    <p>انضم إلى منصتنا وابدأ في تأجير سيارتك</p>
+                </div>
+                
+                <form class="register-form" id="registerForm">
+                    <!-- User Type Selection -->
+                    <div class="user-type-selector">
+                        <div class="type-option active" data-type="renter">
+                            <div class="type-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="type-content">
+                                <h3>مستأجر</h3>
+                                <p>أريد استئجار سيارة</p>
+                            </div>
+                        </div>
+                        <div class="type-option" data-type="owner">
+                            <div class="type-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="type-content">
+                                <h3>صاحب سيارة</h3>
+                                <p>أريد تأجير سيارتي</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullName">الاسم الكامل</label>
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="fullName" name="fullName" required placeholder="أدخل اسمك الكامل">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" required placeholder="أدخل بريدك الإلكتروني">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف</label>
+                        <div class="input-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="phone" name="phone" required placeholder="أدخل رقم هاتفك">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">كلمة المرور</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" required placeholder="أدخل كلمة المرور">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">تأكيد كلمة المرور</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="أعد إدخال كلمة المرور">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">المدينة</label>
+                        <div class="input-group">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <select id="city" name="city" required>
+                                <option value="">اختر المدينة</option>
+                                <option value="الرياض">الرياض</option>
+                                <option value="جدة">جدة</option>
+                                <option value="الدمام">الدمام</option>
+                                <option value="مكة">مكة</option>
+                                <option value="المدينة">المدينة</option>
+                                <option value="الطائف">الطائف</option>
+                                <option value="تبوك">تبوك</option>
+                                <option value="أبها">أبها</option>
+                                <option value="حائل">حائل</option>
+                                <option value="بريدة">بريدة</option>
+                                <option value="خميس مشيط">خميس مشيط</option>
+                                <option value="الظهران">الظهران</option>
+                                <option value="الخبر">الخبر</option>
+                                <option value="الجبيل">الجبيل</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <span class="checkmark"></span>
+                            أوافق على <a href="#" class="terms-link">الشروط والأحكام</a> و <a href="#" class="privacy-link">سياسة الخصوصية</a>
+                        </label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <span class="checkmark"></span>
+                            أريد استلام النشرات الإخبارية والعروض الخاصة
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary register-btn">
+                        <i class="fas fa-user-plus"></i>
+                        إنشاء الحساب
+                    </button>
+                </form>
+
+                <div class="login-link">
+                    <p>لديك حساب بالفعل؟ <a href="login-firebase.html">تسجيل الدخول</a></p>
+                </div>
+
+                <!-- Message Container -->
+                <div id="messageContainer" class="message-container" style="display: none;">
+                    <div class="message-content">
+                        <i class="message-icon"></i>
+                        <span class="message-text"></span>
+                    </div>
+                </div>
+
+                <!-- Loading Overlay -->
+                <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+                    <div class="loading-content">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>جاري إنشاء الحساب...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-car"></i>
+                        <span>شارك سيارتك</span>
+                    </div>
+                    <p>منصة آمنة وموثوقة لتأجير السيارات من شخص لشخص</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 شارك سيارتك. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    
+    <!-- Firebase Service -->
+    <script src="firebase-service.js"></script>
+    
+    <script>
+        // Registration page functionality - Updated to use Firebase
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Initialize Firebase Service
+            let firebaseService;
+            try {
+                // Wait for Firebase to be ready
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                firebaseService = new FirebaseService();
+                console.log('✅ Firebase Service initialized in register page');
+                
+                // Test Firebase connection
+                try {
+                    const testRef = firebase.database().ref('test');
+                    await testRef.set({ timestamp: Date.now() });
+                    await testRef.remove();
+                    console.log('✅ Firebase connection test successful');
+                } catch (testError) {
+                    console.warn('⚠️ Firebase connection test failed:', testError);
+                    showMessage('تحذير: قد تكون هناك مشاكل في الاتصال بـ Firebase', 'warning');
+                }
+                
+            } catch (error) {
+                console.error('❌ Failed to initialize Firebase Service:', error);
+                showMessage('خطأ في تهيئة Firebase، يرجى تحديث الصفحة', 'error');
+                return;
+            }
+            
+            const registerForm = document.getElementById('registerForm');
+            const inputs = document.querySelectorAll('.input-group input, .input-group select');
+            const userTypeOptions = document.querySelectorAll('.type-option');
+            
+            let selectedUserType = 'renter'; // Default selection
+
+            // User type selection
+            userTypeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    userTypeOptions.forEach(opt => opt.classList.remove('active'));
+                    // Add active class to clicked option
+                    this.classList.add('active');
+                    // Update selected user type
+                    selectedUserType = this.dataset.type;
+                });
+            });
+            
+            // Form validation
+            function validateForm() {
+                let isValid = true;
+                
+                // Clear previous error states
+                inputs.forEach(input => {
+                    input.classList.remove('error');
+                });
+                
+                // Validate full name
+                const fullName = document.getElementById('fullName');
+                if (fullName.value.trim().length < 3) {
+                    fullName.classList.add('error');
+                    isValid = false;
+                }
+                
+                // Validate email
+                const email = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    email.classList.add('error');
+                    isValid = false;
+                }
+                
+                // Validate phone
+                const phone = document.getElementById('phone');
+                const phoneRegex = /^[0-9+\-\s()]{10,}$/;
+                if (!phoneRegex.test(phone.value)) {
+                    phone.classList.add('error');
+                    isValid = false;
+                }
+                
+                // Validate password
+                const password = document.getElementById('password');
+                if (password.value.length < 6) {
+                    password.classList.add('error');
+                    isValid = false;
+                }
+                
+                // Validate confirm password
+                const confirmPassword = document.getElementById('confirmPassword');
+                if (confirmPassword.value !== password.value) {
+                    confirmPassword.classList.add('error');
+                    isValid = false;
+                }
+                
+                // Validate city
+                const city = document.getElementById('city');
+                if (!city.value) {
+                    city.classList.add('error');
+                    isValid = false;
+                }
+                
+                // Validate terms
+                const terms = document.getElementById('terms');
+                if (!terms.checked) {
+                    terms.parentElement.style.color = '#ef4444';
+                    isValid = false;
+                } else {
+                    terms.parentElement.style.color = '#374151';
+                }
+                
+                return isValid;
+            }
+            
+            // Real-time validation
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+                
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        validateField(this);
+                    }
+                });
+            });
+            
+            function validateField(field) {
+                const value = field.value.trim();
+                const fieldName = field.name;
+                
+                // Clear error state
+                field.classList.remove('error');
+                
+                // Validate based on field type
+                switch (fieldName) {
+                    case 'fullName':
+                        if (value.length < 3) {
+                            field.classList.add('error');
+                        }
+                        break;
+                    case 'email':
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(value)) {
+                            field.classList.add('error');
+                        }
+                        break;
+                    case 'phone':
+                        const phoneRegex = /^[0-9+\-\s()]{10,}$/;
+                        if (!phoneRegex.test(value)) {
+                            field.classList.add('error');
+                        }
+                        break;
+                    case 'password':
+                        if (value.length < 6) {
+                            field.classList.add('error');
+                        }
+                        break;
+                    case 'confirmPassword':
+                        const password = document.getElementById('password').value;
+                        if (value !== password) {
+                            field.classList.add('error');
+                        }
+                        break;
+                }
+            }
+            
+            // Handle form submission
+            registerForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                if (!validateForm()) {
+                    showMessage('يرجى تصحيح الأخطاء في النموذج', 'error');
+                    return;
+                }
+                
+                // Show loading
+                showLoading(true);
+                
+                try {
+                    // Get form data
+                    const formData = new FormData(registerForm);
+                    const userData = {
+                        full_name: formData.get('fullName').trim(),
+                        email: formData.get('email').trim(),
+                        phone: formData.get('phone').trim(),
+                        city: formData.get('city'),
+                        user_type: selectedUserType,
+                        password: formData.get('password'),
+                        newsletter: formData.get('newsletter') === 'on'
+                    };
+                    
+                    console.log('📝 User data to register:', { ...userData, password: '***' });
+                    
+                    // Validate Firebase service
+                    if (!firebaseService || !firebaseService.auth) {
+                        throw new Error('Firebase service not properly initialized');
+                    }
+                    
+                    // Register user with Firebase
+                    console.log('🔄 Calling firebaseService.registerUser...');
+                    const result = await firebaseService.registerUser(userData);
+                    
+                    console.log('✅ Registration result:', result);
+                    
+                    if (result && result.user && result.profile) {
+                        showMessage('تم إنشاء الحساب بنجاح!', 'success');
+                        
+                        // Store user info in session storage for quick access
+                        sessionStorage.setItem('currentUser', JSON.stringify({
+                            uid: result.user.uid,
+                            email: result.profile.email,
+                            full_name: result.profile.full_name,
+                            user_type: result.profile.user_type
+                        }));
+                        
+                        // Redirect based on user type
+                        setTimeout(() => {
+                            if (selectedUserType === 'owner') {
+                                window.location.href = 'dashboard.html';
+                            } else {
+                                window.location.href = 'index.html';
+                            }
+                        }, 2000);
+                        
+                    } else {
+                        console.error('❌ Registration result is invalid:', result);
+                        showMessage('فشل في إنشاء الحساب - نتيجة غير صحيحة', 'error');
+                    }
+                    
+                } catch (error) {
+                    console.error('❌ Registration error:', error);
+                    
+                    let errorMessage = 'خطأ في تسجيل الحساب';
+                    
+                    // Handle specific Firebase auth errors
+                    if (error.code) {
+                        switch (error.code) {
+                            case 'auth/email-already-in-use':
+                                errorMessage = 'البريد الإلكتروني مستخدم بالفعل';
+                                break;
+                            case 'auth/invalid-email':
+                                errorMessage = 'البريد الإلكتروني غير صحيح';
+                                break;
+                            case 'auth/weak-password':
+                                errorMessage = 'كلمة المرور ضعيفة جداً (يجب أن تكون 6 أحرف على الأقل)';
+                                break;
+                            case 'auth/operation-not-allowed':
+                                errorMessage = 'إنشاء الحساب غير مسموح حالياً';
+                                break;
+                            case 'auth/network-request-failed':
+                                errorMessage = 'خطأ في الاتصال بالشبكة';
+                                break;
+                            case 'auth/too-many-requests':
+                                errorMessage = 'تم تجاوز الحد الأقصى للمحاولات، حاول لاحقاً';
+                                break;
+                            case 'auth/user-disabled':
+                                errorMessage = 'تم تعطيل هذا الحساب';
+                                break;
+                            case 'auth/user-not-found':
+                                errorMessage = 'لم يتم العثور على المستخدم';
+                                break;
+                            case 'auth/wrong-password':
+                                errorMessage = 'كلمة المرور غير صحيحة';
+                                break;
+                            case 'auth/invalid-credential':
+                                errorMessage = 'بيانات الاعتماد غير صحيحة';
+                                break;
+                            case 'auth/account-exists-with-different-credential':
+                                errorMessage = 'يوجد حساب بنفس البريد الإلكتروني مع طريقة تسجيل دخول مختلفة';
+                                break;
+                            case 'auth/requires-recent-login':
+                                errorMessage = 'يتطلب تسجيل دخول حديث';
+                                break;
+                            case 'auth/too-many-requests':
+                                errorMessage = 'تم تجاوز الحد الأقصى للمحاولات، حاول لاحقاً';
+                                break;
+                            case 'auth/quota-exceeded':
+                                errorMessage = 'تم تجاوز الحد الأقصى للاستخدام';
+                                break;
+                            case 'auth/unavailable':
+                                errorMessage = 'الخدمة غير متاحة حالياً';
+                                break;
+                                                    case 'auth/unimplemented':
+                            errorMessage = 'هذه العملية غير مدعومة';
+                            break;
+                        case 'auth/identity-toolkit-api-has-not-been-used-in-project-382655918338-before-or-it-is-disabled.-enable-it-by-visiting-https://console.developers.google.com/apis/api/identitytoolkit.googleapis.com/overview?project=382655918338-then-retry.-if-you-enabled-this-api-recently,-wait-a-few-minutes-for-the-action-to-propagate-to-our-systems-and-retry.':
+                            errorMessage = 'خطأ في إعدادات Firebase: يجب تفعيل Identity Toolkit API. اضغط على الرابط في Console للحصول على التعليمات.';
+                            break;
+                        default:
+                            errorMessage = `خطأ في Firebase: ${error.message}`;
+                        }
+                    } else if (error.message) {
+                        errorMessage = error.message;
+                    }
+                    
+                    console.error('🔍 Detailed error analysis:', {
+                        code: error.code,
+                        message: error.message,
+                        stack: error.stack,
+                        name: error.name,
+                        firebaseError: error.firebaseError
+                    });
+                    
+                    showMessage(errorMessage, 'error');
+                } finally {
+                    showLoading(false);
+                }
+            });
+            
+            // Show message
+            function showMessage(message, type) {
+                const messageContainer = document.getElementById('messageContainer');
+                const messageText = messageContainer.querySelector('.message-text');
+                const messageIcon = messageContainer.querySelector('.message-icon');
+                
+                messageText.textContent = message;
+                
+                // Set icon and class based on type
+                messageContainer.className = `message-container ${type}`;
+                
+                switch (type) {
+                    case 'success':
+                        messageIcon.className = 'fas fa-check-circle';
+                        break;
+                    case 'error':
+                        messageIcon.className = 'fas fa-exclamation-circle';
+                        break;
+                    case 'warning':
+                        messageIcon.className = 'fas fa-exclamation-triangle';
+                        break;
+                    default:
+                        messageIcon.className = 'fas fa-info-circle';
+                }
+                
+                messageContainer.style.display = 'block';
+                
+                // Auto hide after 5 seconds
+                setTimeout(() => {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Show/hide loading
+            function showLoading(show) {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                loadingOverlay.style.display = show ? 'flex' : 'none';
+            }
+        });
+    </script>
+
+    <style>
+        .message-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            max-width: 400px;
+        }
+
+        .message-container.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .message-container.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .message-container.warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+
+        .message-container.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .loading-content i {
+            font-size: 2rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .loading-content p {
+            color: #2c3e50;
+            margin: 0;
+        }
+    </style>
+</body>
+</html>

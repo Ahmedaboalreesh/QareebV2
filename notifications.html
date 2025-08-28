@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإشعارات - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="browse-cars.html">
+                        <i class="fas fa-search"></i>
+                        تصفح السيارات
+                    </a>
+                    <a href="my-bookings.html">
+                        <i class="fas fa-calendar"></i>
+                        حجوزاتي
+                    </a>
+                    <a href="my-cars.html">
+                        <i class="fas fa-car"></i>
+                        سياراتي
+                    </a>
+                    <a href="reviews.html">
+                        <i class="fas fa-star"></i>
+                        التقييمات
+                    </a>
+                    <a href="notifications.html" class="active">
+                        <i class="fas fa-bell"></i>
+                        الإشعارات
+                        <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                    </a>
+                    <a href="#" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>
+                    <i class="fas fa-bell"></i>
+                    الإشعارات
+                </h1>
+                <p>تابع آخر التحديثات والأنشطة في حسابك</p>
+            </div>
+
+            <!-- Notifications Controls -->
+            <div class="notifications-controls">
+                <div class="controls-left">
+                    <button class="btn btn-outline" onclick="markAllAsRead()">
+                        <i class="fas fa-check-double"></i>
+                        تحديد الكل كمقروء
+                    </button>
+                </div>
+                <div class="controls-right">
+                    <select id="filterType" onchange="filterNotifications()">
+                        <option value="all">جميع الإشعارات</option>
+                        <option value="unread">غير مقروءة</option>
+                        <option value="new_booking_request">طلبات الحجز</option>
+                        <option value="booking_status_updated">تحديث الحجز</option>
+                        <option value="booking_cancelled">إلغاء الحجز</option>
+                        <option value="booking_completed">إكمال الحجز</option>
+                        <option value="photo_uploaded">رفع الصور</option>
+                        <option value="review_received">التقييمات</option>
+                        <option value="payment_received">المدفوعات</option>
+                        <option value="system_notification">النظام</option>
+                        <option value="security_notification">الأمان</option>
+                        <option value="promotional_notification">الترويج</option>
+                        <option value="support_notification">الدعم</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Notifications List -->
+            <div class="notifications-container">
+                <div class="notifications-list" id="notificationsList">
+                    <!-- Notifications will be loaded here -->
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>جاري تحميل الإشعارات...</p>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-icon">
+                        <i class="fas fa-bell-slash"></i>
+                    </div>
+                    <h3>لا توجد إشعارات</h3>
+                    <p>ستظهر هنا الإشعارات الجديدة عند وصولها</p>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container" id="loadMoreContainer" style="display: none;">
+                <button class="btn btn-outline" onclick="loadMoreNotifications()">
+                    <i class="fas fa-plus"></i>
+                    تحميل المزيد
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notification Item Template -->
+    <template id="notificationTemplate">
+        <div class="notification-item" data-id="">
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="notification-content">
+                <div class="notification-header">
+                    <h4 class="notification-title"></h4>
+                                <div class="notification-actions">
+                <button class="btn-icon btn-view" onclick="viewNotificationSource(this)" title="عرض المصدر">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <button class="btn-icon" onclick="markAsRead(this)" title="تحديد كمقروء">
+                    <i class="fas fa-check"></i>
+                </button>
+                <button class="btn-icon" onclick="deleteNotification(this)" title="حذف">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+                </div>
+                <p class="notification-description"></p>
+                <div class="notification-meta">
+                    <span class="notification-time"></span>
+                    <span class="notification-type"></span>
+                </div>
+            </div>
+            <div class="notification-status">
+                <div class="unread-indicator"></div>
+            </div>
+        </div>
+    </template>
+
+    <script src="notifications.js"></script>
+</body>
+</html>

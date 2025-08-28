@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة الدفع - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">
+                        <i class="fas fa-home"></i>
+                        الرئيسية
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <div class="payment-container">
+                <!-- Payment Summary -->
+                <div class="payment-summary">
+                    <div class="summary-header">
+                        <h2>
+                            <i class="fas fa-receipt"></i>
+                            ملخص الطلب
+                        </h2>
+                    </div>
+                    
+                    <div class="summary-content">
+                        <div class="summary-item">
+                            <span class="label">السيارة:</span>
+                            <span class="value" id="carName">تويوتا كامري 2023</span>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <span class="label">تاريخ البداية:</span>
+                            <span class="value" id="startDate">15 يناير 2024</span>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <span class="label">تاريخ النهاية:</span>
+                            <span class="value" id="endDate">18 يناير 2024</span>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <span class="label">عدد الأيام:</span>
+                            <span class="value" id="daysCount">3 أيام</span>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <span class="label">السعر اليومي:</span>
+                            <span class="value" id="dailyRate">150 ريال</span>
+                        </div>
+                        
+                        <!-- Delivery Information -->
+                        <div class="summary-item" id="deliveryInfo" style="display: none;">
+                            <span class="label">خيار التوصيل:</span>
+                            <span class="value" id="deliveryChoice">-</span>
+                        </div>
+                        
+                        <div class="summary-item" id="deliveryFee" style="display: none;">
+                            <span class="label">رسوم التوصيل:</span>
+                            <span class="value" id="deliveryFeeAmount">-</span>
+                        </div>
+                        
+                        <div class="summary-item total">
+                            <span class="label">المجموع:</span>
+                            <span class="value" id="totalAmount">450 ريال</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <div class="methods-header">
+                        <h2>
+                            <i class="fas fa-credit-card"></i>
+                            اختر طريقة الدفع
+                        </h2>
+                    </div>
+                    
+                    <div class="methods-grid">
+                        <!-- Cash Payment -->
+                        <div class="payment-method" data-method="cash">
+                            <div class="method-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="method-info">
+                                <h3>الدفع نقداً</h3>
+                                <p>ادفع عند استلام السيارة</p>
+                            </div>
+                            <div class="method-radio">
+                                <input type="radio" name="paymentMethod" id="cash" value="cash">
+                                <label for="cash"></label>
+                            </div>
+                        </div>
+
+                        <!-- Credit Card -->
+                        <div class="payment-method" data-method="credit">
+                            <div class="method-icon credit">
+                                <div class="card-icons">
+                                    <i class="fab fa-cc-visa"></i>
+                                    <i class="fab fa-cc-mastercard"></i>
+                                    <i class="fab fa-cc-amex"></i>
+                                </div>
+                            </div>
+                            <div class="method-info">
+                                <h3>بطاقة ائتمانية</h3>
+                                <p>فيزا، ماستركارد، أمريكان إكسبرس، مدى</p>
+                            </div>
+                            <div class="method-radio">
+                                <input type="radio" name="paymentMethod" id="credit" value="credit">
+                                <label for="credit"></label>
+                            </div>
+                        </div>
+
+                        <!-- Apple Pay -->
+                        <div class="payment-method" data-method="applepay">
+                            <div class="method-icon applepay">
+                                <i class="fab fa-apple-pay"></i>
+                            </div>
+                            <div class="method-info">
+                                <h3>Apple Pay</h3>
+                                <p>ادفع عبر Apple Pay</p>
+                            </div>
+                            <div class="method-radio">
+                                <input type="radio" name="paymentMethod" id="applepay" value="applepay">
+                                <label for="applepay"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Forms -->
+                <div class="payment-forms">
+                    <!-- Cash Payment Form -->
+                    <div class="payment-form" id="cashForm" style="display: none;">
+                        <div class="form-header">
+                            <h3>
+                                <i class="fas fa-money-bill-wave"></i>
+                                الدفع نقداً
+                            </h3>
+                        </div>
+                        <div class="form-content">
+                            <p>سيتم الدفع نقداً عند استلام السيارة. لا توجد رسوم إضافية.</p>
+                            <div class="cash-instructions">
+                                <h4>تعليمات الدفع النقدي:</h4>
+                                <ul>
+                                    <li>احضر المبلغ المطلوب بالكامل</li>
+                                    <li>ادفع عند استلام السيارة</li>
+                                    <li>ستحصل على إيصال فوري</li>
+                                    <li>لا توجد رسوم إضافية</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Credit Card Form -->
+                    <div class="payment-form" id="creditForm" style="display: none;">
+                        <div class="form-header">
+                            <h3>
+                                <i class="fas fa-credit-card"></i>
+                                بطاقة ائتمانية
+                            </h3>
+                        </div>
+                        <div class="form-content">
+                            <div class="form-group">
+                                <label for="cardNumber">رقم البطاقة</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiryDate">تاريخ الانتهاء</label>
+                                    <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" maxlength="4">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cardName">اسم حامل البطاقة</label>
+                                <input type="text" id="cardName" placeholder="الاسم كما يظهر على البطاقة">
+                            </div>
+                            
+                            <div class="card-types">
+                                <span class="card-type visa" title="Visa">
+                                    <i class="fab fa-cc-visa"></i>
+                                </span>
+                                <span class="card-type mastercard" title="Mastercard">
+                                    <i class="fab fa-cc-mastercard"></i>
+                                </span>
+                                <span class="card-type amex" title="American Express">
+                                    <i class="fab fa-cc-amex"></i>
+                                </span>
+                                <span class="card-type mada" title="مدى">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span class="mada-text">مدى</span>
+                                </span>
+                            </div>
+                            
+                            <div class="card-info">
+                                <p><i class="fas fa-info-circle"></i> نقبل جميع أنواع البطاقات الائتمانية والمدى السعودية</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Apple Pay Form -->
+                    <div class="payment-form" id="applepayForm" style="display: none;">
+                        <div class="form-header">
+                            <h3>
+                                <i class="fab fa-apple-pay"></i>
+                                Apple Pay
+                            </h3>
+                        </div>
+                        <div class="form-content">
+                            <div class="applepay-button">
+                                <button type="button" id="applePayButton" class="btn-applepay">
+                                    <i class="fab fa-apple-pay"></i>
+                                    <span>ادفع عبر Apple Pay</span>
+                                </button>
+                            </div>
+                            <div class="applepay-info">
+                                <p>تأكد من أن Apple Pay مفعل على جهازك</p>
+                                <p>سيتم خصم المبلغ من البطاقة المسجلة في Apple Pay</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Actions -->
+                <div class="payment-actions">
+                    <button type="button" class="btn btn-secondary" onclick="goBack()">
+                        <i class="fas fa-arrow-right"></i>
+                        رجوع
+                    </button>
+                    
+                    <button type="button" class="btn btn-primary" id="payButton" onclick="processPayment()">
+                        <i class="fas fa-lock"></i>
+                        إتمام الدفع
+                        <span id="payAmount">450 ريال</span>
+                    </button>
+                </div>
+
+                <!-- Security Info -->
+                <div class="security-info">
+                    <div class="security-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>مدفوعات آمنة ومشفرة</span>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-lock"></i>
+                        <span>حماية SSL</span>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>ضمان استرداد الأموال</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Modal -->
+    <div class="modal" id="loadingModal" style="display: none;">
+        <div class="modal-content">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <h3>جاري معالجة الدفع...</h3>
+            <p>يرجى الانتظار ولا تغلق الصفحة</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal" style="display: none;">
+        <div class="modal-content success">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>تم الدفع بنجاح!</h3>
+            <p>سيتم إرسال تأكيد الحجز إلى بريدك الإلكتروني</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="goToDashboard()">
+                    <i class="fas fa-tachometer-alt"></i>
+                    الذهاب للوحة التحكم
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="payment.js"></script>
+</body>
+</html>

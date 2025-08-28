@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المستأجر - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="renter-dashboard.html" class="active">لوحة التحكم</a></li>
+                    <li><a href="browse-cars.html">تصفح السيارات</a></li>
+                    <li><a href="my-bookings.html">حجوزاتي</a></li>
+                    <li><a href="favorites.html">المفضلة</a></li>
+                    <li><a href="reviews.html">التقييمات</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline notification-btn" onclick="toggleNotifications()" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                    </button>
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Notifications Dropdown -->
+    <div class="notifications-dropdown" id="notificationsDropdown" style="display: none;">
+        <div class="notifications-header">
+            <h3><i class="fas fa-bell"></i> الإشعارات</h3>
+            <div class="notifications-actions">
+                <button class="btn btn-outline btn-sm" onclick="markAllAsRead()">
+                    <i class="fas fa-check-double"></i>
+                    تعيين الكل كمقروء
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="clearAllNotifications()">
+                    <i class="fas fa-trash"></i>
+                    مسح الكل
+                </button>
+            </div>
+        </div>
+        
+        <div class="notifications-container" id="notificationsContainer">
+            <!-- Notifications will be loaded here -->
+        </div>
+        
+        <div class="no-notifications" id="noNotifications" style="display: none;">
+            <div class="no-notifications-icon">
+                <i class="far fa-bell-slash"></i>
+            </div>
+            <h3>لا توجد إشعارات جديدة</h3>
+            <p>ستظهر هنا الإشعارات الجديدة عند وصولها</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container">
+            <div class="dashboard-header">
+
+                <h1>مرحباً بك في لوحة تحكم المستأجر</h1>
+                <p>ابحث عن سيارتك المفضلة واحجزها بسهولة - دعم الاقتصاد التشاركي</p>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="activeBookings">0</h3>
+                        <p>الحجوزات النشطة</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalBookings">0</h3>
+                        <p>إجمالي الحجوزات</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="favoritesCount">0</h3>
+                        <p>السيارات المفضلة</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="averageRating">0.0</h3>
+                        <p>متوسط التقييم</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>إجراءات سريعة</h2>
+                <div class="actions-grid">
+                    <a href="browse-cars.html" class="action-card primary">
+                        <div class="action-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>البحث عن سيارات</h3>
+                            <p>ابحث عن السيارة المناسبة لك</p>
+                        </div>
+                    </a>
+                    
+                    <a href="my-bookings.html" class="action-card secondary">
+                        <div class="action-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>حجوزاتي</h3>
+                            <p>عرض وإدارة حجوزاتك</p>
+                        </div>
+                    </a>
+                    
+                    <a href="favorites.html" class="action-card tertiary">
+                        <div class="action-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>المفضلة</h3>
+                            <p>السيارات التي أضفتها للمفضلة</p>
+                        </div>
+                    </a>
+                    
+                    <a href="profile.html" class="action-card quaternary">
+                        <div class="action-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>تعديل الملف الشخصي</h3>
+                            <p>تحديث معلوماتك الشخصية</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <h2>البحث السريع</h2>
+                <div class="search-container">
+                    <form id="quickSearchForm" class="search-form">
+                        <div class="search-row">
+                            <div class="search-group">
+                                <label for="searchLocation">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    الموقع
+                                </label>
+                                <select id="searchLocation" name="location">
+                                    <option value="">اختر المدينة</option>
+                                    <option value="الرياض">الرياض</option>
+                                    <option value="جدة">جدة</option>
+                                    <option value="الدمام">الدمام</option>
+                                    <option value="مكة">مكة</option>
+                                    <option value="المدينة">المدينة</option>
+                                </select>
+                            </div>
+                            
+                            <div class="search-group">
+                                <label for="searchStartDate">
+                                    <i class="fas fa-calendar"></i>
+                                    تاريخ البداية
+                                </label>
+                                <input type="date" id="searchStartDate" name="startDate" required>
+                            </div>
+                            
+                            <div class="search-group">
+                                <label for="searchEndDate">
+                                    <i class="fas fa-calendar"></i>
+                                    تاريخ النهاية
+                                </label>
+                                <input type="date" id="searchEndDate" name="endDate" required>
+                            </div>
+                            
+                            <div class="search-group">
+                                <label for="searchPrice">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    السعر الأقصى
+                                </label>
+                                <input type="number" id="searchPrice" name="maxPrice" placeholder="ريال/يوم" min="0">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                            ابحث عن سيارات
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h2>النشاط الأخير</h2>
+                <div class="activity-list" id="activityList">
+                    <!-- Activity items will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Notification Testing Section (for demonstration) -->
+            <div class="notification-testing">
+                <h2>اختبار الإشعارات</h2>
+                <div class="testing-buttons">
+                    <button class="btn btn-primary" onclick="testNotification()">
+                        <i class="fas fa-bell"></i>
+                        إنشاء إشعار تجريبي
+                    </button>
+                    <button class="btn btn-outline" onclick="createSampleNotifications()">
+                        <i class="fas fa-plus"></i>
+                        إنشاء إشعارات تجريبية
+                    </button>
+                    <button class="btn btn-outline" onclick="clearAllNotifications()">
+                        <i class="fas fa-trash"></i>
+                        مسح جميع الإشعارات
+                    </button>
+                </div>
+                <p class="testing-info">
+                    <i class="fas fa-info-circle"></i>
+                    هذه الأزرار مخصصة للاختبار والتجربة. ستظهر الإشعارات الجديدة تلقائياً كل 30 ثانية.
+                </p>
+            </div>
+
+            <!-- Recommended Cars -->
+            <div class="recommended-cars">
+                <h2>سيارات موصى بها</h2>
+                <div class="cars-grid" id="recommendedCars">
+                    <!-- Recommended cars will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="renter-dashboard.js"></script>
+</body>
+</html>

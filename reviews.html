@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقييمات - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="dashboard.html">لوحة التحكم</a></li>
+                    <li><a href="my-cars.html">سياراتي</a></li>
+                    <li><a href="bookings.html">الحجوزات</a></li>
+                    <li><a href="earnings.html">الأرباح</a></li>
+                    <li><a href="reviews.html" class="active">التقييمات</a></li>
+                    <li>
+                        <a href="notifications.html" class="notification-link">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <div class="reviews-header">
+                <h1>التقييمات</h1>
+                <p>إدارة تقييمات سياراتك وتقييماتك للآخرين</p>
+            </div>
+
+            <!-- Reviews Stats -->
+            <div class="reviews-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="averageRating">0.0</h3>
+                        <p>متوسط التقييم</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalReviews">0</h3>
+                        <p>إجمالي التقييمات</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-thumbs-up"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="positiveReviews">0</h3>
+                        <p>تقييمات إيجابية</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="pendingReviews">0</h3>
+                        <p>تقييمات معلقة</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="tab-btn active" data-filter="all">
+                    <i class="fas fa-list"></i>
+                    جميع التقييمات
+                </button>
+                <button class="tab-btn" data-filter="received">
+                    <i class="fas fa-inbox"></i>
+                    التقييمات المستلمة
+                </button>
+                <button class="tab-btn" data-filter="given">
+                    <i class="fas fa-paper-plane"></i>
+                    التقييمات المقدمة
+                </button>
+                <button class="tab-btn" data-filter="pending">
+                    <i class="fas fa-clock"></i>
+                    تقييمات معلقة
+                </button>
+            </div>
+
+            <!-- Reviews List -->
+            <div class="reviews-list" id="reviewsList">
+                <!-- Reviews will be loaded here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>لا توجد تقييمات</h3>
+                <p>لا توجد تقييمات في هذه الفئة حالياً</p>
+                <div class="empty-actions">
+                    <button class="btn btn-info" onclick="createSampleReviews()">
+                        <i class="fas fa-plus"></i>
+                        إنشاء تقييمات تجريبية
+                    </button>
+                    <button class="btn btn-secondary" onclick="debugReviewsData()">
+                        <i class="fas fa-bug"></i>
+                        فحص البيانات في Console
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Details Modal -->
+    <div class="modal" id="reviewModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تفاصيل التقييم</h2>
+                <button class="close-btn" onclick="closeReviewModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="reviewModalBody">
+                <!-- Review details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Review Modal -->
+    <div class="modal" id="addReviewModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>إضافة تقييم جديد</h2>
+                <button class="close-btn" onclick="closeAddReviewModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addReviewForm">
+                    <div class="form-group">
+                        <label for="reviewCar">السيارة</label>
+                        <select id="reviewCar" required>
+                            <option value="">اختر السيارة</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reviewRating">التقييم</label>
+                        <div class="rating-input">
+                            <i class="fas fa-star" data-rating="1"></i>
+                            <i class="fas fa-star" data-rating="2"></i>
+                            <i class="fas fa-star" data-rating="3"></i>
+                            <i class="fas fa-star" data-rating="4"></i>
+                            <i class="fas fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="selectedRating" value="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reviewTitle">عنوان التقييم</label>
+                        <input type="text" id="reviewTitle" placeholder="أدخل عنوان التقييم" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reviewComment">التعليق</label>
+                        <textarea id="reviewComment" rows="4" placeholder="أدخل تعليقك على التجربة" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeAddReviewModal()">إلغاء</button>
+                        <button type="submit" class="btn btn-primary">إضافة التقييم</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="reviews.js"></script>
+</body>
+</html>

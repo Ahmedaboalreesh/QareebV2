@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل الملف الشخصي - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#how-it-works" class="nav-link">كيف يعمل</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#cars" class="nav-link">السيارات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">اتصل بنا</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+                    </li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">إنشاء حساب</a>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="profile-section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="profile-header">
+                <h1>تعديل الملف الشخصي</h1>
+                <p>قم بتحديث معلوماتك الشخصية وتفضيلاتك</p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="btn btn-outline" onclick="window.location.href='renter-dashboard.html'">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة للوحة التحكم
+                </button>
+                <button class="btn btn-outline" onclick="window.location.href='my-bookings.html'">
+                    <i class="fas fa-calendar-alt"></i>
+                    حجوزاتي
+                </button>
+            </div>
+
+            <!-- Profile Form -->
+            <div class="profile-form-container">
+                <form id="profileForm" class="profile-form">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h3>المعلومات الشخصية</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">الاسم الكامل *</label>
+                                <input type="text" id="fullName" name="fullName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">اسم المستخدم *</label>
+                                <input type="text" id="username" name="username" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dateOfBirth">تاريخ الميلاد</label>
+                                <input type="date" id="dateOfBirth" name="dateOfBirth">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">الجنس</label>
+                                <select id="gender" name="gender">
+                                    <option value="">اختر الجنس</option>
+                                    <option value="male">ذكر</option>
+                                    <option value="female">أنثى</option>
+                                    <option value="other">آخر</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bio">نبذة شخصية</label>
+                            <textarea id="bio" name="bio" rows="3" placeholder="اكتب نبذة مختصرة عن نفسك"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="form-section">
+                        <h3>معلومات التواصل</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">البريد الإلكتروني *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">رقم الهاتف *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">المدينة</label>
+                                <select id="city" name="city">
+                                    <option value="">اختر المدينة</option>
+                                    <option value="الرياض">الرياض</option>
+                                    <option value="جدة">جدة</option>
+                                    <option value="الدمام">الدمام</option>
+                                    <option value="مكة">مكة</option>
+                                    <option value="المدينة">المدينة</option>
+                                    <option value="تبوك">تبوك</option>
+                                    <option value="أبها">أبها</option>
+                                    <option value="حائل">حائل</option>
+                                    <option value="بريدة">بريدة</option>
+                                    <option value="خميس مشيط">خميس مشيط</option>
+                                    <option value="الظهران">الظهران</option>
+                                    <option value="الطائف">الطائف</option>
+                                    <option value="نجران">نجران</option>
+                                    <option value="الجوف">الجوف</option>
+                                    <option value="جازان">جازان</option>
+                                    <option value="القصيم">القصيم</option>
+                                    <option value="الباحة">الباحة</option>
+                                    <option value="الحدود الشمالية">الحدود الشمالية</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">العنوان</label>
+                                <input type="text" id="address" name="address" placeholder="العنوان التفصيلي">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Picture -->
+                    <div class="form-section">
+                        <h3>الصورة الشخصية</h3>
+                        <div class="profile-picture-section">
+                            <div class="current-picture">
+                                <img id="profilePicture" src="https://via.placeholder.com/150x150/667eea/ffffff?text=صورة+شخصية" alt="الصورة الشخصية">
+                                <div class="picture-overlay">
+                                    <i class="fas fa-camera"></i>
+                                    <span>تغيير الصورة</span>
+                                </div>
+                            </div>
+                            <div class="picture-actions">
+                                <input type="file" id="profilePictureInput" name="profilePicture" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-outline" onclick="document.getElementById('profilePictureInput').click()">
+                                    <i class="fas fa-upload"></i>
+                                    رفع صورة جديدة
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="removeProfilePicture()">
+                                    <i class="fas fa-trash"></i>
+                                    إزالة الصورة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferences -->
+                    <div class="form-section">
+                        <h3>التفضيلات</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="language">اللغة المفضلة</label>
+                                <select id="language" name="language">
+                                    <option value="ar">العربية</option>
+                                    <option value="en">English</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="currency">العملة المفضلة</label>
+                                <select id="currency" name="currency">
+                                    <option value="SAR">الريال السعودي (SAR)</option>
+                                    <option value="USD">الدولار الأمريكي (USD)</option>
+                                    <option value="EUR">اليورو (EUR)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>إعدادات الإشعارات</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="emailNotifications" name="emailNotifications" checked>
+                                    <span class="checkmark"></span>
+                                    إشعارات البريد الإلكتروني
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="smsNotifications" name="smsNotifications">
+                                    <span class="checkmark"></span>
+                                    إشعارات الرسائل النصية
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="pushNotifications" name="pushNotifications" checked>
+                                    <span class="checkmark"></span>
+                                    الإشعارات الفورية
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="marketingEmails" name="marketingEmails">
+                                    <span class="checkmark"></span>
+                                    رسائل تسويقية
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div class="form-section">
+                        <h3>إعدادات الأمان</h3>
+                        <div class="form-group">
+                            <label for="currentPassword">كلمة المرور الحالية</label>
+                            <input type="password" id="currentPassword" name="currentPassword" placeholder="أدخل كلمة المرور الحالية">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newPassword">كلمة المرور الجديدة</label>
+                                <input type="password" id="newPassword" name="newPassword" placeholder="كلمة المرور الجديدة">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">تأكيد كلمة المرور</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="تأكيد كلمة المرور الجديدة">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="twoFactorAuth" name="twoFactorAuth">
+                                <span class="checkmark"></span>
+                                تفعيل المصادقة الثنائية
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            حفظ التغييرات
+                        </button>
+                        <button type="reset" class="btn btn-outline">
+                            <i class="fas fa-undo"></i>
+                            إعادة تعيين
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="window.location.href='renter-dashboard.html'">
+                            <i class="fas fa-times"></i>
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Account Actions -->
+            <div class="account-actions">
+                <h2>إجراءات الحساب</h2>
+                <div class="actions-grid">
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>تصدير البيانات</h3>
+                            <p>تحميل نسخة من بياناتك الشخصية</p>
+                            <button class="btn btn-outline" onclick="exportUserData()">
+                                <i class="fas fa-download"></i>
+                                تصدير البيانات
+                            </button>
+                        </div>
+                    </div>
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-eye-slash"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>إخفاء الحساب</h3>
+                            <p>إخفاء حسابك مؤقتاً من المنصة</p>
+                            <button class="btn btn-outline" onclick="deactivateAccount()">
+                                <i class="fas fa-eye-slash"></i>
+                                إخفاء الحساب
+                            </button>
+                        </div>
+                    </div>
+                    <div class="action-card danger">
+                        <div class="action-icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>حذف الحساب</h3>
+                            <p>حذف حسابك نهائياً من المنصة</p>
+                            <button class="btn btn-danger" onclick="deleteAccount()">
+                                <i class="fas fa-trash-alt"></i>
+                                حذف الحساب
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>منصة تأجير السيارات</h3>
+                <p>منصة آمنة وموثوقة لتأجير السيارات بين الأفراد</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>الخدمات</h4>
+                <ul>
+                    <li><a href="index.html#how-it-works">كيف يعمل</a></li>
+                    <li><a href="index.html#cars">السيارات المتاحة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>الدعم والمساعدة</h4>
+                <ul>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="terms.html">الشروط والأحكام</a></li>
+                    <li><a href="cancellation-policy.html">سياسة الإلغاء</a></li>
+                    <li><a href="user-guide.html">دليل الاستخدام</a></li>
+                    <li><a href="report-problem.html">الإبلاغ عن مشكلة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>الحساب</h4>
+                <ul>
+                    <li><a href="login.html">تسجيل الدخول</a></li>
+                    <li><a href="register.html">إنشاء حساب</a></li>
+                    <li><a href="renter-dashboard.html">لوحة التحكم</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="privacy.html">سياسة الخصوصية</a>
+                <a href="terms.html">الشروط والأحكام</a>
+                <a href="cancellation-policy.html">سياسة الإلغاء</a>
+            </div>
+            <p>&copy; 2024 منصة تأجير السيارات. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="profile.js"></script>
+</body>
+</html>

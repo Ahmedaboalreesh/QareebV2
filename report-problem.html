@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإبلاغ عن مشكلة - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#how-it-works" class="nav-link">كيف يعمل</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#cars" class="nav-link">السيارات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">اتصل بنا</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+                    </li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">إنشاء حساب</a>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="report-problem-section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="report-header">
+                <h1>الإبلاغ عن مشكلة</h1>
+                <p>ساعدنا في تحسين الخدمة من خلال الإبلاغ عن أي مشاكل تواجهها</p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="btn btn-outline" onclick="window.location.href='contact.html'">
+                    <i class="fas fa-envelope"></i>
+                    تواصل معنا
+                </button>
+                <button class="btn btn-outline" onclick="window.location.href='faq.html'">
+                    <i class="fas fa-question-circle"></i>
+                    الأسئلة الشائعة
+                </button>
+            </div>
+
+            <!-- Report Form -->
+            <div class="report-form-container">
+                <div class="form-header">
+                    <h2>نموذج الإبلاغ عن المشكلة</h2>
+                    <p>يرجى ملء النموذج التالي بتفاصيل المشكلة التي تواجهها</p>
+                </div>
+
+                <form id="reportForm" class="report-form">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h3>المعلومات الشخصية</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">الاسم الكامل *</label>
+                                <input type="text" id="fullName" name="fullName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">البريد الإلكتروني *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">رقم الهاتف</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="userType">نوع المستخدم</label>
+                                <select id="userType" name="userType">
+                                    <option value="">اختر نوع المستخدم</option>
+                                    <option value="renter">مستأجر</option>
+                                    <option value="owner">مالك سيارة</option>
+                                    <option value="visitor">زائر</option>
+                                    <option value="other">آخر</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Problem Details -->
+                    <div class="form-section">
+                        <h3>تفاصيل المشكلة</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="problemType">نوع المشكلة *</label>
+                                <select id="problemType" name="problemType" required>
+                                    <option value="">اختر نوع المشكلة</option>
+                                    <option value="technical">مشكلة تقنية</option>
+                                    <option value="booking">مشكلة في الحجز</option>
+                                    <option value="payment">مشكلة في الدفع</option>
+                                    <option value="communication">مشكلة في التواصل</option>
+                                    <option value="safety">مشكلة أمنية</option>
+                                    <option value="account">مشكلة في الحساب</option>
+                                    <option value="bug">خطأ في التطبيق</option>
+                                    <option value="other">مشكلة أخرى</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="priority">أولوية المشكلة</label>
+                                <select id="priority" name="priority">
+                                    <option value="low">منخفضة</option>
+                                    <option value="medium" selected>متوسطة</option>
+                                    <option value="high">عالية</option>
+                                    <option value="urgent">عاجلة</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="problemTitle">عنوان المشكلة *</label>
+                            <input type="text" id="problemTitle" name="problemTitle" placeholder="اكتب عنواناً مختصراً للمشكلة" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="problemDescription">وصف المشكلة *</label>
+                            <textarea id="problemDescription" name="problemDescription" rows="6" placeholder="اشرح المشكلة بالتفصيل، متى حدثت، وكيف يمكننا إعادة إنتاجها" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="form-section">
+                        <h3>معلومات إضافية</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="browser">المتصفح المستخدم</label>
+                                <select id="browser" name="browser">
+                                    <option value="">اختر المتصفح</option>
+                                    <option value="chrome">Google Chrome</option>
+                                    <option value="firefox">Mozilla Firefox</option>
+                                    <option value="safari">Safari</option>
+                                    <option value="edge">Microsoft Edge</option>
+                                    <option value="other">آخر</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="device">نوع الجهاز</label>
+                                <select id="device" name="device">
+                                    <option value="">اختر نوع الجهاز</option>
+                                    <option value="desktop">كمبيوتر مكتبي</option>
+                                    <option value="laptop">لابتوب</option>
+                                    <option value="tablet">تابلت</option>
+                                    <option value="mobile">هاتف محمول</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="steps">خطوات إعادة إنتاج المشكلة</label>
+                            <textarea id="steps" name="steps" rows="4" placeholder="اشرح الخطوات التي أدت إلى حدوث المشكلة"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="expectedBehavior">السلوك المتوقع</label>
+                            <textarea id="expectedBehavior" name="expectedBehavior" rows="3" placeholder="ما الذي كنت تتوقع أن يحدث؟"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="form-section">
+                        <h3>مرفقات (اختياري)</h3>
+                        <div class="form-group">
+                            <label for="screenshots">لقطات شاشة</label>
+                            <input type="file" id="screenshots" name="screenshots" multiple accept="image/*">
+                            <small>يمكنك رفع عدة صور لتوضيح المشكلة (PNG, JPG, GIF)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="documents">مستندات إضافية</label>
+                            <input type="file" id="documents" name="documents" multiple accept=".pdf,.doc,.docx,.txt">
+                            <small>يمكنك رفع مستندات إضافية (PDF, DOC, TXT)</small>
+                        </div>
+                    </div>
+
+                    <!-- Contact Preferences -->
+                    <div class="form-section">
+                        <h3>تفضيلات التواصل</h3>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="emailUpdates" name="emailUpdates" checked>
+                                <span class="checkmark"></span>
+                                أريد تلقي تحديثات عبر البريد الإلكتروني
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="phoneUpdates" name="phoneUpdates">
+                                <span class="checkmark"></span>
+                                أريد تلقي تحديثات عبر الهاتف
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferredTime">الوقت المفضل للتواصل</label>
+                            <select id="preferredTime" name="preferredTime">
+                                <option value="">اختر الوقت المفضل</option>
+                                <option value="morning">صباحاً (8:00 ص - 12:00 م)</option>
+                                <option value="afternoon">ظهراً (12:00 م - 4:00 م)</option>
+                                <option value="evening">مساءً (4:00 م - 8:00 م)</option>
+                                <option value="anytime">أي وقت</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            إرسال البلاغ
+                        </button>
+                        <button type="reset" class="btn btn-outline">
+                            <i class="fas fa-undo"></i>
+                            إعادة تعيين
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Help Section -->
+            <div class="help-section">
+                <h2>هل تحتاج مساعدة فورية؟</h2>
+                <div class="help-options">
+                    <div class="help-option">
+                        <i class="fas fa-phone"></i>
+                        <h3>اتصل بنا</h3>
+                        <p>+966 50 123 4567</p>
+                        <p>الأحد - الخميس: 8:00 ص - 6:00 م</p>
+                    </div>
+                    <div class="help-option">
+                        <i class="fas fa-comments"></i>
+                        <h3>الدردشة المباشرة</h3>
+                        <p>متاحة 24/7</p>
+                        <p>للحصول على مساعدة فورية</p>
+                    </div>
+                    <div class="help-option">
+                        <i class="fas fa-question-circle"></i>
+                        <h3>الأسئلة الشائعة</h3>
+                        <p>ابحث عن إجابات</p>
+                        <p>للمشاكل الشائعة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>منصة تأجير السيارات</h3>
+                <p>منصة آمنة وموثوقة لتأجير السيارات بين الأفراد</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>الخدمات</h4>
+                <ul>
+                    <li><a href="index.html#how-it-works">كيف يعمل</a></li>
+                    <li><a href="index.html#cars">السيارات المتاحة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>الدعم والمساعدة</h4>
+                <ul>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="terms.html">الشروط والأحكام</a></li>
+                    <li><a href="cancellation-policy.html">سياسة الإلغاء</a></li>
+                    <li><a href="user-guide.html">دليل الاستخدام</a></li>
+                    <li><a href="report-problem.html">الإبلاغ عن مشكلة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>الحساب</h4>
+                <ul>
+                    <li><a href="login.html">تسجيل الدخول</a></li>
+                    <li><a href="register.html">إنشاء حساب</a></li>
+                    <li><a href="renter-dashboard.html">لوحة التحكم</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="privacy.html">سياسة الخصوصية</a>
+                <a href="terms.html">الشروط والأحكام</a>
+                <a href="cancellation-policy.html">سياسة الإلغاء</a>
+            </div>
+            <p>&copy; 2024 منصة تأجير السيارات. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="report-problem.js"></script>
+</body>
+</html>
