@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار Firebase Authentication</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>اختبار Firebase Authentication</h1>
+        
+        <div id="authStatus" class="status info">
+            جاري التحقق من حالة المصادقة...
+        </div>
+
+        <div id="loginForm" style="display: none;">
+            <h2>تسجيل الدخول</h2>
+            <div class="form-group">
+                <label for="loginEmail">البريد الإلكتروني:</label>
+                <input type="email" id="loginEmail" placeholder="أدخل بريدك الإلكتروني">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">كلمة المرور:</label>
+                <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور">
+            </div>
+            <button onclick="login()">تسجيل الدخول</button>
+        </div>
+
+        <div id="registerForm" style="display: none;">
+            <h2>إنشاء حساب جديد</h2>
+            <div class="form-group">
+                <label for="registerEmail">البريد الإلكتروني:</label>
+                <input type="email" id="registerEmail" placeholder="أدخل بريدك الإلكتروني">
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">كلمة المرور:</label>
+                <input type="password" id="registerPassword" placeholder="أدخل كلمة المرور">
+            </div>
+            <button onclick="register()">إنشاء الحساب</button>
+        </div>
+
+        <div id="userInfo" style="display: none;">
+            <h2>معلومات المستخدم</h2>
+            <div id="userDetails"></div>
+            <button onclick="logout()">تسجيل الخروج</button>
+        </div>
+
+        <div id="actions" style="margin-top: 20px;">
+            <button onclick="showLogin()">عرض تسجيل الدخول</button>
+            <button onclick="showRegister()">عرض إنشاء حساب</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg",
+            authDomain: "qareeb-aba0c.firebaseapp.com",
+            databaseURL: "https://qareeb-aba0c-default-rtdb.firebaseio.com",
+            projectId: "qareeb-aba0c",
+            storageBucket: "qareeb-aba0c.appspot.com",
+            messagingSenderId: "1234567890",
+            appId: "1:1234567890:web:abcdef123456"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Check auth state
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                showUserInfo(user);
+                updateStatus('تم تسجيل الدخول بنجاح!', 'success');
+            } else {
+                showAuthForms();
+                updateStatus('لم يتم تسجيل الدخول', 'info');
+            }
+        });
+
+        function updateStatus(message, type) {
+            const statusDiv = document.getElementById('authStatus');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function showAuthForms() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('userInfo').style.display = 'none';
+        }
+
+        function showLogin() {
+            showAuthForms();
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        function showRegister() {
+            showAuthForms();
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function showUserInfo(user) {
+            showAuthForms();
+            document.getElementById('userInfo').style.display = 'block';
+            document.getElementById('userDetails').innerHTML = `
+                <p><strong>البريد الإلكتروني:</strong> ${user.email}</p>
+                <p><strong>معرف المستخدم:</strong> ${user.uid}</p>
+                <p><strong>تاريخ الإنشاء:</strong> ${new Date(user.metadata.creationTime).toLocaleString('ar-SA')}</p>
+            `;
+        }
+
+        async function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                updateStatus('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+
+            try {
+                updateStatus('جاري تسجيل الدخول...', 'info');
+                await auth.signInWithEmailAndPassword(email, password);
+            } catch (error) {
+                console.error('Login error:', error);
+                let errorMessage = 'حدث خطأ في تسجيل الدخول';
+                
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        errorMessage = 'البريد الإلكتروني غير مسجل';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = 'كلمة المرور غير صحيحة';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'البريد الإلكتروني غير صحيح';
+                        break;
+                }
+                
+                updateStatus(errorMessage, 'error');
+            }
+        }
+
+        async function register() {
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            if (!email || !password) {
+                updateStatus('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                updateStatus('كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+                return;
+            }
+
+            try {
+                updateStatus('جاري إنشاء الحساب...', 'info');
+                await auth.createUserWithEmailAndPassword(email, password);
+            } catch (error) {
+                console.error('Registration error:', error);
+                let errorMessage = 'حدث خطأ في إنشاء الحساب';
+                
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'البريد الإلكتروني مستخدم بالفعل';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'البريد الإلكتروني غير صحيح';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'كلمة المرور ضعيفة جداً';
+                        break;
+                }
+                
+                updateStatus(errorMessage, 'error');
+            }
+        }
+
+        async function logout() {
+            try {
+                await auth.signOut();
+                updateStatus('تم تسجيل الخروج بنجاح', 'success');
+            } catch (error) {
+                console.error('Logout error:', error);
+                updateStatus('حدث خطأ في تسجيل الخروج', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

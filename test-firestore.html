@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار Firestore Database - منصة تأجير السيارات</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        .section h2 {
+            color: #3b82f6;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #374151;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        button.secondary {
+            background: #6b7280;
+        }
+        button.secondary:hover {
+            background: #4b5563;
+        }
+        button.success {
+            background: #10b981;
+        }
+        button.success:hover {
+            background: #059669;
+        }
+        .status {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+        .results {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border: 1px solid #e2e8f0;
+        }
+        .results pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .feature-list li:before {
+            content: "✅ ";
+            color: #10b981;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 اختبار Firestore Database</h1>
+        <p>اختبار شامل لقاعدة بيانات Firestore لإدارة السيارات والحجوزات وملفات المستخدمين</p>
+        
+        <div class="grid">
+            <div>
+                <h3>الميزات المتاحة:</h3>
+                <ul class="feature-list">
+                    <li>إدارة ملفات المستخدمين</li>
+                    <li>إضافة وتعديل السيارات</li>
+                    <li>إنشاء وإدارة الحجوزات</li>
+                    <li>البحث والتصفية</li>
+                    <li>الاستماع للتغييرات في الوقت الفعلي</li>
+                    <li>إدارة الحالة والتوفر</li>
+                </ul>
+            </div>
+            <div>
+                <h3>حالة الاتصال:</h3>
+                <div id="connectionStatus" class="status info">
+                    جاري الاتصال بـ Firestore...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profiles Section -->
+    <div class="container">
+        <div class="section">
+            <h2>👤 إدارة ملفات المستخدمين</h2>
+            
+            <div class="grid">
+                <div>
+                    <h3>إنشاء ملف مستخدم جديد</h3>
+                    <form id="userForm">
+                        <div class="form-group">
+                            <label for="userId">معرف المستخدم:</label>
+                            <input type="text" id="userId" value="user123" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fullName">الاسم الكامل:</label>
+                            <input type="text" id="fullName" value="أحمد محمد" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" value="ahmed@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">رقم الهاتف:</label>
+                            <input type="tel" id="phone" value="+966501234567" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">المدينة:</label>
+                            <select id="city" required>
+                                <option value="الرياض">الرياض</option>
+                                <option value="جدة">جدة</option>
+                                <option value="الدمام">الدمام</option>
+                                <option value="مكة المكرمة">مكة المكرمة</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="userType">نوع المستخدم:</label>
+                            <select id="userType" required>
+                                <option value="renter">مستأجر</option>
+                                <option value="owner">صاحب سيارة</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="success">إنشاء ملف المستخدم</button>
+                    </form>
+                </div>
+                
+                <div>
+                    <h3>عمليات المستخدمين</h3>
+                    <button onclick="getUserProfile()">الحصول على ملف المستخدم</button>
+                    <button onclick="updateUserProfile()">تحديث ملف المستخدم</button>
+                    <button onclick="getAllUsers()">عرض جميع المستخدمين</button>
+                    <button onclick="listenToUserChanges()">الاستماع للتغييرات</button>
+                </div>
+            </div>
+            
+            <div id="userResults" class="results" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Cars Section -->
+    <div class="container">
+        <div class="section">
+            <h2>🚗 إدارة السيارات</h2>
+            
+            <div class="grid">
+                <div>
+                    <h3>إضافة سيارة جديدة</h3>
+                    <form id="carForm">
+                        <div class="form-group">
+                            <label for="ownerId">معرف المالك:</label>
+                            <input type="text" id="ownerId" value="user123" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="brand">الماركة:</label>
+                            <input type="text" id="brand" value="تويوتا" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="model">الموديل:</label>
+                            <input type="text" id="model" value="كامري" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="year">سنة الصنع:</label>
+                            <input type="number" id="year" value="2022" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="color">اللون:</label>
+                            <input type="text" id="color" value="أبيض" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="licensePlate">رقم اللوحة:</label>
+                            <input type="text" id="licensePlate" value="أ ب ج 1234" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="carCity">المدينة:</label>
+                            <select id="carCity" required>
+                                <option value="الرياض">الرياض</option>
+                                <option value="جدة">جدة</option>
+                                <option value="الدمام">الدمام</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pricePerDay">السعر اليومي:</label>
+                            <input type="number" id="pricePerDay" value="150" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="carDescription">الوصف:</label>
+                            <textarea id="carDescription" placeholder="وصف السيارة...">سيارة ممتازة للاستئجار</textarea>
+                        </div>
+                        <button type="submit" class="success">إضافة السيارة</button>
+                    </form>
+                </div>
+                
+                <div>
+                    <h3>عمليات السيارات</h3>
+                    <button onclick="getCar()">الحصول على سيارة</button>
+                    <button onclick="updateCar()">تحديث السيارة</button>
+                    <button onclick="getAllCars()">عرض جميع السيارات</button>
+                    <button onclick="getAvailableCars()">السيارات المتاحة</button>
+                    <button onclick="searchCars()">البحث في السيارات</button>
+                    <button onclick="listenToCarsChanges()">الاستماع للتغييرات</button>
+                </div>
+            </div>
+            
+            <div id="carResults" class="results" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Bookings Section -->
+    <div class="container">
+        <div class="section">
+            <h2>📅 إدارة الحجوزات</h2>
+            
+            <div class="grid">
+                <div>
+                    <h3>إنشاء حجز جديد</h3>
+                    <form id="bookingForm">
+                        <div class="form-group">
+                            <label for="carId">معرف السيارة:</label>
+                            <input type="text" id="carId" value="car123" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="renterId">معرف المستأجر:</label>
+                            <input type="text" id="renterId" value="user456" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ownerId">معرف المالك:</label>
+                            <input type="text" id="bookingOwnerId" value="user123" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">تاريخ البداية:</label>
+                            <input type="date" id="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">تاريخ النهاية:</label>
+                            <input type="date" id="endDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalDays">عدد الأيام:</label>
+                            <input type="number" id="totalDays" value="3" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalPrice">السعر الإجمالي:</label>
+                            <input type="number" id="totalPrice" value="450" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pickupLocation">موقع الاستلام:</label>
+                            <input type="text" id="pickupLocation" value="الرياض - المطار" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="returnLocation">موقع الإرجاع:</label>
+                            <input type="text" id="returnLocation" value="الرياض - المطار" required>
+                        </div>
+                        <button type="submit" class="success">إنشاء الحجز</button>
+                    </form>
+                </div>
+                
+                <div>
+                    <h3>عمليات الحجوزات</h3>
+                    <button onclick="getBooking()">الحصول على حجز</button>
+                    <button onclick="updateBookingStatus()">تحديث حالة الحجز</button>
+                    <button onclick="getAllBookings()">عرض جميع الحجوزات</button>
+                    <button onclick="getBookingsByRenter()">حجوزات المستأجر</button>
+                    <button onclick="getBookingsByOwner()">حجوزات المالك</button>
+                    <button onclick="getPendingBookings()">الحجوزات المعلقة</button>
+                    <button onclick="listenToBookingsChanges()">الاستماع للتغييرات</button>
+                </div>
+            </div>
+            
+            <div id="bookingResults" class="results" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Complete Workflow Section -->
+    <div class="container">
+        <div class="section">
+            <h2>🚀 سير العمل الكامل</h2>
+            <p>اختبار سير العمل الكامل لتأجير السيارة من البداية إلى النهاية</p>
+            
+            <button onclick="runCompleteWorkflow()" class="success">تشغيل سير العمل الكامل</button>
+            <button onclick="clearAllData()" class="secondary">مسح جميع البيانات</button>
+            
+            <div id="workflowResults" class="results" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import firestoreService from './firestore-service.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg",
+            authDomain: "qareeb-aba0c.firebaseapp.com",
+            databaseURL: "https://qareeb-aba0c-default-rtdb.firebaseio.com",
+            projectId: "qareeb-aba0c",
+            storageBucket: "qareeb-aba0c.appspot.com",
+            messagingSenderId: "1234567890",
+            appId: "1:1234567890:web:abcdef123456"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Update connection status
+        document.getElementById('connectionStatus').innerHTML = '✅ متصل بـ Firestore بنجاح';
+        document.getElementById('connectionStatus').className = 'status success';
+
+        // Global variables
+        let currentUserProfile = null;
+        let currentCar = null;
+        let currentBooking = null;
+        let listeners = [];
+
+        // Utility functions
+        function showResults(elementId, data, title) {
+            const resultsDiv = document.getElementById(elementId);
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `
+                <h4>${title}</h4>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+        }
+
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.createElement('div');
+            statusDiv.className = `status ${type}`;
+            statusDiv.textContent = message;
+            document.body.insertBefore(statusDiv, document.body.firstChild);
+            
+            setTimeout(() => {
+                statusDiv.remove();
+            }, 5000);
+        }
+
+        // User Profile Functions
+        document.getElementById('userForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const userData = {
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    city: document.getElementById('city').value,
+                    userType: document.getElementById('userType').value
+                };
+
+                const userId = document.getElementById('userId').value;
+                const userProfile = await firestoreService.createUserProfile(userId, userData);
+                
+                currentUserProfile = userProfile;
+                showResults('userResults', userProfile, 'تم إنشاء ملف المستخدم بنجاح');
+                showStatus('تم إنشاء ملف المستخدم بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في إنشاء ملف المستخدم: ${error.message}`, 'error');
+            }
+        });
+
+        window.getUserProfile = async () => {
+            try {
+                const userId = document.getElementById('userId').value;
+                const userProfile = await firestoreService.getUserProfile(userId);
+                
+                if (userProfile) {
+                    currentUserProfile = userProfile;
+                    showResults('userResults', userProfile, 'ملف المستخدم');
+                    showStatus('تم الحصول على ملف المستخدم بنجاح', 'success');
+                } else {
+                    showStatus('لم يتم العثور على ملف المستخدم', 'error');
+                }
+            } catch (error) {
+                showStatus(`خطأ في الحصول على ملف المستخدم: ${error.message}`, 'error');
+            }
+        };
+
+        window.updateUserProfile = async () => {
+            try {
+                const userId = document.getElementById('userId').value;
+                const updates = {
+                    city: 'جدة',
+                    phone: '+966501234568',
+                    isVerified: true
+                };
+
+                await firestoreService.updateUserProfile(userId, updates);
+                showStatus('تم تحديث ملف المستخدم بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في تحديث ملف المستخدم: ${error.message}`, 'error');
+            }
+        };
+
+        window.getAllUsers = async () => {
+            try {
+                const users = await firestoreService.getAllUsers();
+                showResults('userResults', users, 'جميع المستخدمين');
+                showStatus('تم الحصول على جميع المستخدمين بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في الحصول على المستخدمين: ${error.message}`, 'error');
+            }
+        };
+
+        window.listenToUserChanges = () => {
+            const userId = document.getElementById('userId').value;
+            const unsubscribe = firestoreService.onUserProfileChange(userId, (userProfile) => {
+                if (userProfile) {
+                    showStatus('تم تحديث ملف المستخدم في الوقت الفعلي', 'info');
+                    showResults('userResults', userProfile, 'تحديث ملف المستخدم');
+                }
+            });
+            listeners.push(unsubscribe);
+            showStatus('تم تفعيل الاستماع لتغييرات ملف المستخدم', 'info');
+        };
+
+        // Car Functions
+        document.getElementById('carForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const carData = {
+                    ownerId: document.getElementById('ownerId').value,
+                    brand: document.getElementById('brand').value,
+                    model: document.getElementById('model').value,
+                    year: parseInt(document.getElementById('year').value),
+                    color: document.getElementById('color').value,
+                    licensePlate: document.getElementById('licensePlate').value,
+                    city: document.getElementById('carCity').value,
+                    pricePerDay: parseInt(document.getElementById('pricePerDay').value),
+                    description: document.getElementById('carDescription').value
+                };
+
+                const car = await firestoreService.addCar(carData);
+                currentCar = car;
+                showResults('carResults', car, 'تم إضافة السيارة بنجاح');
+                showStatus('تم إضافة السيارة بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في إضافة السيارة: ${error.message}`, 'error');
+            }
+        });
+
+        window.getCar = async () => {
+            try {
+                const carId = 'car123';
+                const car = await firestoreService.getCar(carId);
+                
+                if (car) {
+                    currentCar = car;
+                    showResults('carResults', car, 'معلومات السيارة');
+                    showStatus('تم الحصول على معلومات السيارة بنجاح', 'success');
+                } else {
+                    showStatus('لم يتم العثور على السيارة', 'error');
+                }
+            } catch (error) {
+                showStatus(`خطأ في الحصول على السيارة: ${error.message}`, 'error');
+            }
+        };
+
+        window.updateCar = async () => {
+            try {
+                const carId = 'car123';
+                const updates = {
+                    pricePerDay: 180,
+                    isAvailable: false,
+                    description: 'سيارة ممتازة للاستئجار - محدثة'
+                };
+
+                await firestoreService.updateCar(carId, updates);
+                showStatus('تم تحديث السيارة بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في تحديث السيارة: ${error.message}`, 'error');
+            }
+        };
+
+        window.getAllCars = async () => {
+            try {
+                const cars = await firestoreService.getAllCars();
+                showResults('carResults', cars, 'جميع السيارات');
+                showStatus('تم الحصول على جميع السيارات بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في الحصول على السيارات: ${error.message}`, 'error');
+            }
+        };
+
+        window.getAvailableCars = async () => {
+            try {
+                const cars = await firestoreService.getAvailableCars();
+                showResults('carResults', cars, 'السيارات المتاحة');
+                showStatus('تم الحصول على السيارات المتاحة بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في الحصول على السيارات المتاحة: ${error.message}`, 'error');
+            }
+        };
+
+        window.searchCars = async () => {
+            try {
+                const searchParams = {
+                    city: 'الرياض',
+                    brand: 'تويوتا',
+                    minPrice: 100,
+                    maxPrice: 200,
+                    isAvailable: true
+                };
+
+                const cars = await firestoreService.searchCars(searchParams);
+                showResults('carResults', cars, 'نتائج البحث');
+                showStatus('تم البحث في السيارات بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في البحث: ${error.message}`, 'error');
+            }
+        };
+
+        window.listenToCarsChanges = () => {
+            const filters = {
+                city: 'الرياض',
+                isAvailable: true
+            };
+            
+            const unsubscribe = firestoreService.onCarsChange((cars) => {
+                showStatus('تم تحديث قائمة السيارات في الوقت الفعلي', 'info');
+                showResults('carResults', cars, 'تحديث السيارات');
+            }, filters);
+            
+            listeners.push(unsubscribe);
+            showStatus('تم تفعيل الاستماع لتغييرات السيارات', 'info');
+        };
+
+        // Booking Functions
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const bookingData = {
+                    carId: document.getElementById('carId').value,
+                    renterId: document.getElementById('renterId').value,
+                    ownerId: document.getElementById('bookingOwnerId').value,
+                    startDate: new Date(document.getElementById('startDate').value),
+                    endDate: new Date(document.getElementById('endDate').value),
+                    totalDays: parseInt(document.getElementById('totalDays').value),
+                    totalPrice: parseInt(document.getElementById('totalPrice').value),
+                    pickupLocation: document.getElementById('pickupLocation').value,
+                    returnLocation: document.getElementById('returnLocation').value
+                };
+
+                const booking = await firestoreService.createBooking(bookingData);
+                currentBooking = booking;
+                showResults('bookingResults', booking, 'تم إنشاء الحجز بنجاح');
+                showStatus('تم إنشاء الحجز بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في إنشاء الحجز: ${error.message}`, 'error');
+            }
+        });
+
+        window.getBooking = async () => {
+            try {
+                const bookingId = 'booking123';
+                const booking = await firestoreService.getBooking(bookingId);
+                
+                if (booking) {
+                    currentBooking = booking;
+                    showResults('bookingResults', booking, 'معلومات الحجز');
+                    showStatus('تم الحصول على معلومات الحجز بنجاح', 'success');
+                } else {
+                    showStatus('لم يتم العثور على الحجز', 'error');
+                }
+            } catch (error) {
+                showStatus(`خطأ في الحصول على الحجز: ${error.message}`, 'error');
+            }
+        };
+
+        window.updateBookingStatus = async () => {
+            try {
+                const bookingId = 'booking123';
+                await firestoreService.updateBookingStatus(bookingId, 'confirmed');
+                showStatus('تم تحديث حالة الحجز بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في تحديث حالة الحجز: ${error.message}`, 'error');
+            }
+        };
+
+        window.getAllBookings = async () => {
+            try {
+                const bookings = await firestoreService.getAllBookings();
+                showResults('bookingResults', bookings, 'جميع الحجوزات');
+                showStatus('تم الحصول على جميع الحجوزات بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في الحصول على الحجوزات: ${error.message}`, 'error');
+            }
+        };
+
+        window.getBookingsByRenter = async () => {
+            try {
+                const renterId = 'user456';
+                const bookings = await firestoreService.getBookingsByRenter(renterId);
+                showResults('bookingResults', bookings, 'حجوزات المستأجر');
+                showStatus('تم الحصول على حجوزات المستأجر بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في الحصول على حجوزات المستأجر: ${error.message}`, 'error');
+            }
+        };
+
+        window.getBookingsByOwner = async () => {
+            try {
+                const ownerId = 'user123';
+                const bookings = await firestoreService.getBookingsByOwner(ownerId);
+                showResults('bookingResults', bookings, 'حجوزات المالك');
+                showStatus('تم الحصول على حجوزات المالك بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في الحصول على حجوزات المالك: ${error.message}`, 'error');
+            }
+        };
+
+        window.getPendingBookings = async () => {
+            try {
+                const bookings = await firestoreService.getPendingBookings();
+                showResults('bookingResults', bookings, 'الحجوزات المعلقة');
+                showStatus('تم الحصول على الحجوزات المعلقة بنجاح', 'success');
+            } catch (error) {
+                showStatus(`خطأ في الحصول على الحجوزات المعلقة: ${error.message}`, 'error');
+            }
+        };
+
+        window.listenToBookingsChanges = () => {
+            const filters = {
+                renterId: 'user456',
+                status: 'pending'
+            };
+            
+            const unsubscribe = firestoreService.onBookingsChange((bookings) => {
+                showStatus('تم تحديث قائمة الحجوزات في الوقت الفعلي', 'info');
+                showResults('bookingResults', bookings, 'تحديث الحجوزات');
+            }, filters);
+            
+            listeners.push(unsubscribe);
+            showStatus('تم تفعيل الاستماع لتغييرات الحجوزات', 'info');
+        };
+
+        // Complete Workflow
+        window.runCompleteWorkflow = async () => {
+            try {
+                showStatus('بدء سير العمل الكامل...', 'info');
+
+                // 1. Create user profiles
+                const ownerProfile = await firestoreService.createUserProfile('owner123', {
+                    fullName: 'محمد أحمد',
+                    email: 'mohamed@example.com',
+                    phone: '+966501234569',
+                    city: 'الرياض',
+                    userType: 'owner'
+                });
+
+                const renterProfile = await firestoreService.createUserProfile('renter456', {
+                    fullName: 'فاطمة علي',
+                    email: 'fatima@example.com',
+                    phone: '+966501234570',
+                    city: 'الرياض',
+                    userType: 'renter'
+                });
+
+                // 2. Add a car
+                const car = await firestoreService.addCar({
+                    ownerId: 'owner123',
+                    brand: 'هيونداي',
+                    model: 'سوناتا',
+                    year: 2023,
+                    color: 'أزرق',
+                    licensePlate: 'د ه و 5678',
+                    city: 'الرياض',
+                    pricePerDay: 120,
+                    description: 'سيارة فاخرة للاستئجار'
+                });
+
+                // 3. Create a booking
+                const booking = await firestoreService.createBooking({
+                    carId: car.id,
+                    renterId: 'renter456',
+                    ownerId: 'owner123',
+                    startDate: new Date('2024-01-20'),
+                    endDate: new Date('2024-01-22'),
+                    totalDays: 3,
+                    totalPrice: 360
+                });
+
+                // 4. Update booking status
+                await firestoreService.updateBookingStatus(booking.id, 'confirmed');
+
+                // 5. Update car availability
+                await firestoreService.updateCar(car.id, { isAvailable: false });
+
+                const result = {
+                    ownerProfile,
+                    renterProfile,
+                    car,
+                    booking
+                };
+
+                showResults('workflowResults', result, 'سير العمل الكامل');
+                showStatus('تم إكمال سير العمل بنجاح!', 'success');
+            } catch (error) {
+                showStatus(`خطأ في سير العمل: ${error.message}`, 'error');
+            }
+        };
+
+        window.clearAllData = () => {
+            // Stop all listeners
+            listeners.forEach(unsubscribe => unsubscribe());
+            listeners = [];
+            
+            // Clear results
+            document.querySelectorAll('.results').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            showStatus('تم مسح جميع البيانات وإيقاف المستمعين', 'info');
+        };
+
+        // Set default dates
+        document.getElementById('startDate').value = '2024-01-15';
+        document.getElementById('endDate').value = '2024-01-17';
+    </script>
+</body>
+</html>

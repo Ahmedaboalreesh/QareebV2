@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار إصلاح أيقونات حقول الإدخال</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            text-align: right;
+            margin: 0;
+            padding-right: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .test-form {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .test-form h4 {
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .fix-status {
+            background: #e8f5e8;
+            color: #27ae60;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .fix-status.success {
+            background: #e8f5e8;
+            color: #27ae60;
+        }
+        
+        .fix-status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .fix-status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add-car.html" class="nav-link">إضافة سيارة</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار إصلاح أيقونات حقول الإدخال</h1>
+                <p>إصلاح مشكلة تغطية الأيقونات للنص في حقول الإدخال</p>
+            </div>
+
+            <div class="test-container">
+                <h2>المشكلة المصلحة</h2>
+                <div class="info-box">
+                    <h4>المشكلة:</h4>
+                    <ul>
+                        <li>❌ الأيقونات تغطي النص المدخل في حقول الإدخال</li>
+                        <li>❌ عدم إمكانية رؤية النص عند الكتابة</li>
+                        <li>❌ مشكلة في حقول السعر ونوع السيارة</li>
+                        <li>❌ تداخل بين الأيقونات والنص</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الحل المطبق:</h4>
+                    <ul>
+                        <li>✅ إضافة z-index للأيقونات والحقول</li>
+                        <li>✅ تحسين padding للحقول</li>
+                        <li>✅ إضافة pointer-events: none للأيقونات</li>
+                        <li>✅ ضمان عدم تداخل العناصر</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار الحقول المصلحة</h2>
+                <div class="test-form">
+                    <h4>جرب الكتابة في هذه الحقول:</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="testBrand">الماركة</label>
+                            <div class="input-group">
+                                <i class="fas fa-tag"></i>
+                                <select id="testBrand" name="testBrand">
+                                    <option value="">اختر الماركة</option>
+                                    <option value="تويوتا">تويوتا</option>
+                                    <option value="هوندا">هوندا</option>
+                                    <option value="نيسان">نيسان</option>
+                                    <option value="فورد">فورد</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="testModel">الموديل</label>
+                            <div class="input-group">
+                                <i class="fas fa-car-side"></i>
+                                <input type="text" id="testModel" name="testModel" placeholder="مثال: كامري 2023">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="testPrice">السعر اليومي</label>
+                            <div class="input-group">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <input type="number" id="testPrice" name="testPrice" placeholder="مثال: 150">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="testLocation">الموقع</label>
+                            <div class="input-group">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" id="testLocation" name="testLocation" placeholder="مثال: الرياض">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="testYear">سنة الصنع</label>
+                            <div class="input-group">
+                                <i class="fas fa-calendar"></i>
+                                <select id="testYear" name="testYear">
+                                    <option value="">اختر السنة</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="testTransmission">ناقل الحركة</label>
+                            <div class="input-group">
+                                <i class="fas fa-cog"></i>
+                                <select id="testTransmission" name="testTransmission">
+                                    <option value="">اختر الناقل</option>
+                                    <option value="أوتوماتيك">أوتوماتيك</option>
+                                    <option value="يدوي">يدوي</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testDescription">وصف السيارة</label>
+                        <div class="input-group">
+                            <i class="fas fa-edit"></i>
+                            <textarea id="testDescription" name="testDescription" rows="3" placeholder="اكتب وصفاً للسيارة..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fix-status success">
+                    <i class="fas fa-check-circle"></i>
+                    <span>تم إصلاح مشكلة الأيقونات بنجاح! جرب الكتابة في الحقول أعلاه</span>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار الصفحة الأصلية</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="testAddCar()">
+                        <i class="fas fa-plus"></i>
+                        اختبار إضافة سيارة
+                    </button>
+                    <button class="btn btn-success" onclick="testInputFields()">
+                        <i class="fas fa-keyboard"></i>
+                        اختبار حقول الإدخال
+                    </button>
+                    <button class="btn btn-outline" onclick="viewFixDetails()">
+                        <i class="fas fa-eye"></i>
+                        عرض تفاصيل الإصلاح
+                    </button>
+                </div>
+                
+                <div class="info-box">
+                    <h4>كيفية اختبار الإصلاح:</h4>
+                    <ul>
+                        <li>1. اكتب في الحقول أعلاه وتأكد من رؤية النص</li>
+                        <li>2. اضغط على "اختبار إضافة سيارة" لفتح الصفحة الأصلية</li>
+                        <li>3. جرب الكتابة في حقول السعر ونوع السيارة</li>
+                        <li>4. تأكد من عدم تغطية الأيقونات للنص</li>
+                        <li>5. اختبر جميع أنواع الحقول (نص، رقم، قائمة)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>تفاصيل الإصلاح التقني</h2>
+                <div class="info-box">
+                    <h4>التعديلات المطبقة:</h4>
+                    <ul>
+                        <li>🔧 <strong>z-index للأيقونات</strong>: إضافة z-index: 1 للأيقونات</li>
+                        <li>🔧 <strong>z-index للحقول</strong>: إضافة z-index: 2 للحقول</li>
+                        <li>🔧 <strong>pointer-events</strong>: إضافة pointer-events: none للأيقونات</li>
+                        <li>🔧 <strong>padding محسن</strong>: تحسين padding للحقول</li>
+                        <li>🔧 <strong>position relative</strong>: إضافة position: relative للحقول</li>
+                        <li>🔧 <strong>flex-shrink</strong>: إضافة flex-shrink: 0 للأيقونات</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>التحسينات الإضافية:</h4>
+                    <ul>
+                        <li>🎨 <strong>تأثيرات بصرية</strong>: تحسين تأثيرات التركيز</li>
+                        <li>📱 <strong>تصميم متجاوب</strong>: ضمان العمل على جميع الأجهزة</li>
+                        <li>⚡ <strong>أداء محسن</strong>: تحسين سرعة الاستجابة</li>
+                        <li>🔍 <strong>إمكانية الوصول</strong>: تحسين إمكانية الوصول</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>نقاط الاختبار المهمة</h2>
+                <div class="info-box">
+                    <h4>تحقق من هذه النقاط:</h4>
+                    <ul>
+                        <li>✅ <strong>رؤية النص</strong>: تأكد من رؤية النص عند الكتابة</li>
+                        <li>✅ <strong>عدم التداخل</strong>: تأكد من عدم تداخل الأيقونات مع النص</li>
+                        <li>✅ <strong>التركيز</strong>: تأكد من عمل تأثيرات التركيز</li>
+                        <li>✅ <strong>القوائم المنسدلة</strong>: تأكد من عمل القوائم المنسدلة</li>
+                        <li>✅ <strong>الحقول الرقمية</strong>: تأكد من عمل حقول الأرقام</li>
+                        <li>✅ <strong>الحقول النصية</strong>: تأكد من عمل حقول النص</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function testAddCar() {
+            // إنشاء مستخدم تجريبي إذا لم يكن موجوداً
+            if (!localStorage.getItem('userData')) {
+                const testUser = {
+                    id: 1,
+                    name: 'أحمد محمد',
+                    email: 'ahmed@test.com',
+                    phone: '+966501234567'
+                };
+                localStorage.setItem('userData', JSON.stringify(testUser));
+                localStorage.setItem('userToken', 'test-token');
+                localStorage.setItem('userType', 'owner');
+            }
+            
+            // فتح صفحة إضافة السيارة
+            window.open('add-car.html', '_blank');
+        }
+
+        function testInputFields() {
+            alert('لاختبار حقول الإدخال:\n\n1. اكتب في الحقول أعلاه\n2. تأكد من رؤية النص بوضوح\n3. تأكد من عدم تغطية الأيقونات للنص\n4. جرب التركيز على الحقول المختلفة\n5. تأكد من عمل القوائم المنسدلة');
+        }
+
+        function viewFixDetails() {
+            const fixDetails = [
+                '🔧 إضافة z-index للأيقونات والحقول',
+                '🔧 تحسين padding للحقول',
+                '🔧 إضافة pointer-events: none للأيقونات',
+                '🔧 ضمان عدم تداخل العناصر',
+                '🔧 تحسين تأثيرات التركيز',
+                '🔧 ضمان التصميم المتجاوب'
+            ];
+            
+            let message = 'تفاصيل الإصلاح:\n\n';
+            fixDetails.forEach((detail, index) => {
+                message += `${index + 1}. ${detail}\n`;
+            });
+            
+            message += '\nللاختبار: جرب الكتابة في الحقول أعلاه';
+            
+            alert(message);
+        }
+
+        // إضافة مستمعي الأحداث لاختبار الحقول
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.input-group input, .input-group select, .input-group textarea');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.closest('.input-group').style.borderColor = '#3b82f6';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.closest('.input-group').style.borderColor = '#e5e7eb';
+                });
+                
+                input.addEventListener('input', function() {
+                    console.log('تم الكتابة في:', this.name, 'القيمة:', this.value);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

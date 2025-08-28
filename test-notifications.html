@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار نظام الإشعارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+        .btn-info {
+            background: #17a2b8;
+        }
+        .notification-preview {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔔 اختبار نظام الإشعارات</h1>
+        
+        <div class="test-section">
+            <h3>📊 إحصائيات الإشعارات</h3>
+            <div class="stats-grid" id="notificationStats">
+                <!-- Stats will be loaded here -->
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>🎯 إنشاء إشعارات تجريبية</h3>
+            <p>اختر نوع الإشعار الذي تريد إنشاءه:</p>
+            
+            <div class="testing-buttons">
+                <button class="btn btn-success" onclick="createTestNotification('success', 'تم إتمام العملية بنجاح', 'تم إتمام العملية المطلوبة بنجاح. يمكنك مراجعة التفاصيل الآن.', 'my-bookings.html')">
+                    <i class="fas fa-check-circle"></i>
+                    إشعار نجاح
+                </button>
+                
+                <button class="btn btn-warning" onclick="createTestNotification('warning', 'تنبيه مهم', 'يرجى مراجعة معلومات الحجز قبل المتابعة.', null)">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    إشعار تحذير
+                </button>
+                
+                <button class="btn btn-info" onclick="createTestNotification('info', 'معلومات جديدة', 'تم إضافة ميزات جديدة للنظام. اطلع عليها الآن!', 'browse-cars.html')">
+                    <i class="fas fa-info-circle"></i>
+                    إشعار معلومات
+                </button>
+                
+                <button class="btn btn-danger" onclick="createTestNotification('error', 'حدث خطأ', 'حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى.', null)">
+                    <i class="fas fa-times-circle"></i>
+                    إشعار خطأ
+                </button>
+                
+                <button class="btn" onclick="createTestNotification('booking', 'تم تأكيد الحجز', 'تم تأكيد حجزك لسيارة تويوتا كامري 2023 بنجاح.', 'my-bookings.html')">
+                    <i class="fas fa-calendar-check"></i>
+                    إشعار حجز
+                </button>
+                
+                <button class="btn" onclick="createTestNotification('payment', 'تم إتمام الدفع', 'تم إتمام عملية الدفع بنجاح لمبلغ 450 ريال.', 'my-bookings.html')">
+                    <i class="fas fa-credit-card"></i>
+                    إشعار دفع
+                </button>
+                
+                <button class="btn" onclick="createTestNotification('car', 'سيارة جديدة', 'تم إضافة سيارة مرسيدس S-Class 2023 جديدة في منطقتك.', 'browse-cars.html')">
+                    <i class="fas fa-car"></i>
+                    إشعار سيارة
+                </button>
+                
+                <button class="btn" onclick="createTestNotification('system', 'تحديث النظام', 'تم تحديث النظام لتحسين تجربة المستخدم.', null)">
+                    <i class="fas fa-cog"></i>
+                    إشعار نظام
+                </button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>🔄 إدارة الإشعارات</h3>
+            <div class="testing-buttons">
+                <button class="btn btn-success" onclick="createSampleNotifications()">
+                    <i class="fas fa-plus"></i>
+                    إنشاء إشعارات تجريبية
+                </button>
+                
+                <button class="btn btn-warning" onclick="markAllAsRead()">
+                    <i class="fas fa-check-double"></i>
+                    تعيين الكل كمقروء
+                </button>
+                
+                <button class="btn btn-danger" onclick="clearAllNotifications()">
+                    <i class="fas fa-trash"></i>
+                    مسح جميع الإشعارات
+                </button>
+                
+                <button class="btn btn-info" onclick="refreshNotifications()">
+                    <i class="fas fa-sync-alt"></i>
+                    تحديث الإحصائيات
+                </button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>📱 معاينة الإشعارات</h3>
+            <p>هنا يمكنك معاينة كيف ستظهر الإشعارات في القائمة المنسدلة:</p>
+            
+            <div class="notification-preview">
+                <h4>إشعار نجاح</h4>
+                <div class="notification-item unread">
+                    <div class="notification-icon success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">تم إتمام العملية بنجاح</div>
+                        <div class="notification-message">تم إتمام العملية المطلوبة بنجاح. يمكنك مراجعة التفاصيل الآن.</div>
+                        <div class="notification-meta">
+                            <span class="notification-time">الآن</span>
+                            <div class="notification-actions">
+                                <button class="btn-view">عرض</button>
+                                <button class="btn-mark-read">مقروء</button>
+                                <button class="btn-delete">حذف</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="notification-preview">
+                <h4>إشعار تحذير</h4>
+                <div class="notification-item unread">
+                    <div class="notification-icon warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">تنبيه مهم</div>
+                        <div class="notification-message">يرجى مراجعة معلومات الحجز قبل المتابعة.</div>
+                        <div class="notification-meta">
+                            <span class="notification-time">منذ 5 دقائق</span>
+                            <div class="notification-actions">
+                                <button class="btn-mark-read">مقروء</button>
+                                <button class="btn-delete">حذف</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>🔗 روابط سريعة</h3>
+            <div class="testing-buttons">
+                <button class="btn" onclick="window.open('renter-dashboard.html', '_blank')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    لوحة التحكم
+                </button>
+                
+                <button class="btn" onclick="window.open('my-bookings.html', '_blank')">
+                    <i class="fas fa-calendar-check"></i>
+                    حجوزاتي
+                </button>
+                
+                <button class="btn" onclick="window.open('browse-cars.html', '_blank')">
+                    <i class="fas fa-car"></i>
+                    تصفح السيارات
+                </button>
+                
+                <button class="btn" onclick="window.open('favorites.html', '_blank')">
+                    <i class="fas fa-heart"></i>
+                    المفضلة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load notification statistics
+        function loadNotificationStats() {
+            try {
+                const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                
+                // Filter user notifications
+                const userNotifications = notifications.filter(n => 
+                    n.user_id === userData.id || n.user_id === 'all'
+                );
+                
+                const totalNotifications = userNotifications.length;
+                const unreadNotifications = userNotifications.filter(n => !n.read).length;
+                const readNotifications = totalNotifications - unreadNotifications;
+                
+                // Count by type
+                const typeCounts = {};
+                userNotifications.forEach(n => {
+                    typeCounts[n.type] = (typeCounts[n.type] || 0) + 1;
+                });
+                
+                const statsContainer = document.getElementById('notificationStats');
+                statsContainer.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-number">${totalNotifications}</div>
+                        <div class="stat-label">إجمالي الإشعارات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${unreadNotifications}</div>
+                        <div class="stat-label">إشعارات غير مقروءة</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${readNotifications}</div>
+                        <div class="stat-label">إشعارات مقروءة</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${Object.keys(typeCounts).length}</div>
+                        <div class="stat-label">أنواع مختلفة</div>
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error loading notification stats:', error);
+            }
+        }
+
+        // Create test notification
+        function createTestNotification(type, title, message, link) {
+            try {
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                
+                const newNotification = {
+                    id: 'test-notif-' + Date.now(),
+                    user_id: userData.id,
+                    type: type,
+                    title: title,
+                    message: message,
+                    link: link,
+                    read: false,
+                    created_at: new Date().toISOString()
+                };
+                
+                notifications.push(newNotification);
+                localStorage.setItem('notifications', JSON.stringify(notifications));
+                
+                // Update stats
+                loadNotificationStats();
+                
+                // Show success message
+                showMessage(`تم إنشاء إشعار ${type} بنجاح`, 'success');
+                
+                console.log('✅ Test notification created:', newNotification);
+                
+            } catch (error) {
+                console.error('Error creating test notification:', error);
+                showMessage('حدث خطأ في إنشاء الإشعار', 'error');
+            }
+        }
+
+        // Create sample notifications
+        function createSampleNotifications() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                const existingNotifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                
+                const sampleNotifications = [
+                    {
+                        id: 'sample-1',
+                        user_id: userData.id,
+                        type: 'booking',
+                        title: 'تم تأكيد حجزك',
+                        message: 'تم تأكيد حجزك لسيارة تويوتا كامري 2023 بنجاح.',
+                        link: 'my-bookings.html',
+                        read: false,
+                        created_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+                    },
+                    {
+                        id: 'sample-2',
+                        user_id: userData.id,
+                        type: 'payment',
+                        title: 'تم إتمام الدفع',
+                        message: 'تم إتمام عملية الدفع بنجاح لمبلغ 450 ريال.',
+                        link: 'my-bookings.html',
+                        read: false,
+                        created_at: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString()
+                    },
+                    {
+                        id: 'sample-3',
+                        user_id: userData.id,
+                        type: 'car',
+                        title: 'سيارة جديدة متاحة',
+                        message: 'تم إضافة سيارة مرسيدس S-Class 2023 جديدة في منطقتك.',
+                        link: 'browse-cars.html',
+                        read: true,
+                        created_at: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+                    }
+                ];
+                
+                const allNotifications = [...existingNotifications, ...sampleNotifications];
+                localStorage.setItem('notifications', JSON.stringify(allNotifications));
+                
+                // Update stats
+                loadNotificationStats();
+                
+                showMessage('تم إنشاء الإشعارات التجريبية بنجاح', 'success');
+                
+            } catch (error) {
+                console.error('Error creating sample notifications:', error);
+                showMessage('حدث خطأ في إنشاء الإشعارات التجريبية', 'error');
+            }
+        }
+
+        // Mark all as read
+        function markAllAsRead() {
+            try {
+                const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                
+                notifications.forEach(notification => {
+                    if (notification.user_id === userData.id || notification.user_id === 'all') {
+                        notification.read = true;
+                    }
+                });
+                
+                localStorage.setItem('notifications', JSON.stringify(notifications));
+                
+                // Update stats
+                loadNotificationStats();
+                
+                showMessage('تم تعيين جميع الإشعارات كمقروءة', 'success');
+                
+            } catch (error) {
+                console.error('Error marking all as read:', error);
+                showMessage('حدث خطأ في تحديث الإشعارات', 'error');
+            }
+        }
+
+        // Clear all notifications
+        function clearAllNotifications() {
+            if (confirm('هل أنت متأكد من حذف جميع الإشعارات؟')) {
+                try {
+                    const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                    
+                    const updatedNotifications = notifications.filter(notification => 
+                        notification.user_id !== userData.id && notification.user_id !== 'all'
+                    );
+                    
+                    localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+                    
+                    // Update stats
+                    loadNotificationStats();
+                    
+                    showMessage('تم حذف جميع الإشعارات بنجاح', 'success');
+                    
+                } catch (error) {
+                    console.error('Error clearing notifications:', error);
+                    showMessage('حدث خطأ في حذف الإشعارات', 'error');
+                }
+            }
+        }
+
+        // Refresh notifications
+        function refreshNotifications() {
+            loadNotificationStats();
+            showMessage('تم تحديث الإحصائيات', 'info');
+        }
+
+        // Show message function
+        function showMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                messageDiv.classList.remove('show');
+                setTimeout(() => {
+                    messageDiv.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create user data if not exists
+            if (!localStorage.getItem('userData')) {
+                localStorage.setItem('userData', JSON.stringify({
+                    id: 'test-user-' + Date.now(),
+                    full_name: 'مستخدم تجريبي'
+                }));
+            }
+            
+            // Load stats
+            loadNotificationStats();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Payment Methods</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Payment Methods</h1>
+        
+        <div class="test-section">
+            <h3>Payment Methods Display Test</h3>
+            <p>This test shows the updated payment methods with icons:</p>
+            
+            <!-- Cash Payment -->
+            <div class="payment-method" data-method="cash">
+                <div class="method-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="method-info">
+                    <h3>الدفع نقداً</h3>
+                    <p>ادفع عند استلام السيارة</p>
+                </div>
+                <div class="method-radio">
+                    <input type="radio" name="testPaymentMethod" id="testCash" value="cash">
+                    <label for="testCash"></label>
+                </div>
+            </div>
+
+            <!-- Credit Card with Icons -->
+            <div class="payment-method" data-method="credit">
+                <div class="method-icon credit">
+                    <div class="card-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                    </div>
+                </div>
+                <div class="method-info">
+                    <h3>بطاقة ائتمانية</h3>
+                    <p>فيزا، ماستركارد، أمريكان إكسبرس، مدى</p>
+                </div>
+                <div class="method-radio">
+                    <input type="radio" name="testPaymentMethod" id="testCredit" value="credit">
+                    <label for="testCredit"></label>
+                </div>
+            </div>
+
+            <!-- Apple Pay -->
+            <div class="payment-method" data-method="applepay">
+                <div class="method-icon applepay">
+                    <i class="fab fa-apple-pay"></i>
+                </div>
+                <div class="method-info">
+                    <h3>Apple Pay</h3>
+                    <p>ادفع عبر Apple Pay</p>
+                </div>
+                <div class="method-radio">
+                    <input type="radio" name="testPaymentMethod" id="testApplePay" value="applepay">
+                    <label for="testApplePay"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Card Types Display Test</h3>
+            <p>This shows the card types that will appear in the credit card form:</p>
+            
+            <div class="card-types">
+                <span class="card-type visa" title="Visa">
+                    <i class="fab fa-cc-visa"></i>
+                </span>
+                <span class="card-type mastercard" title="Mastercard">
+                    <i class="fab fa-cc-mastercard"></i>
+                </span>
+                <span class="card-type amex" title="American Express">
+                    <i class="fab fa-cc-amex"></i>
+                </span>
+                <span class="card-type mada" title="مدى">
+                    <i class="fas fa-credit-card"></i>
+                    <span class="mada-text">مدى</span>
+                </span>
+            </div>
+            
+            <div class="card-info">
+                <p><i class="fas fa-info-circle"></i> نقبل جميع أنواع البطاقات الائتمانية والمدى السعودية</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Actions</h3>
+            <button class="btn" onclick="testPaymentMethods()">Test Payment Method Selection</button>
+            <button class="btn" onclick="openPaymentPage()">Open Payment Page</button>
+            <div id="testResult" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Test payment method selection
+        function testPaymentMethods() {
+            const selectedMethod = document.querySelector('input[name="testPaymentMethod"]:checked');
+            
+            if (selectedMethod) {
+                document.getElementById('testResult').innerHTML = 
+                    `✅ Selected payment method: ${selectedMethod.value}`;
+            } else {
+                document.getElementById('testResult').innerHTML = 
+                    '❌ No payment method selected';
+            }
+        }
+
+        // Open payment page
+        function openPaymentPage() {
+            // Create a test booking first
+            const testBooking = {
+                id: Date.now(),
+                car_id: 1,
+                start_date: '2024-02-01',
+                end_date: '2024-02-03',
+                status: 'pending',
+                total_amount: 1100,
+                daily_rate: 500,
+                deposit_amount: 2000,
+                delivery_choice: 'yes',
+                delivery_fee: 100
+            };
+            
+            // Save to localStorage
+            const existingBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            existingBookings.push(testBooking);
+            localStorage.setItem('mockBookings', JSON.stringify(existingBookings));
+            
+            // Open payment page
+            window.open(`payment.html?booking_id=${testBooking.id}`, '_blank');
+        }
+
+        // Add click handlers for payment methods
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                // Remove selected class from all methods
+                document.querySelectorAll('.payment-method').forEach(m => 
+                    m.classList.remove('selected'));
+                
+                // Add selected class to clicked method
+                this.classList.add('selected');
+                
+                // Check the radio button
+                const radio = this.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.checked = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

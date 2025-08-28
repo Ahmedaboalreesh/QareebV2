@@ -1,0 +1,53 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Central Saudi Emblem -->
+  <g transform="translate(30, 30)">
+    <!-- Palm Tree -->
+    <path d="M-8,-15 L0,-25 L8,-15 L6,-12 L0,-20 L-6,-12 Z" fill="#4B5563"/>
+    <path d="M-6,-12 L0,-18 L6,-12 L4,-9 L0,-15 L-4,-9 Z" fill="#4B5563"/>
+    <path d="M-4,-9 L0,-13 L4,-9 L2,-6 L0,-10 L-2,-6 Z" fill="#4B5563"/>
+    
+    <!-- Crossed Swords -->
+    <rect x="-12" y="-2" width="24" height="4" fill="#4B5563" transform="rotate(45)"/>
+    <rect x="-12" y="-2" width="24" height="4" fill="#4B5563" transform="rotate(-45)"/>
+  </g>
+  
+  <!-- Radiating Square Pattern -->
+  <!-- Blue squares -->
+  <rect x="5" y="5" width="4" height="4" fill="#1E40AF"/>
+  <rect x="15" y="8" width="3" height="3" fill="#3B82F6"/>
+  <rect x="25" y="12" width="2" height="2" fill="#60A5FA"/>
+  <rect x="35" y="15" width="2" height="2" fill="#93C5FD"/>
+  
+  <rect x="45" y="5" width="4" height="4" fill="#1E40AF"/>
+  <rect x="35" y="8" width="3" height="3" fill="#3B82F6"/>
+  <rect x="25" y="12" width="2" height="2" fill="#60A5FA"/>
+  <rect x="15" y="15" width="2" height="2" fill="#93C5FD"/>
+  
+  <!-- Green squares -->
+  <rect x="8" y="25" width="3" height="3" fill="#059669"/>
+  <rect x="18" y="28" width="2" height="2" fill="#10B981"/>
+  <rect x="28" y="32" width="2" height="2" fill="#34D399"/>
+  <rect x="38" y="35" width="2" height="2" fill="#6EE7B7"/>
+  
+  <rect x="42" y="25" width="3" height="3" fill="#059669"/>
+  <rect x="32" y="28" width="2" height="2" fill="#10B981"/>
+  <rect x="22" y="32" width="2" height="2" fill="#34D399"/>
+  <rect x="12" y="35" width="2" height="2" fill="#6EE7B7"/>
+  
+  <!-- Grey squares -->
+  <rect x="12" y="45" width="2" height="2" fill="#6B7280"/>
+  <rect x="22" y="48" width="2" height="2" fill="#9CA3AF"/>
+  <rect x="32" y="52" width="2" height="2" fill="#D1D5DB"/>
+  
+  <rect x="38" y="45" width="2" height="2" fill="#6B7280"/>
+  <rect x="28" y="48" width="2" height="2" fill="#9CA3AF"/>
+  <rect x="18" y="52" width="2" height="2" fill="#D1D5DB"/>
+  
+  <!-- Additional squares for more density -->
+  <rect x="10" y="15" width="2" height="2" fill="#3B82F6"/>
+  <rect x="40" y="15" width="2" height="2" fill="#3B82F6"/>
+  <rect x="15" y="35" width="2" height="2" fill="#10B981"/>
+  <rect x="35" y="35" width="2" height="2" fill="#10B981"/>
+  <rect x="20" y="55" width="2" height="2" fill="#9CA3AF"/>
+  <rect x="30" y="55" width="2" height="2" fill="#9CA3AF"/>
+</svg>

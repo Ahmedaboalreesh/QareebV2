@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار زر الإشعارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .debug-info {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        
+        /* Override notification dropdown positioning for test page */
+        .notifications-dropdown {
+            position: fixed !important;
+            top: 80px !important;
+            right: 20px !important;
+        }
+        
+        @media (max-width: 768px) {
+            .notifications-dropdown {
+                width: 350px !important;
+                right: 10px !important;
+                top: 70px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .notifications-dropdown {
+                width: calc(100vw - 20px) !important;
+                right: 10px !important;
+                left: 10px !important;
+                top: 65px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔔 اختبار زر الإشعارات</h1>
+        
+        <div class="test-section">
+            <h3>1. إعداد البيانات</h3>
+            <button class="btn" onclick="setupTestData()">إعداد بيانات الاختبار</button>
+            <button class="btn" onclick="showDebugInfo()">عرض معلومات التصحيح</button>
+            <div id="debugInfo" class="debug-info"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. اختبار زر الإشعارات</h3>
+            <p>اضغط على زر الإشعارات في الأعلى لاختبار وظيفته:</p>
+            
+            <!-- Header with notification button -->
+            <header class="header">
+                <nav class="navbar">
+                    <div class="nav-container">
+                        <div class="nav-logo">
+                            <i class="fas fa-car"></i>
+                            <span>شارك سيارتك</span>
+                        </div>
+                        <div class="nav-buttons">
+                            <button class="btn btn-outline notification-btn" onclick="toggleNotifications()" id="notificationBtn">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Notifications Dropdown -->
+            <div class="notifications-dropdown" id="notificationsDropdown" style="display: none;">
+                <div class="notifications-header">
+                    <h3><i class="fas fa-bell"></i> الإشعارات</h3>
+                    <div class="notifications-actions">
+                        <button class="btn btn-outline btn-sm" onclick="markAllAsRead()">
+                            <i class="fas fa-check-double"></i>
+                            تعيين الكل كمقروء
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="clearAllNotifications()">
+                            <i class="fas fa-trash"></i>
+                            مسح الكل
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="notifications-container" id="notificationsContainer">
+                    <!-- Notifications will be loaded here -->
+                </div>
+                
+                <div class="no-notifications" id="noNotifications" style="display: none;">
+                    <div class="no-notifications-icon">
+                        <i class="far fa-bell-slash"></i>
+                    </div>
+                    <h3>لا توجد إشعارات جديدة</h3>
+                    <p>ستظهر هنا الإشعارات الجديدة عند وصولها</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. إنشاء إشعارات تجريبية</h3>
+            <button class="btn" onclick="createTestNotification()">إنشاء إشعار تجريبي</button>
+            <button class="btn" onclick="createMultipleNotifications()">إنشاء عدة إشعارات</button>
+            <button class="btn" onclick="clearAllNotifications()">مسح جميع الإشعارات</button>
+        </div>
+
+        <div class="test-section">
+            <h3>4. روابط سريعة</h3>
+            <button class="btn" onclick="window.open('renter-dashboard.html', '_blank')">فتح لوحة التحكم</button>
+            <button class="btn" onclick="window.open('test-notifications.html', '_blank')">صفحة اختبار الإشعارات</button>
+        </div>
+    </div>
+
+    <script>
+        // Setup test data
+        function setupTestData() {
+            const testUserData = {
+                id: 'test-renter-' + Date.now(),
+                full_name: 'مستخدم تجريبي',
+                email: 'test@example.com'
+            };
+            
+            localStorage.setItem('userData', JSON.stringify(testUserData));
+            localStorage.setItem('userToken', 'test-token-' + Date.now());
+            localStorage.setItem('userType', 'renter');
+            
+            // Create some sample notifications
+            const sampleNotifications = [
+                {
+                    id: 'test-1',
+                    user_id: testUserData.id,
+                    type: 'success',
+                    title: 'تم إتمام العملية بنجاح',
+                    message: 'تم إتمام العملية المطلوبة بنجاح.',
+                    link: null,
+                    read: false,
+                    created_at: new Date().toISOString()
+                },
+                {
+                    id: 'test-2',
+                    user_id: testUserData.id,
+                    type: 'warning',
+                    title: 'تنبيه مهم',
+                    message: 'يرجى مراجعة معلومات الحجز قبل المتابعة.',
+                    link: null,
+                    read: false,
+                    created_at: new Date().toISOString()
+                }
+            ];
+            
+            localStorage.setItem('notifications', JSON.stringify(sampleNotifications));
+            
+            alert('تم إعداد بيانات الاختبار بنجاح!');
+            showDebugInfo();
+        }
+
+        // Show debug information
+        function showDebugInfo() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+            const userToken = localStorage.getItem('userToken');
+            const userType = localStorage.getItem('userType');
+            
+            const debugInfo = `
+User Data: ${JSON.stringify(userData, null, 2)}
+User Token: ${userToken}
+User Type: ${userType}
+Total Notifications: ${notifications.length}
+User Notifications: ${notifications.filter(n => n.user_id === userData.id || n.user_id === 'all').length}
+            `;
+            
+            document.getElementById('debugInfo').textContent = debugInfo;
+        }
+
+        // Create test notification
+        function createTestNotification() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+            
+            const newNotification = {
+                id: 'test-' + Date.now(),
+                user_id: userData.id,
+                type: 'info',
+                title: 'إشعار تجريبي',
+                message: 'هذا إشعار تجريبي تم إنشاؤه للاختبار.',
+                link: null,
+                read: false,
+                created_at: new Date().toISOString()
+            };
+            
+            notifications.push(newNotification);
+            localStorage.setItem('notifications', JSON.stringify(notifications));
+            
+            // Update notification badge
+            loadNotifications();
+            
+            alert('تم إنشاء إشعار تجريبي بنجاح!');
+        }
+
+        // Create multiple notifications
+        function createMultipleNotifications() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+            
+            const newNotifications = [
+                {
+                    id: 'multi-1-' + Date.now(),
+                    user_id: userData.id,
+                    type: 'success',
+                    title: 'إشعار نجاح',
+                    message: 'تم إتمام العملية بنجاح.',
+                    link: null,
+                    read: false,
+                    created_at: new Date().toISOString()
+                },
+                {
+                    id: 'multi-2-' + Date.now(),
+                    user_id: userData.id,
+                    type: 'warning',
+                    title: 'إشعار تحذير',
+                    message: 'تنبيه مهم للمستخدم.',
+                    link: null,
+                    read: false,
+                    created_at: new Date().toISOString()
+                },
+                {
+                    id: 'multi-3-' + Date.now(),
+                    user_id: userData.id,
+                    type: 'info',
+                    title: 'إشعار معلومات',
+                    message: 'معلومات جديدة متاحة.',
+                    link: null,
+                    read: false,
+                    created_at: new Date().toISOString()
+                }
+            ];
+            
+            notifications.push(...newNotifications);
+            localStorage.setItem('notifications', JSON.stringify(notifications));
+            
+            // Update notification badge
+            loadNotifications();
+            
+            alert('تم إنشاء 3 إشعارات تجريبية بنجاح!');
+        }
+
+        // Toggle notifications dropdown
+        function toggleNotifications() {
+            console.log('🔔 Toggle notifications called');
+            
+            const dropdown = document.getElementById('notificationsDropdown');
+            const notificationBtn = document.getElementById('notificationBtn');
+            
+            console.log('🔍 Dropdown element:', dropdown);
+            console.log('🔍 Notification button:', notificationBtn);
+            
+            if (dropdown) {
+                const currentDisplay = dropdown.style.display;
+                console.log('🔍 Current dropdown display:', currentDisplay);
+                
+                if (currentDisplay === 'none' || currentDisplay === '') {
+                    dropdown.style.display = 'block';
+                    loadNotifications(); // Refresh notifications when opening
+                    console.log('✅ Notifications dropdown opened');
+                } else {
+                    dropdown.style.display = 'none';
+                    console.log('✅ Notifications dropdown closed');
+                }
+            } else {
+                console.error('❌ Notifications dropdown element not found');
+            }
+        }
+
+        // Load notifications
+        function loadNotifications() {
+            try {
+                console.log('🔍 Loading notifications...');
+                
+                const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                
+                console.log('🔍 All notifications:', notifications);
+                console.log('🔍 User data:', userData);
+                
+                // Filter notifications for current user
+                const userNotifications = notifications.filter(notification => 
+                    notification.user_id === userData.id || notification.user_id === 'all'
+                );
+                
+                console.log('🔍 User notifications:', userNotifications);
+                
+                displayNotifications(userNotifications);
+                updateNotificationBadge(userNotifications);
+                
+                console.log('✅ Notifications loaded successfully');
+                
+            } catch (error) {
+                console.error('❌ Error loading notifications:', error);
+                displayNotifications([]);
+                updateNotificationBadge([]);
+            }
+        }
+
+        // Update notification badge
+        function updateNotificationBadge(notifications) {
+            const badge = document.getElementById('notificationBadge');
+            const unreadCount = notifications.filter(n => !n.read).length;
+            
+            if (badge) {
+                if (unreadCount > 0) {
+                    badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+
+        // Display notifications
+        function displayNotifications(notifications) {
+            const container = document.getElementById('notificationsContainer');
+            const noNotifications = document.getElementById('noNotifications');
+            
+            if (!container) return;
+            
+            if (notifications.length === 0) {
+                container.innerHTML = '';
+                if (noNotifications) {
+                    noNotifications.style.display = 'block';
+                }
+                return;
+            }
+            
+            if (noNotifications) {
+                noNotifications.style.display = 'none';
+            }
+            
+            // Sort notifications by date (newest first)
+            notifications.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            
+            container.innerHTML = notifications.map(notification => createNotificationItem(notification)).join('');
+        }
+
+        // Create notification item
+        function createNotificationItem(notification) {
+            const isUnread = !notification.read;
+            const iconClass = getNotificationIconClass(notification.type);
+            const timeAgo = getTimeAgo(notification.created_at);
+            
+            return `
+                <div class="notification-item ${isUnread ? 'unread' : ''}" data-notification-id="${notification.id}">
+                    <div class="notification-icon ${notification.type}">
+                        <i class="${iconClass}"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">${notification.title}</div>
+                        <div class="notification-message">${notification.message}</div>
+                        <div class="notification-meta">
+                            <span class="notification-time">${timeAgo}</span>
+                            <div class="notification-actions">
+                                ${notification.link ? `
+                                    <button class="btn-view" onclick="viewNotification('${notification.link}')">
+                                        <i class="fas fa-eye"></i>
+                                        عرض
+                                    </button>
+                                ` : ''}
+                                ${isUnread ? `
+                                    <button class="btn-mark-read" onclick="markAsRead(${notification.id})">
+                                        <i class="fas fa-check"></i>
+                                        مقروء
+                                    </button>
+                                ` : ''}
+                                <button class="btn-delete" onclick="deleteNotification(${notification.id})">
+                                    <i class="fas fa-trash"></i>
+                                    حذف
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Get notification icon class
+        function getNotificationIconClass(type) {
+            const iconMap = {
+                'success': 'fas fa-check-circle',
+                'info': 'fas fa-info-circle',
+                'warning': 'fas fa-exclamation-triangle',
+                'error': 'fas fa-times-circle',
+                'booking': 'fas fa-calendar-check',
+                'payment': 'fas fa-credit-card',
+                'car': 'fas fa-car',
+                'system': 'fas fa-cog'
+            };
+            
+            return iconMap[type] || 'fas fa-bell';
+        }
+
+        // Get time ago
+        function getTimeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) {
+                return 'الآن';
+            } else if (diffInSeconds < 3600) {
+                const minutes = Math.floor(diffInSeconds / 60);
+                return `منذ ${minutes} دقيقة`;
+            } else if (diffInSeconds < 86400) {
+                const hours = Math.floor(diffInSeconds / 3600);
+                return `منذ ${hours} ساعة`;
+            } else if (diffInSeconds < 2592000) {
+                const days = Math.floor(diffInSeconds / 86400);
+                return `منذ ${days} يوم`;
+            } else {
+                return date.toLocaleDateString('ar-SA');
+            }
+        }
+
+        // Mark as read
+        function markAsRead(notificationId) {
+            try {
+                const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                const notification = notifications.find(n => n.id === notificationId);
+                
+                if (notification) {
+                    notification.read = true;
+                    localStorage.setItem('notifications', JSON.stringify(notifications));
+                    
+                    // Update UI
+                    const notificationElement = document.querySelector(`[data-notification-id="${notificationId}"]`);
+                    if (notificationElement) {
+                        notificationElement.classList.remove('unread');
+                        const markReadBtn = notificationElement.querySelector('.btn-mark-read');
+                        if (markReadBtn) {
+                            markReadBtn.remove();
+                        }
+                    }
+                    
+                    // Update badge
+                    loadNotifications();
+                }
+            } catch (error) {
+                console.error('Error marking notification as read:', error);
+            }
+        }
+
+        // Delete notification
+        function deleteNotification(notificationId) {
+            if (confirm('هل أنت متأكد من حذف هذا الإشعار؟')) {
+                try {
+                    const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                    const updatedNotifications = notifications.filter(n => n.id !== notificationId);
+                    
+                    localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+                    
+                    // Remove from UI
+                    const notificationElement = document.querySelector(`[data-notification-id="${notificationId}"]`);
+                    if (notificationElement) {
+                        notificationElement.remove();
+                    }
+                    
+                    // Update badge
+                    loadNotifications();
+                } catch (error) {
+                    console.error('Error deleting notification:', error);
+                }
+            }
+        }
+
+        // Mark all as read
+        function markAllAsRead() {
+            try {
+                const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                
+                notifications.forEach(notification => {
+                    if (notification.user_id === userData.id || notification.user_id === 'all') {
+                        notification.read = true;
+                    }
+                });
+                
+                localStorage.setItem('notifications', JSON.stringify(notifications));
+                loadNotifications();
+            } catch (error) {
+                console.error('Error marking all as read:', error);
+            }
+        }
+
+        // Clear all notifications
+        function clearAllNotifications() {
+            if (confirm('هل أنت متأكد من حذف جميع الإشعارات؟')) {
+                try {
+                    const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                    
+                    const updatedNotifications = notifications.filter(notification => 
+                        notification.user_id !== userData.id && notification.user_id !== 'all'
+                    );
+                    
+                    localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+                    loadNotifications();
+                } catch (error) {
+                    console.error('Error clearing notifications:', error);
+                }
+            }
+        }
+
+        // View notification
+        function viewNotification(link) {
+            if (link) {
+                window.location.href = link;
+            }
+        }
+
+        // Setup notification dropdown
+        function setupNotificationDropdown() {
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                const dropdown = document.getElementById('notificationsDropdown');
+                const notificationBtn = document.getElementById('notificationBtn');
+                
+                if (dropdown && notificationBtn) {
+                    if (!dropdown.contains(event.target) && !notificationBtn.contains(event.target)) {
+                        dropdown.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔍 Initializing test page...');
+            
+            // Setup notification dropdown
+            setupNotificationDropdown();
+            
+            // Show debug info
+            showDebugInfo();
+            
+            console.log('✅ Test page initialized');
+        });
+    </script>
+</body>
+</html>

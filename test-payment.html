@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار نظام الدفع - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">
+                        <i class="fas fa-home"></i>
+                        الرئيسية
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>
+                    <i class="fas fa-credit-card"></i>
+                    اختبار نظام الدفع
+                </h1>
+                <p>صفحة لاختبار جميع طرق الدفع المتاحة</p>
+            </div>
+
+            <!-- Test Booking Creation -->
+            <div class="test-card">
+                <div class="card-header">
+                    <h2>
+                        <i class="fas fa-plus"></i>
+                        إنشاء حجز تجريبي
+                    </h2>
+                </div>
+                
+                <div class="test-content">
+                    <div class="form-group">
+                        <label for="testCarName">اسم السيارة</label>
+                        <input type="text" id="testCarName" value="تويوتا كامري 2023" placeholder="اسم السيارة">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="testStartDate">تاريخ البداية</label>
+                            <input type="date" id="testStartDate" value="2024-01-15">
+                        </div>
+                        <div class="form-group">
+                            <label for="testEndDate">تاريخ النهاية</label>
+                            <input type="date" id="testEndDate" value="2024-01-18">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testDailyRate">السعر اليومي (ريال)</label>
+                        <input type="number" id="testDailyRate" value="150" min="50" max="1000">
+                    </div>
+                    
+                    <div class="test-actions">
+                        <button class="btn btn-primary" onclick="createTestBooking()">
+                            <i class="fas fa-plus"></i>
+                            إنشاء حجز تجريبي
+                        </button>
+                        
+                        <button class="btn btn-secondary" onclick="clearTestData()">
+                            <i class="fas fa-trash"></i>
+                            مسح البيانات التجريبية
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Bookings List -->
+            <div class="test-card">
+                <div class="card-header">
+                    <h2>
+                        <i class="fas fa-list"></i>
+                        الحجوزات التجريبية
+                    </h2>
+                </div>
+                
+                <div class="test-content">
+                    <div id="bookingsList">
+                        <p>لا توجد حجوزات تجريبية</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Methods Test -->
+            <div class="test-card">
+                <div class="card-header">
+                    <h2>
+                        <i class="fas fa-cogs"></i>
+                        اختبار طرق الدفع
+                    </h2>
+                </div>
+                
+                <div class="test-content">
+                    <div class="payment-test-grid">
+                        <div class="payment-test-item">
+                            <h3>الدفع نقداً</h3>
+                            <p>اختبار الدفع النقدي عند الاستلام</p>
+                            <button class="btn btn-outline" onclick="testCashPayment()">
+                                <i class="fas fa-money-bill-wave"></i>
+                                اختبار الدفع النقدي
+                            </button>
+                        </div>
+                        
+                        <div class="payment-test-item">
+                            <h3>مدى السعودية</h3>
+                            <p>اختبار الدفع عبر تطبيق مدى</p>
+                            <button class="btn btn-outline" onclick="testSTCPay()">
+                                <i class="fas fa-mobile-alt"></i>
+                                اختبار مدى
+                            </button>
+                        </div>
+                        
+                        <div class="payment-test-item">
+                            <h3>بطاقة ائتمانية</h3>
+                            <p>اختبار الدفع بالبطاقة الائتمانية</p>
+                            <button class="btn btn-outline" onclick="testCreditCard()">
+                                <i class="fas fa-credit-card"></i>
+                                اختبار البطاقة
+                            </button>
+                        </div>
+                        
+                        <div class="payment-test-item">
+                            <h3>Apple Pay</h3>
+                            <p>اختبار الدفع عبر Apple Pay</p>
+                            <button class="btn btn-outline" onclick="testApplePay()">
+                                <i class="fab fa-apple-pay"></i>
+                                اختبار Apple Pay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Records -->
+            <div class="test-card">
+                <div class="card-header">
+                    <h2>
+                        <i class="fas fa-history"></i>
+                        سجل المدفوعات
+                    </h2>
+                </div>
+                
+                <div class="test-content">
+                    <div id="paymentsList">
+                        <p>لا توجد مدفوعات مسجلة</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Console Output -->
+            <div class="test-card">
+                <div class="card-header">
+                    <h2>
+                        <i class="fas fa-terminal"></i>
+                        سجل الاختبار
+                    </h2>
+                </div>
+                
+                <div class="console-output" id="testConsole">
+                    <p>سيظهر هنا سجل الاختبار...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Global variables
+        let testLog = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔍 Initializing payment test page...');
+            addLog('🔍 بدء اختبار نظام الدفع...');
+            
+            // Load test data
+            loadTestData();
+            
+            console.log('✅ Payment test page initialized');
+            addLog('✅ تم تهيئة صفحة اختبار الدفع');
+        });
+
+        // Load test data
+        function loadTestData() {
+            try {
+                // Load bookings
+                loadBookingsList();
+                
+                // Load payments
+                loadPaymentsList();
+                
+                addLog('📊 تم تحميل البيانات التجريبية');
+                
+            } catch (error) {
+                console.error('❌ Error loading test data:', error);
+                addLog('❌ خطأ في تحميل البيانات التجريبية: ' + error.message);
+            }
+        }
+
+        // Load bookings list
+        function loadBookingsList() {
+            try {
+                const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                const bookingsList = document.getElementById('bookingsList');
+                
+                if (bookings.length === 0) {
+                    bookingsList.innerHTML = '<p>لا توجد حجوزات تجريبية</p>';
+                    return;
+                }
+                
+                const bookingsHTML = bookings.map(booking => `
+                    <div class="booking-item">
+                        <div class="booking-info">
+                            <strong>${booking.car_name || 'سيارة تجريبية'}</strong>
+                            <span>${booking.start_date} - ${booking.end_date}</span>
+                            <span>${booking.total_amount || 450} ريال</span>
+                        </div>
+                        <div class="booking-actions">
+                            <button class="btn btn-sm btn-primary" onclick="goToPayment('${booking.id}')">
+                                <i class="fas fa-credit-card"></i>
+                                الدفع
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteBooking('${booking.id}')">
+                                <i class="fas fa-trash"></i>
+                                حذف
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                bookingsList.innerHTML = bookingsHTML;
+                
+            } catch (error) {
+                console.error('❌ Error loading bookings list:', error);
+                addLog('❌ خطأ في تحميل قائمة الحجوزات: ' + error.message);
+            }
+        }
+
+        // Load payments list
+        function loadPaymentsList() {
+            try {
+                const payments = JSON.parse(localStorage.getItem('mockPayments') || '[]');
+                const paymentsList = document.getElementById('paymentsList');
+                
+                if (payments.length === 0) {
+                    paymentsList.innerHTML = '<p>لا توجد مدفوعات مسجلة</p>';
+                    return;
+                }
+                
+                const paymentsHTML = payments.map(payment => `
+                    <div class="payment-item">
+                        <div class="payment-info">
+                            <strong>${getPaymentMethodName(payment.method)}</strong>
+                            <span>${payment.amount}</span>
+                            <span>${new Date(payment.created_at).toLocaleDateString('ar-SA')}</span>
+                        </div>
+                        <div class="payment-status ${payment.status}">
+                            ${getStatusText(payment.status)}
+                        </div>
+                    </div>
+                `).join('');
+                
+                paymentsList.innerHTML = paymentsHTML;
+                
+            } catch (error) {
+                console.error('❌ Error loading payments list:', error);
+                addLog('❌ خطأ في تحميل قائمة المدفوعات: ' + error.message);
+            }
+        }
+
+        // Get payment method name
+        function getPaymentMethodName(method) {
+            const methods = {
+                'cash': 'الدفع نقداً',
+                'stcpay': 'مدى السعودية',
+                'credit': 'بطاقة ائتمانية',
+                'applepay': 'Apple Pay'
+            };
+            return methods[method] || method;
+        }
+
+        // Get status text
+        function getStatusText(status) {
+            const statuses = {
+                'completed': 'مكتمل',
+                'pending': 'قيد المعالجة',
+                'failed': 'فشل'
+            };
+            return statuses[status] || status;
+        }
+
+        // Create test booking
+        function createTestBooking() {
+            try {
+                const carName = document.getElementById('testCarName').value;
+                const startDate = document.getElementById('testStartDate').value;
+                const endDate = document.getElementById('testEndDate').value;
+                const dailyRate = parseInt(document.getElementById('testDailyRate').value);
+                
+                if (!carName || !startDate || !endDate || !dailyRate) {
+                    addLog('❌ يرجى ملء جميع الحقول');
+                    return;
+                }
+                
+                // Calculate total
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+                const total = days * dailyRate;
+                
+                const booking = {
+                    id: 'booking-' + Date.now(),
+                    car_name: carName,
+                    start_date: startDate,
+                    end_date: endDate,
+                    daily_rate: dailyRate,
+                    total_amount: total,
+                    status: 'pending',
+                    created_at: new Date().toISOString(),
+                    user_id: 'test-user'
+                };
+                
+                // Save to localStorage
+                const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                bookings.push(booking);
+                localStorage.setItem('mockBookings', JSON.stringify(bookings));
+                
+                addLog('✅ تم إنشاء حجز تجريبي: ' + carName);
+                
+                // Reload lists
+                loadBookingsList();
+                
+            } catch (error) {
+                console.error('❌ Error creating test booking:', error);
+                addLog('❌ خطأ في إنشاء الحجز التجريبي: ' + error.message);
+            }
+        }
+
+        // Clear test data
+        function clearTestData() {
+            try {
+                localStorage.removeItem('mockBookings');
+                localStorage.removeItem('mockPayments');
+                
+                addLog('🗑️ تم مسح جميع البيانات التجريبية');
+                
+                // Reload lists
+                loadBookingsList();
+                loadPaymentsList();
+                
+            } catch (error) {
+                console.error('❌ Error clearing test data:', error);
+                addLog('❌ خطأ في مسح البيانات التجريبية: ' + error.message);
+            }
+        }
+
+        // Go to payment page
+        function goToPayment(bookingId) {
+            try {
+                addLog('🔔 الانتقال لصفحة الدفع للحجز: ' + bookingId);
+                window.open(`payment.html?booking_id=${bookingId}`, '_blank');
+                
+            } catch (error) {
+                console.error('❌ Error going to payment page:', error);
+                addLog('❌ خطأ في الانتقال لصفحة الدفع: ' + error.message);
+            }
+        }
+
+        // Delete booking
+        function deleteBooking(bookingId) {
+            try {
+                const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                const filteredBookings = bookings.filter(b => b.id !== bookingId);
+                localStorage.setItem('mockBookings', JSON.stringify(filteredBookings));
+                
+                addLog('🗑️ تم حذف الحجز: ' + bookingId);
+                
+                // Reload list
+                loadBookingsList();
+                
+            } catch (error) {
+                console.error('❌ Error deleting booking:', error);
+                addLog('❌ خطأ في حذف الحجز: ' + error.message);
+            }
+        }
+
+        // Test cash payment
+        function testCashPayment() {
+            try {
+                addLog('💵 اختبار الدفع النقدي...');
+                
+                // Create test payment record
+                const payment = {
+                    id: 'payment-' + Date.now(),
+                    booking_id: 'test-booking',
+                    method: 'cash',
+                    amount: '450 ريال',
+                    status: 'completed',
+                    created_at: new Date().toISOString(),
+                    user_id: 'test-user'
+                };
+                
+                // Save to localStorage
+                const payments = JSON.parse(localStorage.getItem('mockPayments') || '[]');
+                payments.push(payment);
+                localStorage.setItem('mockPayments', JSON.stringify(payments));
+                
+                addLog('✅ تم اختبار الدفع النقدي بنجاح');
+                
+                // Reload payments list
+                loadPaymentsList();
+                
+            } catch (error) {
+                console.error('❌ Error testing cash payment:', error);
+                addLog('❌ خطأ في اختبار الدفع النقدي: ' + error.message);
+            }
+        }
+
+        // Test STC Pay
+        function testSTCPay() {
+            try {
+                addLog('📱 اختبار مدى السعودية...');
+                
+                // Simulate STC Pay processing
+                setTimeout(() => {
+                    const payment = {
+                        id: 'payment-' + Date.now(),
+                        booking_id: 'test-booking',
+                        method: 'stcpay',
+                        amount: '450 ريال',
+                        status: 'completed',
+                        created_at: new Date().toISOString(),
+                        user_id: 'test-user'
+                    };
+                    
+                    // Save to localStorage
+                    const payments = JSON.parse(localStorage.getItem('mockPayments') || '[]');
+                    payments.push(payment);
+                    localStorage.setItem('mockPayments', JSON.stringify(payments));
+                    
+                    addLog('✅ تم اختبار مدى السعودية بنجاح');
+                    
+                    // Reload payments list
+                    loadPaymentsList();
+                    
+                }, 2000);
+                
+            } catch (error) {
+                console.error('❌ Error testing STC Pay:', error);
+                addLog('❌ خطأ في اختبار مدى السعودية: ' + error.message);
+            }
+        }
+
+        // Test credit card
+        function testCreditCard() {
+            try {
+                addLog('💳 اختبار البطاقة الائتمانية...');
+                
+                // Simulate credit card processing
+                setTimeout(() => {
+                    const payment = {
+                        id: 'payment-' + Date.now(),
+                        booking_id: 'test-booking',
+                        method: 'credit',
+                        amount: '450 ريال',
+                        status: 'completed',
+                        created_at: new Date().toISOString(),
+                        user_id: 'test-user'
+                    };
+                    
+                    // Save to localStorage
+                    const payments = JSON.parse(localStorage.getItem('mockPayments') || '[]');
+                    payments.push(payment);
+                    localStorage.setItem('mockPayments', JSON.stringify(payments));
+                    
+                    addLog('✅ تم اختبار البطاقة الائتمانية بنجاح');
+                    
+                    // Reload payments list
+                    loadPaymentsList();
+                    
+                }, 3000);
+                
+            } catch (error) {
+                console.error('❌ Error testing credit card:', error);
+                addLog('❌ خطأ في اختبار البطاقة الائتمانية: ' + error.message);
+            }
+        }
+
+        // Test Apple Pay
+        function testApplePay() {
+            try {
+                addLog('🍎 اختبار Apple Pay...');
+                
+                // Check if Apple Pay is available
+                if (!window.ApplePaySession || !ApplePaySession.canMakePayments()) {
+                    addLog('⚠️ Apple Pay غير متاح على هذا الجهاز');
+                    return;
+                }
+                
+                // Simulate Apple Pay processing
+                setTimeout(() => {
+                    const payment = {
+                        id: 'payment-' + Date.now(),
+                        booking_id: 'test-booking',
+                        method: 'applepay',
+                        amount: '450 ريال',
+                        status: 'completed',
+                        created_at: new Date().toISOString(),
+                        user_id: 'test-user'
+                    };
+                    
+                    // Save to localStorage
+                    const payments = JSON.parse(localStorage.getItem('mockPayments') || '[]');
+                    payments.push(payment);
+                    localStorage.setItem('mockPayments', JSON.stringify(payments));
+                    
+                    addLog('✅ تم اختبار Apple Pay بنجاح');
+                    
+                    // Reload payments list
+                    loadPaymentsList();
+                    
+                }, 1500);
+                
+            } catch (error) {
+                console.error('❌ Error testing Apple Pay:', error);
+                addLog('❌ خطأ في اختبار Apple Pay: ' + error.message);
+            }
+        }
+
+        // Add log message
+        function addLog(message) {
+            const timestamp = new Date().toLocaleTimeString('ar-SA');
+            const logEntry = `[${timestamp}] ${message}`;
+            
+            testLog.push(logEntry);
+            console.log(logEntry);
+            
+            // Update console output
+            const testConsole = document.getElementById('testConsole');
+            testConsole.innerHTML = testLog.map(log => `<div class="log-entry">${log}</div>`).join('');
+            
+            // Scroll to bottom
+            testConsole.scrollTop = testConsole.scrollHeight;
+        }
+    </script>
+
+    <style>
+        .test-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #495057;
+        }
+
+        .test-content {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .test-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .payment-test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .payment-test-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .payment-test-item h3 {
+            margin: 0 0 0.5rem 0;
+            color: #374151;
+        }
+
+        .payment-test-item p {
+            margin: 0 0 1rem 0;
+            color: #6b7280;
+        }
+
+        .booking-item,
+        .payment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .booking-info,
+        .payment-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .booking-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .payment-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .payment-status.completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .payment-status.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .payment-status.failed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .console-output {
+            background: #1e1e1e;
+            color: #ffffff;
+            padding: 1rem;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0;
+        }
+
+        .log-entry:last-child {
+            margin-bottom: 0;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-actions {
+                flex-direction: column;
+            }
+            
+            .payment-test-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-item,
+            .payment-item {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</body>
+</html>

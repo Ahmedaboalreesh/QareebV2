@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار صفحة رفع الصور - منصة تأجير السيارات</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h3 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #1e7e34;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 اختبار صفحة رفع الصور</h1>
+        
+        <div class="test-section">
+            <h3>📋 إعداد البيانات التجريبية</h3>
+            <p>هذا القسم يقوم بإعداد البيانات التجريبية المطلوبة لاختبار صفحة رفع الصور.</p>
+            <button class="btn" onclick="setupMockData()">إعداد البيانات التجريبية</button>
+            <div id="setupStatus"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔗 اختبار الروابط</h3>
+            <p>اختبار الروابط المختلفة لصفحة رفع الصور:</p>
+            <a href="upload-booking-photos.html?booking_id=1" class="btn" target="_blank">اختبار مع معرف الحجز 1</a>
+            <a href="upload-booking-photos.html?booking_id=2" class="btn" target="_blank">اختبار مع معرف الحجز 2</a>
+            <a href="upload-booking-photos.html" class="btn" target="_blank">اختبار بدون معرف الحجز</a>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔍 فحص البيانات الحالية</h3>
+            <p>عرض البيانات المخزنة حالياً في localStorage:</p>
+            <button class="btn" onclick="checkCurrentData()">فحص البيانات</button>
+            <div id="dataStatus"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🧹 تنظيف البيانات</h3>
+            <p>حذف جميع البيانات التجريبية:</p>
+            <button class="btn" onclick="clearMockData()">تنظيف البيانات</button>
+            <div id="clearStatus"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📊 حالة النظام</h3>
+            <p>فحص حالة النظام والبيانات:</p>
+            <button class="btn" onclick="checkSystemStatus()">فحص الحالة</button>
+            <div id="systemStatus"></div>
+        </div>
+    </div>
+
+    <script>
+        function setupMockData() {
+            try {
+                // Create mock user
+                const mockUser = {
+                    id: 'test-user-' + Date.now(),
+                    full_name: 'مستخدم تجريبي',
+                    email: 'test@example.com'
+                };
+                localStorage.setItem('userData', JSON.stringify(mockUser));
+                localStorage.setItem('userToken', 'mock-token-' + Date.now());
+                localStorage.setItem('userType', 'renter');
+                
+                // Create mock bookings
+                const mockBookings = [
+                    {
+                        id: 1,
+                        car_id: 1,
+                        car_name: 'تويوتا كامري 2023',
+                        car_brand: 'تويوتا',
+                        car_model: 'كامري',
+                        car_year: '2023',
+                        start_date: '2024-01-15',
+                        end_date: '2024-01-18',
+                        total_amount: 450,
+                        deposit_amount: 500,
+                        status: 'approved',
+                        pickup_location: 'مطار الملك خالد الدولي',
+                        return_location: 'مطار الملك خالد الدولي',
+                        renter_notes: 'أحتاج سيارة للتنقل في الرياض',
+                        renter_id: mockUser.id,
+                        owner_id: 'test-owner',
+                        created_at: '2024-01-10T10:00:00Z'
+                    },
+                    {
+                        id: 2,
+                        car_id: 3,
+                        car_name: 'مرسيدس C-Class 2023',
+                        car_brand: 'مرسيدس',
+                        car_model: 'C-Class',
+                        car_year: '2023',
+                        start_date: '2024-01-20',
+                        end_date: '2024-01-25',
+                        total_amount: 1500,
+                        deposit_amount: 500,
+                        status: 'pending',
+                        pickup_location: 'فندق الشرق',
+                        return_location: 'فندق الشرق',
+                        renter_notes: 'رحلة عمل في الدمام',
+                        renter_id: mockUser.id,
+                        owner_id: 'test-owner-2',
+                        created_at: '2024-01-12T14:30:00Z'
+                    }
+                ];
+                
+                localStorage.setItem('mockBookings', JSON.stringify(mockBookings));
+                
+                document.getElementById('setupStatus').innerHTML = `
+                    <div class="status success">
+                        ✅ تم إعداد البيانات التجريبية بنجاح<br>
+                        👤 المستخدم: ${mockUser.full_name}<br>
+                        📋 عدد الحجوزات: ${mockBookings.length}<br>
+                        🚗 الحجز الأول: ${mockBookings[0].car_name} (${mockBookings[0].status})<br>
+                        🚗 الحجز الثاني: ${mockBookings[1].car_name} (${mockBookings[1].status})
+                    </div>
+                `;
+                
+            } catch (error) {
+                document.getElementById('setupStatus').innerHTML = `
+                    <div class="status error">
+                        ❌ خطأ في إعداد البيانات: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        function checkCurrentData() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('userData') || 'null');
+                const userToken = localStorage.getItem('userToken');
+                const userType = localStorage.getItem('userType');
+                const mockBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                
+                let statusHTML = '<div class="status info">';
+                statusHTML += '<strong>📊 البيانات الحالية:</strong><br>';
+                statusHTML += `🔐 Token: ${userToken ? 'موجود' : 'غير موجود'}<br>`;
+                statusHTML += `👤 User Type: ${userType || 'غير محدد'}<br>`;
+                statusHTML += `📋 Bookings: ${mockBookings.length}<br>`;
+                
+                if (userData) {
+                    statusHTML += `👤 User: ${userData.full_name} (${userData.id})<br>`;
+                }
+                
+                if (mockBookings.length > 0) {
+                    statusHTML += '<br><strong>📋 الحجوزات:</strong><br>';
+                    mockBookings.forEach((booking, index) => {
+                        statusHTML += `${index + 1}. ${booking.car_name} - ${booking.status}<br>`;
+                    });
+                }
+                
+                statusHTML += '</div>';
+                
+                document.getElementById('dataStatus').innerHTML = statusHTML;
+                
+            } catch (error) {
+                document.getElementById('dataStatus').innerHTML = `
+                    <div class="status error">
+                        ❌ خطأ في فحص البيانات: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        function clearMockData() {
+            try {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userType');
+                localStorage.removeItem('mockBookings');
+                
+                document.getElementById('clearStatus').innerHTML = `
+                    <div class="status success">
+                        ✅ تم تنظيف جميع البيانات التجريبية بنجاح
+                    </div>
+                `;
+                
+            } catch (error) {
+                document.getElementById('clearStatus').innerHTML = `
+                    <div class="status error">
+                        ❌ خطأ في تنظيف البيانات: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        function checkSystemStatus() {
+            try {
+                let statusHTML = '<div class="status info">';
+                statusHTML += '<strong>🔍 حالة النظام:</strong><br>';
+                
+                // Check if upload-booking-photos.html exists
+                const testLink = document.createElement('a');
+                testLink.href = 'upload-booking-photos.html';
+                statusHTML += `📄 صفحة رفع الصور: ${testLink.href ? 'موجودة' : 'غير موجودة'}<br>`;
+                
+                // Check if upload-booking-photos.js exists
+                const testScript = document.createElement('script');
+                testScript.src = 'upload-booking-photos.js';
+                statusHTML += `📜 ملف JavaScript: ${testScript.src ? 'موجود' : 'غير موجود'}<br>`;
+                
+                // Check localStorage support
+                try {
+                    localStorage.setItem('test', 'test');
+                    localStorage.removeItem('test');
+                    statusHTML += `💾 localStorage: مدعوم<br>`;
+                } catch (e) {
+                    statusHTML += `💾 localStorage: غير مدعوم<br>`;
+                }
+                
+                // Check fetch support
+                if (typeof fetch !== 'undefined') {
+                    statusHTML += `🌐 Fetch API: مدعوم<br>`;
+                } else {
+                    statusHTML += `🌐 Fetch API: غير مدعوم<br>`;
+                }
+                
+                // Check URLSearchParams support
+                if (typeof URLSearchParams !== 'undefined') {
+                    statusHTML += `🔗 URLSearchParams: مدعوم<br>`;
+                } else {
+                    statusHTML += `🔗 URLSearchParams: غير مدعوم<br>`;
+                }
+                
+                statusHTML += '</div>';
+                
+                document.getElementById('systemStatus').innerHTML = statusHTML;
+                
+            } catch (error) {
+                document.getElementById('systemStatus').innerHTML = `
+                    <div class="status error">
+                        ❌ خطأ في فحص حالة النظام: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // Auto-check system status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkSystemStatus();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل الاستخدام - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#how-it-works" class="nav-link">كيف يعمل</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#cars" class="nav-link">السيارات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">اتصل بنا</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+                    </li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">إنشاء حساب</a>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="user-guide-section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="guide-header">
+                <h1>دليل الاستخدام</h1>
+                <p>دليل شامل لاستخدام منصة تأجير السيارات بسهولة وأمان</p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="btn btn-outline" onclick="window.print()">
+                    <i class="fas fa-print"></i>
+                    طباعة الدليل
+                </button>
+                <button class="btn btn-outline" onclick="window.location.href='contact.html'">
+                    <i class="fas fa-envelope"></i>
+                    تواصل معنا
+                </button>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="table-of-contents">
+                <h3>محتويات الدليل</h3>
+                <ul id="toc-list">
+                    <!-- Will be populated by JavaScript -->
+                </ul>
+            </div>
+
+            <!-- Guide Content -->
+            <div class="guide-content">
+                <!-- Getting Started -->
+                <div class="guide-section" id="getting-started">
+                    <h2>البداية</h2>
+                    
+                    <h3>إنشاء حساب جديد</h3>
+                    <ol>
+                        <li>انتقل إلى الصفحة الرئيسية واضغط على "إنشاء حساب"</li>
+                        <li>املأ النموذج بالمعلومات المطلوبة (الاسم، البريد الإلكتروني، كلمة المرور)</li>
+                        <li>أكد كلمة المرور واضغط "إنشاء الحساب"</li>
+                        <li>تحقق من بريدك الإلكتروني لتأكيد الحساب</li>
+                        <li>يمكنك الآن تسجيل الدخول والبدء في استخدام المنصة</li>
+                    </ol>
+
+                    <h3>تسجيل الدخول</h3>
+                    <ol>
+                        <li>اضغط على "تسجيل الدخول" في الصفحة الرئيسية</li>
+                        <li>أدخل بريدك الإلكتروني وكلمة المرور</li>
+                        <li>اضغط "تسجيل الدخول"</li>
+                        <li>سيتم توجيهك إلى لوحة التحكم الخاصة بك</li>
+                    </ol>
+
+                    <h3>إعداد الملف الشخصي</h3>
+                    <ul>
+                        <li>أضف صورة شخصية</li>
+                        <li>أكمل معلومات الاتصال</li>
+                        <li>أضف عنوان السكن</li>
+                        <li>أضف معلومات الهوية الوطنية أو الإقامة</li>
+                        <li>أضف رخصة القيادة (للمستأجرين)</li>
+                    </ul>
+                </div>
+
+                <!-- For Car Owners -->
+                <div class="guide-section" id="for-owners">
+                    <h2>دليل مالك السيارة</h2>
+                    
+                    <h3>إضافة سيارة للتأجير</h3>
+                    <ol>
+                        <li>سجل دخول إلى حسابك</li>
+                        <li>انتقل إلى "إضافة سيارة جديدة"</li>
+                        <li>املأ معلومات السيارة:
+                            <ul>
+                                <li>الماركة والموديل</li>
+                                <li>سنة الصنع</li>
+                                <li>نوع الوقود</li>
+                                <li>ناقل الحركة</li>
+                                <li>عدد المقاعد</li>
+                                <li>السعر اليومي</li>
+                            </ul>
+                        </li>
+                        <li>أضف صور واضحة للسيارة (خارجية وداخلية)</li>
+                        <li>حدد موقع السيارة على الخريطة</li>
+                        <li>أضف وصف مفصل للسيارة</li>
+                        <li>اضغط "إضافة السيارة"</li>
+                    </ol>
+
+                    <h3>إدارة الحجوزات</h3>
+                    <ul>
+                        <li><strong>عرض الطلبات الجديدة:</strong> ستظهر في قسم "الطلبات الجديدة"</li>
+                        <li><strong>قبول الطلب:</strong> اضغط "قبول" وحدد موعد تسليم السيارة</li>
+                        <li><strong>رفض الطلب:</strong> اضغط "رفض" واذكر السبب</li>
+                        <li><strong>تتبع الحجوزات النشطة:</strong> في قسم "الحجوزات النشطة"</li>
+                        <li><strong>تسجيل عودة السيارة:</strong> عند انتهاء فترة التأجير</li>
+                    </ul>
+
+                    <h3>إدارة الإشعارات</h3>
+                    <ul>
+                        <li>ستصلك إشعارات عند:
+                            <ul>
+                                <li>طلب حجز جديد</li>
+                                <li>رفع صور من المستأجر</li>
+                                <li>تقييم جديد</li>
+                                <li>رسائل من المستأجر</li>
+                            </ul>
+                        </li>
+                        <li>يمكنك تفعيل/إلغاء الإشعارات من إعدادات الحساب</li>
+                    </ul>
+
+                    <h3>تتبع الأرباح</h3>
+                    <ul>
+                        <li>عرض الإيرادات الشهرية في لوحة التحكم</li>
+                        <li>تحميل تقارير مفصلة</li>
+                        <li>تتبع المدفوعات المستلمة</li>
+                        <li>عرض الإحصائيات التفصيلية</li>
+                    </ul>
+                </div>
+
+                <!-- For Renters -->
+                <div class="guide-section" id="for-renters">
+                    <h2>دليل المستأجر</h2>
+                    
+                    <h3>البحث عن سيارة</h3>
+                    <ol>
+                        <li>استخدم شريط البحث في الصفحة الرئيسية</li>
+                        <li>حدد:
+                            <ul>
+                                <li>الموقع المطلوب</li>
+                                <li>تاريخ البداية والنهاية</li>
+                                <li>نوع السيارة</li>
+                                <li>السعر المطلوب</li>
+                            </ul>
+                        </li>
+                        <li>اضغط "بحث" لعرض النتائج</li>
+                        <li>استخدم الفلاتر لتصفية النتائج</li>
+                    </ol>
+
+                    <h3>حجز السيارة</h3>
+                    <ol>
+                        <li>اختر السيارة المناسبة من النتائج</li>
+                        <li>اضغط على السيارة لعرض التفاصيل</li>
+                        <li>راجع المعلومات والصور بعناية</li>
+                        <li>اضغط "طلب الحجز"</li>
+                        <li>أدخل تفاصيل الحجز:
+                            <ul>
+                                <li>تاريخ البداية والنهاية</li>
+                                <li>وقت الاستلام والعودة</li>
+                                <li>الموقع المطلوب</li>
+                            </ul>
+                        </li>
+                        <li>اضغط "إرسال الطلب"</li>
+                    </ol>
+
+                    <h3>الدفع</h3>
+                    <ul>
+                        <li>بعد قبول الطلب، ستتم توجيهك لصفحة الدفع</li>
+                        <li>اختر طريقة الدفع المناسبة:
+                            <ul>
+                                <li>الدفع النقدي</li>
+                                <li>بطاقة مدى</li>
+                                <li>بطاقة ائتمانية</li>
+                                <li>Apple Pay</li>
+                            </ul>
+                        </li>
+                        <li>أدخل بيانات الدفع</li>
+                        <li>اضغط "إتمام الدفع"</li>
+                    </ul>
+
+                    <h3>استلام السيارة</h3>
+                    <ul>
+                        <li>احضر في الموعد المحدد</li>
+                        <li>أحضر الوثائق المطلوبة:
+                            <ul>
+                                <li>الهوية الوطنية أو الإقامة</li>
+                                <li>رخصة القيادة</li>
+                                <li>إيصال الدفع</li>
+                            </ul>
+                        </li>
+                        <li>افحص السيارة مع المالك</li>
+                        <li>وقع على استلام السيارة</li>
+                        <li>التقط صور للسيارة قبل الاستخدام</li>
+                    </ul>
+
+                    <h3>إرجاع السيارة</h3>
+                    <ul>
+                        <li>احضر في الموعد المحدد</li>
+                        <li>أرجع السيارة في نفس الحالة</li>
+                        <li>التقط صور للسيارة بعد الاستخدام</li>
+                        <li>وقع على إرجاع السيارة</li>
+                        <li>احصل على إيصال الإرجاع</li>
+                    </ul>
+                </div>
+
+                <!-- Safety Guidelines -->
+                <div class="guide-section" id="safety-guidelines">
+                    <h2>إرشادات السلامة</h2>
+                    
+                    <h3>للمالكين</h3>
+                    <ul>
+                        <li><strong>فحص السيارة:</strong> تأكد من سلامة السيارة قبل التأجير</li>
+                        <li><strong>التأمين:</strong> تأكد من وجود تأمين شامل على السيارة</li>
+                        <li><strong>الوثائق:</strong> احتفظ بنسخ من جميع الوثائق</li>
+                        <li><strong>التواصل:</strong> احتفظ برقم هاتف المستأجر</li>
+                        <li><strong>التسجيل:</strong> سجل جميع التفاصيل بدقة</li>
+                    </ul>
+
+                    <h3>للمستأجرين</h3>
+                    <ul>
+                        <li><strong>الفحص:</strong> افحص السيارة بعناية قبل الاستلام</li>
+                        <li><strong>التوثيق:</strong> التقط صور للسيارة قبل وبعد الاستخدام</li>
+                        <li><strong>القيادة الآمنة:</strong> التزم بقواعد المرور</li>
+                        <li><strong>التواصل:</strong> أخبر المالك بأي مشاكل فوراً</li>
+                        <li><strong>الوقود:</strong> أعد السيارة بنفس مستوى الوقود</li>
+                    </ul>
+
+                    <h3>في حالة الحوادث</h3>
+                    <ol>
+                        <li>اتصل بالشرطة فوراً</li>
+                        <li>التقط صور للحادث</li>
+                        <li>اتصل بشركة التأمين</li>
+                        <li>أخبر المالك بالحادث</li>
+                        <li>احتفظ بنسخ من جميع التقارير</li>
+                    </ol>
+                </div>
+
+                <!-- Communication -->
+                <div class="guide-section" id="communication">
+                    <h2>التواصل والرسائل</h2>
+                    
+                    <h3>نظام الرسائل</h3>
+                    <ul>
+                        <li>يمكنك التواصل مع المالك/المستأجر عبر الرسائل</li>
+                        <li>الرسائل مشفرة ومؤمنة</li>
+                        <li>احتفظ بنسخ من جميع الرسائل المهمة</li>
+                        <li>استخدم الرسائل للتوضيح والاتفاق على التفاصيل</li>
+                    </ul>
+
+                    <h3>الإشعارات</h3>
+                    <ul>
+                        <li>ستصلك إشعارات فورية للأحداث المهمة</li>
+                        <li>يمكنك تفعيل/إلغاء الإشعارات</li>
+                        <li>راجع الإشعارات بانتظام</li>
+                        <li>احتفظ بسجل الإشعارات المهمة</li>
+                    </ul>
+
+                    <h3>حل المشاكل</h3>
+                    <ul>
+                        <li>حاول حل المشكلة مع الطرف الآخر أولاً</li>
+                        <li>استخدم نظام الرسائل للتواصل</li>
+                        <li>في حالة عدم التوصل لحل، اتصل بالدعم الفني</li>
+                        <li>قدم جميع الوثائق والمستندات المطلوبة</li>
+                    </ul>
+                </div>
+
+                <!-- Reviews and Ratings -->
+                <div class="guide-section" id="reviews-ratings">
+                    <h2>التقييمات والمراجعات</h2>
+                    
+                    <h3>كيفية التقييم</h3>
+                    <ol>
+                        <li>بعد انتهاء الحجز، ستظهر لك رسالة للتقييم</li>
+                        <li>أعط تقييماً من 1 إلى 5 نجوم</li>
+                        <li>اكتب تعليقاً مفيداً ومفصلاً</li>
+                        <li>ركز على:
+                            <ul>
+                                <li>حالة السيارة</li>
+                                <li>التواصل مع المالك/المستأجر</li>
+                                <li>الالتزام بالمواعيد</li>
+                                <li>التعامل المهني</li>
+                            </ul>
+                        </li>
+                        <li>اضغط "إرسال التقييم"</li>
+                    </ol>
+
+                    <h3>قراءة التقييمات</h3>
+                    <ul>
+                        <li>اقرأ التقييمات بعناية قبل الحجز</li>
+                        <li>انتبه للتقييمات السلبية والمشاكل المذكورة</li>
+                        <li>ابحث عن أنماط في التقييمات</li>
+                        <li>لا تعتمد على تقييم واحد فقط</li>
+                    </ul>
+
+                    <h3>الرد على التقييمات</h3>
+                    <ul>
+                        <li>يمكنك الرد على التقييمات الموجهة لك</li>
+                        <li>كن محترفاً ومهذباً في الرد</li>
+                        <li>قدم توضيحاً للمشاكل المذكورة</li>
+                        <li>استخدم الرد لتحسين الخدمة</li>
+                    </ul>
+                </div>
+
+                <!-- Troubleshooting -->
+                <div class="guide-section" id="troubleshooting">
+                    <h2>حل المشاكل الشائعة</h2>
+                    
+                    <h3>مشاكل في الحساب</h3>
+                    <ul>
+                        <li><strong>نسيت كلمة المرور:</strong> استخدم "نسيت كلمة المرور"</li>
+                        <li><strong>لا يمكن تسجيل الدخول:</strong> تحقق من البريد الإلكتروني وكلمة المرور</li>
+                        <li><strong>الحساب محظور:</strong> اتصل بالدعم الفني</li>
+                        <li><strong>مشاكل في التحقق:</strong> تحقق من البريد الإلكتروني</li>
+                    </ul>
+
+                    <h3>مشاكل في الحجز</h3>
+                    <ul>
+                        <li><strong>لا يمكن إضافة سيارة:</strong> تحقق من اكتمال جميع الحقول</li>
+                        <li><strong>لا تظهر نتائج البحث:</strong> جرب تغيير معايير البحث</li>
+                        <li><strong>مشاكل في الدفع:</strong> تحقق من بيانات البطاقة</li>
+                        <li><strong>إلغاء الحجز:</strong> راجع سياسة الإلغاء</li>
+                    </ul>
+
+                    <h3>مشاكل تقنية</h3>
+                    <ul>
+                        <li><strong>الصفحة لا تتحمل:</strong> جرب تحديث الصفحة</li>
+                        <li><strong>مشاكل في الصور:</strong> تحقق من حجم وتنسيق الصور</li>
+                        <li><strong>مشاكل في الخريطة:</strong> تحقق من اتصال الإنترنت</li>
+                        <li><strong>مشاكل في الإشعارات:</strong> تحقق من إعدادات الإشعارات</li>
+                    </ul>
+
+                    <h3>متى تتصل بالدعم الفني</h3>
+                    <ul>
+                        <li>مشاكل أمنية أو احتيال</li>
+                        <li>مشاكل تقنية مستمرة</li>
+                        <li>نزاعات لا يمكن حلها</li>
+                        <li>مشاكل في المدفوعات</li>
+                        <li>مشاكل في الوثائق</li>
+                    </ul>
+                </div>
+
+                <!-- Tips and Best Practices -->
+                <div class="guide-section" id="tips-best-practices">
+                    <h2>نصائح وأفضل الممارسات</h2>
+                    
+                    <h3>للمالكين</h3>
+                    <ul>
+                        <li>حافظ على السيارة في حالة ممتازة</li>
+                        <li>رد على الطلبات بسرعة</li>
+                        <li>كن واضحاً في الشروط والأسعار</li>
+                        <li>التقط صور واضحة ومحدثة</li>
+                        <li>كن متعاوناً مع المستأجرين</li>
+                        <li>احتفظ بسجلات مفصلة</li>
+                        <li>أضف وصفاً دقيقاً للسيارة</li>
+                    </ul>
+
+                    <h3>للمستأجرين</h3>
+                    <ul>
+                        <li>اقرأ الوصف والتقييمات بعناية</li>
+                        <li>احجز مبكراً في المواسم المزدحمة</li>
+                        <li>تواصل مع المالك قبل الحجز</li>
+                        <li>احضر في الموعد المحدد</li>
+                        <li>عامل السيارة بحرص</li>
+                        <li>التقط صور قبل وبعد الاستخدام</li>
+                        <li>أخبر المالك بأي مشاكل فوراً</li>
+                    </ul>
+
+                    <h3>عامة</h3>
+                    <ul>
+                        <li>احتفظ بنسخ من جميع الوثائق</li>
+                        <li>تواصل بوضوح ومهنية</li>
+                        <li>احترم المواعيد</li>
+                        <li>كن صادقاً في التقييمات</li>
+                        <li>تعلم من التجارب السابقة</li>
+                        <li>استخدم المنصة بانتظام</li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="guide-section" id="contact-info">
+                    <h2>معلومات التواصل</h2>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>الهاتف</h4>
+                                <p>+966 50 123 4567</p>
+                                <p>الأحد - الخميس: 8:00 ص - 6:00 م</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>البريد الإلكتروني</h4>
+                                <p>support@carrental.com</p>
+                                <p>help@carrental.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <h4>الدردشة المباشرة</h4>
+                                <p>متاحة 24/7</p>
+                                <p>من خلال لوحة التحكم</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>العنوان</h4>
+                                <p>الرياض، المملكة العربية السعودية</p>
+                                <p>برج المملكة، الطابق 15</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>روابط مفيدة</h3>
+                    <ul>
+                        <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                        <li><a href="cancellation-policy.html">سياسة الإلغاء</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>منصة تأجير السيارات</h3>
+                <p>منصة آمنة وموثوقة لتأجير السيارات بين الأفراد</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>الخدمات</h4>
+                <ul>
+                    <li><a href="index.html#how-it-works">كيف يعمل</a></li>
+                    <li><a href="index.html#cars">السيارات المتاحة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>الدعم والمساعدة</h4>
+                <ul>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="terms.html">الشروط والأحكام</a></li>
+                    <li><a href="cancellation-policy.html">سياسة الإلغاء</a></li>
+                    <li><a href="user-guide.html">دليل الاستخدام</a></li>
+                    <li><a href="report-problem.html">الإبلاغ عن مشكلة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>الحساب</h4>
+                <ul>
+                    <li><a href="login.html">تسجيل الدخول</a></li>
+                    <li><a href="register.html">إنشاء حساب</a></li>
+                    <li><a href="renter-dashboard.html">لوحة التحكم</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="privacy.html">سياسة الخصوصية</a>
+                <a href="terms.html">الشروط والأحكام</a>
+                <a href="cancellation-policy.html">سياسة الإلغاء</a>
+            </div>
+            <p>&copy; 2024 منصة تأجير السيارات. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="user-guide.js"></script>
+</body>
+</html>

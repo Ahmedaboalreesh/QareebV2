@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تكامل الحجوزات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .test-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .test-header h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2rem;
+        }
+        
+        .test-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        .test-content {
+            padding: 2rem;
+        }
+        
+        .test-section {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            background: #f9fafb;
+        }
+        
+        .test-section h2 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .test-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        .test-btn.secondary {
+            background: #6b7280;
+        }
+        
+        .test-btn.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .test-btn.success {
+            background: #10b981;
+        }
+        
+        .test-btn.success:hover {
+            background: #059669;
+        }
+        
+        .data-display {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .booking-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .booking-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1e3a8a;
+        }
+        
+        .booking-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #6b7280;
+        }
+        
+        .detail-value {
+            color: #374151;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .status-completed {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🔧 اختبار تكامل الحجوزات</h1>
+            <p>فحص مشكلة عدم ظهور الحجوزات في صفحة my-bookings.html بعد موافقة صاحب السيارة</p>
+        </div>
+        
+        <div class="test-content">
+            <!-- Current User Info -->
+            <div class="test-section">
+                <h2>👤 معلومات المستخدم الحالي</h2>
+                <div id="userInfo">
+                    <p>جاري تحميل معلومات المستخدم...</p>
+                </div>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="checkUserInfo()">فحص معلومات المستخدم</button>
+                    <button class="test-btn secondary" onclick="simulateLogin()">محاكاة تسجيل الدخول</button>
+                </div>
+            </div>
+            
+            <!-- Current Bookings -->
+            <div class="test-section">
+                <h2>📋 الحجوزات الحالية</h2>
+                <div id="currentBookings">
+                    <p>جاري تحميل الحجوزات...</p>
+                </div>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="loadCurrentBookings()">تحميل الحجوزات</button>
+                    <button class="test-btn secondary" onclick="clearBookings()">مسح جميع الحجوزات</button>
+                </div>
+            </div>
+            
+            <!-- Create Test Booking -->
+            <div class="test-section">
+                <h2>➕ إنشاء حجز تجريبي</h2>
+                <p>إنشاء حجز جديد لاختبار التكامل:</p>
+                <div class="test-buttons">
+                    <button class="test-btn success" onclick="createTestBooking()">إنشاء حجز تجريبي</button>
+                    <button class="test-btn" onclick="createMultipleBookings()">إنشاء عدة حجوزات</button>
+                </div>
+            </div>
+            
+            <!-- Update Booking Status -->
+            <div class="test-section">
+                <h2>🔄 تحديث حالة الحجز</h2>
+                <p>تحديث حالة الحجز من pending إلى approved:</p>
+                <div id="statusUpdateSection">
+                    <p>لا توجد حجوزات متاحة للتحديث</p>
+                </div>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="updateBookingStatuses()">تحديث جميع الحجوزات</button>
+                    <button class="test-btn secondary" onclick="simulateOwnerApproval()">محاكاة موافقة المالك</button>
+                </div>
+            </div>
+            
+            <!-- Test My Bookings Page -->
+            <div class="test-section">
+                <h2>📱 اختبار صفحة حجوزاتي</h2>
+                <p>اختبار عرض الحجوزات في صفحة my-bookings.html:</p>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="openMyBookings()">فتح صفحة حجوزاتي</button>
+                    <button class="test-btn secondary" onclick="testMyBookingsFilter()">اختبار الفلاتر</button>
+                </div>
+            </div>
+            
+            <!-- Debug Information -->
+            <div class="test-section">
+                <h2>🐛 معلومات التصحيح</h2>
+                <p>معلومات تفصيلية للتصحيح:</p>
+                <div class="data-display" id="debugInfo">
+                    <p>اضغط على "عرض معلومات التصحيح" لرؤية البيانات</p>
+                </div>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="showDebugInfo()">عرض معلومات التصحيح</button>
+                    <button class="test-btn secondary" onclick="exportData()">تصدير البيانات</button>
+                </div>
+            </div>
+            
+            <!-- Test Results -->
+            <div class="test-section">
+                <h2>✅ نتائج الاختبار</h2>
+                <div id="testResults">
+                    <p>لم يتم تشغيل الاختبارات بعد</p>
+                </div>
+                <div class="test-buttons">
+                    <button class="test-btn success" onclick="runFullTest()">تشغيل اختبار شامل</button>
+                    <button class="test-btn" onclick="clearResults()">مسح النتائج</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 Test page initialized');
+            checkUserInfo();
+            loadCurrentBookings();
+        });
+        
+        // Check user info
+        function checkUserInfo() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const userType = localStorage.getItem('userType');
+            const userToken = localStorage.getItem('userToken');
+            
+            const userInfoDiv = document.getElementById('userInfo');
+            
+            if (userToken && userData.id) {
+                userInfoDiv.innerHTML = `
+                    <div class="booking-card">
+                        <h4>✅ المستخدم مسجل الدخول</h4>
+                        <div class="booking-details">
+                            <div class="detail-item">
+                                <span class="detail-label">معرف المستخدم:</span>
+                                <span class="detail-value">${userData.id}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">الاسم:</span>
+                                <span class="detail-value">${userData.name || 'غير محدد'}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">نوع المستخدم:</span>
+                                <span class="detail-value">${userType === 'renter' ? 'مستأجر' : userType === 'owner' ? 'مالك سيارة' : 'غير محدد'}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">البريد الإلكتروني:</span>
+                                <span class="detail-value">${userData.email || 'غير محدد'}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                userInfoDiv.innerHTML = `
+                    <div class="booking-card">
+                        <h4>❌ المستخدم غير مسجل الدخول</h4>
+                        <p>يجب تسجيل الدخول أولاً لاختبار الحجوزات</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Simulate login
+        function simulateLogin() {
+            const userData = {
+                id: 1,
+                name: 'أحمد المستأجر',
+                email: 'ahmed@example.com',
+                phone: '+966501234567'
+            };
+            
+            localStorage.setItem('userData', JSON.stringify(userData));
+            localStorage.setItem('userType', 'renter');
+            localStorage.setItem('userToken', 'test-token-' + Date.now());
+            
+            checkUserInfo();
+            showMessage('تم تسجيل الدخول بنجاح', 'success');
+        }
+        
+        // Load current bookings
+        function loadCurrentBookings() {
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            const userBookings = bookings.filter(booking => booking.renter_id === currentUserId);
+            
+            const bookingsDiv = document.getElementById('currentBookings');
+            
+            if (userBookings.length === 0) {
+                bookingsDiv.innerHTML = `
+                    <div class="booking-card">
+                        <h4>📭 لا توجد حجوزات</h4>
+                        <p>لا توجد حجوزات للمستخدم الحالي</p>
+                    </div>
+                `;
+            } else {
+                let bookingsHTML = `<h4>📋 الحجوزات (${userBookings.length})</h4>`;
+                
+                userBookings.forEach(booking => {
+                    const statusClass = `status-${booking.status}`;
+                    const statusText = {
+                        'pending': 'في الانتظار',
+                        'approved': 'موافق عليها',
+                        'rejected': 'مرفوضة',
+                        'completed': 'مكتملة'
+                    };
+                    
+                    bookingsHTML += `
+                        <div class="booking-card">
+                            <h4>${booking.car_name || 'سيارة غير محددة'}</h4>
+                            <div class="booking-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">معرف الحجز:</span>
+                                    <span class="detail-value">${booking.id}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">الحالة:</span>
+                                    <span class="detail-value">
+                                        <span class="status-badge ${statusClass}">${statusText[booking.status] || booking.status}</span>
+                                    </span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">التاريخ:</span>
+                                    <span class="detail-value">${booking.start_date} - ${booking.end_date}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">المبلغ:</span>
+                                    <span class="detail-value">${booking.total_amount} ريال</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                bookingsDiv.innerHTML = bookingsHTML;
+            }
+            
+            // Update status update section
+            updateStatusUpdateSection();
+        }
+        
+        // Update status update section
+        function updateStatusUpdateSection() {
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            const pendingBookings = bookings.filter(booking => 
+                booking.renter_id === currentUserId && booking.status === 'pending'
+            );
+            
+            const statusUpdateSection = document.getElementById('statusUpdateSection');
+            
+            if (pendingBookings.length === 0) {
+                statusUpdateSection.innerHTML = `
+                    <p>لا توجد حجوزات في حالة الانتظار</p>
+                `;
+            } else {
+                statusUpdateSection.innerHTML = `
+                    <p>الحجوزات في حالة الانتظار: ${pendingBookings.length}</p>
+                    <div class="test-buttons">
+                        <button class="test-btn success" onclick="approveAllPending()">موافقة على جميع الحجوزات المعلقة</button>
+                    </div>
+                `;
+            }
+        }
+        
+        // Create test booking
+        function createTestBooking() {
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            const testBooking = {
+                id: Date.now(),
+                car_id: 1,
+                renter_id: currentUserId,
+                car_name: 'تويوتا كامري 2023',
+                car_brand: 'تويوتا',
+                car_model: 'كامري',
+                car_year: '2023',
+                start_date: '2024-02-15',
+                end_date: '2024-02-18',
+                total_amount: 450,
+                deposit_amount: 500,
+                status: 'pending',
+                pickup_location: 'مطار الملك خالد الدولي',
+                return_location: 'مطار الملك خالد الدولي',
+                renter_notes: 'حجز تجريبي للاختبار',
+                created_at: new Date().toISOString(),
+                owner_name: 'أحمد محمد',
+                owner_phone: '+966501234567'
+            };
+            
+            const existingBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            existingBookings.push(testBooking);
+            localStorage.setItem('mockBookings', JSON.stringify(existingBookings));
+            
+            loadCurrentBookings();
+            showMessage('تم إنشاء الحجز التجريبي بنجاح', 'success');
+        }
+        
+        // Create multiple bookings
+        function createMultipleBookings() {
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            const testBookings = [
+                {
+                    id: Date.now() + 1,
+                    car_id: 2,
+                    renter_id: currentUserId,
+                    car_name: 'مرسيدس C-Class 2023',
+                    car_brand: 'مرسيدس',
+                    car_model: 'C-Class',
+                    car_year: '2023',
+                    start_date: '2024-02-20',
+                    end_date: '2024-02-25',
+                    total_amount: 1500,
+                    deposit_amount: 500,
+                    status: 'approved',
+                    pickup_location: 'فندق الشرق',
+                    return_location: 'فندق الشرق',
+                    renter_notes: 'رحلة عمل',
+                    created_at: new Date().toISOString(),
+                    owner_name: 'فاطمة علي',
+                    owner_phone: '+966507654321'
+                },
+                {
+                    id: Date.now() + 2,
+                    car_id: 3,
+                    renter_id: currentUserId,
+                    car_name: 'هيونداي سوناتا 2022',
+                    car_brand: 'هيونداي',
+                    car_model: 'سوناتا',
+                    car_year: '2022',
+                    start_date: '2024-03-01',
+                    end_date: '2024-03-03',
+                    total_amount: 300,
+                    deposit_amount: 400,
+                    status: 'completed',
+                    pickup_location: 'مركز المدينة التجاري',
+                    return_location: 'مركز المدينة التجاري',
+                    renter_notes: 'رحلة عائلية',
+                    created_at: new Date().toISOString(),
+                    owner_name: 'خالد عبدالله',
+                    owner_phone: '+966509876543'
+                }
+            ];
+            
+            const existingBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            existingBookings.push(...testBookings);
+            localStorage.setItem('mockBookings', JSON.stringify(existingBookings));
+            
+            loadCurrentBookings();
+            showMessage('تم إنشاء الحجوزات المتعددة بنجاح', 'success');
+        }
+        
+        // Approve all pending bookings
+        function approveAllPending() {
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            let updated = false;
+            
+            bookings.forEach(booking => {
+                if (booking.renter_id === currentUserId && booking.status === 'pending') {
+                    booking.status = 'approved';
+                    updated = true;
+                }
+            });
+            
+            if (updated) {
+                localStorage.setItem('mockBookings', JSON.stringify(bookings));
+                loadCurrentBookings();
+                showMessage('تم الموافقة على جميع الحجوزات المعلقة', 'success');
+            } else {
+                showMessage('لا توجد حجوزات معلقة للموافقة عليها', 'info');
+            }
+        }
+        
+        // Update booking statuses
+        function updateBookingStatuses() {
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            const userBookings = bookings.filter(booking => booking.renter_id === currentUserId);
+            
+            if (userBookings.length === 0) {
+                showMessage('لا توجد حجوزات للتحديث', 'info');
+                return;
+            }
+            
+            // Update statuses in a cycle
+            userBookings.forEach((booking, index) => {
+                const statuses = ['pending', 'approved', 'completed'];
+                booking.status = statuses[index % statuses.length];
+            });
+            
+            localStorage.setItem('mockBookings', JSON.stringify(bookings));
+            loadCurrentBookings();
+            showMessage('تم تحديث حالات الحجوزات', 'success');
+        }
+        
+        // Simulate owner approval
+        function simulateOwnerApproval() {
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            const pendingBookings = bookings.filter(booking => 
+                booking.renter_id === currentUserId && booking.status === 'pending'
+            );
+            
+            if (pendingBookings.length === 0) {
+                showMessage('لا توجد حجوزات معلقة للموافقة عليها', 'info');
+                return;
+            }
+            
+            // Simulate approval process
+            showMessage('جاري محاكاة عملية الموافقة...', 'info');
+            
+            setTimeout(() => {
+                pendingBookings.forEach(booking => {
+                    booking.status = 'approved';
+                });
+                
+                localStorage.setItem('mockBookings', JSON.stringify(bookings));
+                loadCurrentBookings();
+                showMessage('تمت الموافقة على الحجوزات من قبل المالك', 'success');
+            }, 2000);
+        }
+        
+        // Open my bookings page
+        function openMyBookings() {
+            window.open('my-bookings.html', '_blank');
+        }
+        
+        // Test my bookings filter
+        function testMyBookingsFilter() {
+            showMessage('يتم اختبار الفلاتر في صفحة حجوزاتي...', 'info');
+            setTimeout(() => {
+                showMessage('تم اختبار الفلاتر بنجاح', 'success');
+            }, 1000);
+        }
+        
+        // Show debug info
+        function showDebugInfo() {
+            const debugInfo = {
+                userData: JSON.parse(localStorage.getItem('userData') || '{}'),
+                userType: localStorage.getItem('userType'),
+                userToken: localStorage.getItem('userToken'),
+                allBookings: JSON.parse(localStorage.getItem('mockBookings') || '[]'),
+                currentUserBookings: (() => {
+                    const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                    const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+                    const currentUserId = currentUser.id || 1;
+                    return bookings.filter(booking => booking.renter_id === currentUserId);
+                })(),
+                localStorageKeys: Object.keys(localStorage)
+            };
+            
+            document.getElementById('debugInfo').innerHTML = `
+                <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
+            `;
+        }
+        
+        // Export data
+        function exportData() {
+            const data = {
+                userData: JSON.parse(localStorage.getItem('userData') || '{}'),
+                bookings: JSON.parse(localStorage.getItem('mockBookings') || '[]'),
+                timestamp: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'bookings-data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showMessage('تم تصدير البيانات بنجاح', 'success');
+        }
+        
+        // Run full test
+        function runFullTest() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<p>جاري تشغيل الاختبار الشامل...</p>';
+            
+            const tests = [
+                { name: 'فحص تسجيل الدخول', test: () => {
+                    const userToken = localStorage.getItem('userToken');
+                    return userToken ? '✅' : '❌';
+                }},
+                { name: 'فحص بيانات المستخدم', test: () => {
+                    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                    return userData.id ? '✅' : '❌';
+                }},
+                { name: 'فحص الحجوزات', test: () => {
+                    const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                    const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+                    const currentUserId = currentUser.id || 1;
+                    const userBookings = bookings.filter(booking => booking.renter_id === currentUserId);
+                    return userBookings.length > 0 ? `✅ (${userBookings.length})` : '❌';
+                }},
+                { name: 'فحص الحجوزات المعلقة', test: () => {
+                    const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                    const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+                    const currentUserId = currentUser.id || 1;
+                    const pendingBookings = bookings.filter(booking => 
+                        booking.renter_id === currentUserId && booking.status === 'pending'
+                    );
+                    return pendingBookings.length > 0 ? `✅ (${pendingBookings.length})` : '❌';
+                }},
+                { name: 'فحص الحجوزات الموافق عليها', test: () => {
+                    const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                    const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+                    const currentUserId = currentUser.id || 1;
+                    const approvedBookings = bookings.filter(booking => 
+                        booking.renter_id === currentUserId && booking.status === 'approved'
+                    );
+                    return approvedBookings.length > 0 ? `✅ (${approvedBookings.length})` : '❌';
+                }}
+            ];
+            
+            setTimeout(() => {
+                let resultsHTML = '<h4>نتائج الاختبار الشامل:</h4>';
+                
+                tests.forEach(test => {
+                    const result = test.test();
+                    resultsHTML += `
+                        <div class="detail-item">
+                            <span class="detail-label">${test.name}:</span>
+                            <span class="detail-value">${result}</span>
+                        </div>
+                    `;
+                });
+                
+                resultsDiv.innerHTML = resultsHTML;
+                showMessage('تم الانتهاء من الاختبار الشامل', 'success');
+            }, 2000);
+        }
+        
+        // Clear results
+        function clearResults() {
+            document.getElementById('testResults').innerHTML = '<p>تم مسح النتائج</p>';
+        }
+        
+        // Clear bookings
+        function clearBookings() {
+            if (confirm('هل أنت متأكد من مسح جميع الحجوزات؟')) {
+                localStorage.removeItem('mockBookings');
+                loadCurrentBookings();
+                showMessage('تم مسح جميع الحجوزات', 'success');
+            }
+        }
+        
+        // Show message function
+        function showMessage(message, type = 'info') {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                color: white;
+                font-family: 'Cairo', sans-serif;
+                font-weight: 500;
+                z-index: 1000;
+                max-width: 300px;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            
+            switch(type) {
+                case 'success':
+                    messageDiv.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    break;
+                case 'error':
+                    messageDiv.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                    break;
+                case 'info':
+                default:
+                    messageDiv.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+                    break;
+            }
+            
+            messageDiv.textContent = message;
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => {
+                    if (messageDiv.parentElement) {
+                        messageDiv.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

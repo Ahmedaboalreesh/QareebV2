@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار خيارات التوصيل - نموذج الحجز</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            text-align: right;
+            margin: 0;
+            padding-right: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .fix-details {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .fix-details h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .delivery-preview {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .delivery-preview h4 {
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        
+        .delivery-example {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 15px;
+        }
+        
+        .delivery-example h5 {
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        
+        .scenario-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        
+        .scenario-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .scenario-card h3 {
+            color: #1f2937;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-card h3 i {
+            color: #667eea;
+        }
+        
+        .scenario-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .detail-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .detail-item strong {
+            color: #374151;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .detail-item span {
+            color: #6b7280;
+        }
+        
+        .test-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .test-link:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="car-details.html" class="nav-link">تفاصيل السيارة</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار خيارات التوصيل</h1>
+                <p>إضافة إمكانية اختيار التوصيل أو عدم التوصيل للمستأجر في نموذج الحجز</p>
+            </div>
+
+            <div class="test-container">
+                <h2>المشكلة والحل</h2>
+                <div class="info-box">
+                    <h4>المشكلة السابقة:</h4>
+                    <ul>
+                        <li>❌ المستأجر لا يمكنه اختيار التوصيل أو عدم التوصيل</li>
+                        <li>❌ عدم ظهور خيارات التوصيل في نموذج الحجز</li>
+                        <li>❌ عدم حساب رسوم التوصيل في السعر الإجمالي</li>
+                        <li>❌ عدم عرض رسوم التوصيل في ملخص الحجز</li>
+                        <li>❌ عدم حفظ خيار التوصيل في بيانات الحجز</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الحل الجديد:</h4>
+                    <ul>
+                        <li>✅ إضافة قسم خيارات التوصيل في نموذج الحجز</li>
+                        <li>✅ خيارين: استلام من موقع المالك أو توصيل إلى موقعي</li>
+                        <li>✅ عرض رسوم التوصيل مع الخيار</li>
+                        <li>✅ حساب رسوم التوصيل في السعر الإجمالي</li>
+                        <li>✅ حفظ خيار التوصيل في بيانات الحجز</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>سيناريوهات الاختبار</h2>
+                
+                <div class="scenario-card">
+                    <h3><i class="fas fa-car"></i> سيناريو 1: سيارة مع خدمة توصيل مدفوعة</h3>
+                    <div class="scenario-details">
+                        <div class="detail-item">
+                            <strong>الماركة:</strong>
+                            <span>تويوتا كامري</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>السعر اليومي:</strong>
+                            <span>150 ريال</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>خدمة التوصيل:</strong>
+                            <span>متاحة</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>رسوم التوصيل:</strong>
+                            <span>50 ريال</span>
+                        </div>
+                    </div>
+                    <p><strong>النتيجة المتوقعة:</strong> ظهور خيارات التوصيل مع رسوم 50 ريال</p>
+                    <a href="car-details.html?id=1" class="test-link" target="_blank">
+                        <i class="fas fa-play"></i>
+                        اختبار هذا السيناريو
+                    </a>
+                </div>
+                
+                <div class="scenario-card">
+                    <h3><i class="fas fa-car"></i> سيناريو 2: سيارة مع خدمة توصيل مجانية</h3>
+                    <div class="scenario-details">
+                        <div class="detail-item">
+                            <strong>الماركة:</strong>
+                            <span>نيسان ألتيما</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>السعر اليومي:</strong>
+                            <span>180 ريال</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>خدمة التوصيل:</strong>
+                            <span>متاحة</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>رسوم التوصيل:</strong>
+                            <span>مجاني</span>
+                        </div>
+                    </div>
+                    <p><strong>النتيجة المتوقعة:</strong> ظهور خيارات التوصيل مع "مجاني"</p>
+                    <a href="car-details.html?id=3" class="test-link" target="_blank">
+                        <i class="fas fa-play"></i>
+                        اختبار هذا السيناريو
+                    </a>
+                </div>
+                
+                <div class="scenario-card">
+                    <h3><i class="fas fa-car"></i> سيناريو 3: سيارة بدون خدمة توصيل</h3>
+                    <div class="scenario-details">
+                        <div class="detail-item">
+                            <strong>الماركة:</strong>
+                            <span>هوندا أكورد</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>السعر اليومي:</strong>
+                            <span>120 ريال</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>خدمة التوصيل:</strong>
+                            <span>غير متاحة</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>رسوم التوصيل:</strong>
+                            <span>-</span>
+                        </div>
+                    </div>
+                    <p><strong>النتيجة المتوقعة:</strong> عدم ظهور قسم خيارات التوصيل</p>
+                    <a href="car-details.html?id=2" class="test-link" target="_blank">
+                        <i class="fas fa-play"></i>
+                        اختبار هذا السيناريو
+                    </a>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>التفاصيل التقنية للإضافة</h2>
+                <div class="fix-details">
+                    <h4>الإضافات المطبقة:</h4>
+                    
+                    <h5>1. إضافة قسم HTML في نموذج الحجز:</h5>
+                    <div class="code-example">
+&lt;!-- Delivery Option --&gt;
+&lt;div class="delivery-option-section" id="deliveryOptionSection"&gt;
+    &lt;h3&gt;خيارات التوصيل&lt;/h3&gt;
+    &lt;div class="delivery-options"&gt;
+        &lt;div class="delivery-option"&gt;
+            &lt;input type="radio" id="noDelivery" name="deliveryChoice" value="no" checked&gt;
+            &lt;label for="noDelivery"&gt;
+                &lt;i class="fas fa-times-circle"&gt;&lt;/i&gt;
+                &lt;span&gt;استلام السيارة من موقع المالك&lt;/span&gt;
+            &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class="delivery-option"&gt;
+            &lt;input type="radio" id="withDelivery" name="deliveryChoice" value="yes"&gt;
+            &lt;label for="withDelivery"&gt;
+                &lt;i class="fas fa-check-circle"&gt;&lt;/i&gt;
+                &lt;span&gt;توصيل السيارة إلى موقعي&lt;/span&gt;
+                &lt;span class="delivery-fee-display"&gt;(50 ريال)&lt;/span&gt;
+            &lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </div>
+                    
+                    <h5>2. إضافة CSS لتصميم الخيارات:</h5>
+                    <div class="code-example">
+.delivery-option-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.delivery-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.delivery-option:hover {
+    border-color: #667eea;
+    background: #f8fafc;
+}
+                    </div>
+                    
+                    <h5>3. إضافة دالة JavaScript لإعداد الخيارات:</h5>
+                    <div class="code-example">
+function setupDeliveryOptions(car) {
+    const deliveryService = car.delivery_service || false;
+    const deliveryFee = car.delivery_fee || null;
+    
+    if (deliveryService) {
+        // إظهار قسم خيارات التوصيل
+        // تحديث رسوم التوصيل
+        // إضافة مستمعي الأحداث
+    } else {
+        // إخفاء قسم خيارات التوصيل
+    }
+}
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>الميزات الجديدة</h2>
+                <div class="info-box">
+                    <h4>التحسينات المطبقة:</h4>
+                    <ul>
+                        <li>🔧 <strong>قسم خيارات التوصيل</strong>: إضافة قسم مخصص في نموذج الحجز</li>
+                        <li>🔧 <strong>خيارين واضحين</strong>: استلام من موقع المالك أو توصيل إلى موقعي</li>
+                        <li>🔧 <strong>عرض الرسوم</strong>: عرض رسوم التوصيل مع الخيار</li>
+                        <li>🔧 <strong>حساب السعر</strong>: إضافة رسوم التوصيل للسعر الإجمالي</li>
+                        <li>🔧 <strong>ملخص الحجز</strong>: عرض رسوم التوصيل في الملخص</li>
+                        <li>🔧 <strong>حفظ البيانات</strong>: حفظ خيار التوصيل في بيانات الحجز</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>التفاعل مع المستخدم:</h4>
+                    <ul>
+                        <li>✅ <strong>اختيار سهل</strong>: نقاط راديو واضحة مع أيقونات</li>
+                        <li>✅ <strong>تحديث فوري</strong>: تحديث السعر الإجمالي عند تغيير الخيار</li>
+                        <li>✅ <strong>تصميم متجاوب</strong>: تصميم جميل يعمل على جميع الأجهزة</li>
+                        <li>✅ <strong>رسائل واضحة</strong>: عرض الرسوم والملاحظات بوضوح</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار الوظائف</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="createTestData()">
+                        <i class="fas fa-database"></i>
+                        إنشاء بيانات تجريبية
+                    </button>
+                    <button class="btn btn-success" onclick="testAllScenarios()">
+                        <i class="fas fa-play"></i>
+                        اختبار جميع السيناريوهات
+                    </button>
+                    <button class="btn btn-outline" onclick="showTestInstructions()">
+                        <i class="fas fa-info-circle"></i>
+                        تعليمات الاختبار
+                    </button>
+                </div>
+                
+                <div class="info-box">
+                    <h4>خطوات الاختبار:</h4>
+                    <ul>
+                        <li>1. اضغط "إنشاء بيانات تجريبية" لإنشاء سيارات متنوعة</li>
+                        <li>2. اضغط على أي رابط اختبار لفتح صفحة تفاصيل السيارة</li>
+                        <li>3. تأكد من ظهور قسم خيارات التوصيل (إذا كانت الخدمة متاحة)</li>
+                        <li>4. جرب اختيار خيارات التوصيل المختلفة</li>
+                        <li>5. تأكد من تحديث السعر الإجمالي عند تغيير الخيار</li>
+                        <li>6. تأكد من ظهور رسوم التوصيل في ملخص الحجز</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>الملفات المحدثة</h2>
+                <div class="info-box">
+                    <h4>التغييرات المطبقة:</h4>
+                    <ul>
+                        <li>📝 <strong>car-details.html</strong>: إضافة قسم خيارات التوصيل في النموذج</li>
+                        <li>📝 <strong>car-details.js</strong>: إضافة دوال إعداد وإدارة خيارات التوصيل</li>
+                        <li>📝 <strong>styles.css</strong>: إضافة CSS لتصميم خيارات التوصيل</li>
+                        <li>📝 <strong>test-delivery-choice.html</strong>: صفحة الاختبار هذه</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الوظائف المحسنة:</h4>
+                    <ul>
+                        <li>✅ <strong>setupDeliveryOptions()</strong>: إعداد خيارات التوصيل حسب بيانات السيارة</li>
+                        <li>✅ <strong>setupDeliveryOptionListeners()</strong>: إضافة مستمعي الأحداث للخيارات</li>
+                        <li>✅ <strong>updateBookingSummary()</strong>: تحديث ملخص الحجز مع رسوم التوصيل</li>
+                        <li>✅ <strong>calculateTotalAmount()</strong>: حساب السعر الإجمالي مع رسوم التوصيل</li>
+                        <li>✅ <strong>handleBookingSubmission()</strong>: حفظ خيار التوصيل في بيانات الحجز</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function createTestData() {
+            // إنشاء مستخدم تجريبي
+            const testUser = {
+                id: 1,
+                name: 'أحمد محمد',
+                email: 'ahmed@test.com',
+                phone: '+966501234567'
+            };
+            localStorage.setItem('userData', JSON.stringify(testUser));
+            localStorage.setItem('userToken', 'test-token');
+            localStorage.setItem('userType', 'renter');
+            
+            // إنشاء سيارات تجريبية مع حالات توصيل مختلفة
+            const testCars = [
+                {
+                    id: 1,
+                    brand: 'تويوتا',
+                    model: 'كامري',
+                    year: '2023',
+                    daily_rate: 150,
+                    deposit: 500,
+                    owner_name: 'أحمد محمد',
+                    location: 'الرياض',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: 25000,
+                    description: 'سيارة ممتازة في حالة جيدة، مكيفة بالكامل، مناسبة للرحلات العائلية والتنقل اليومي.',
+                    features: ['ac', 'bluetooth', 'gps', 'backup_camera', 'cruise_control'],
+                    photos: [
+                        { filename: 'car1.jpg' },
+                        { filename: 'car2.jpg' },
+                        { filename: 'car3.jpg' }
+                    ],
+                    // خدمة التوصيل متاحة مع رسوم
+                    delivery_service: true,
+                    delivery_fee: 50,
+                    delivery_note: 'التوصيل متاح في جميع أنحاء الرياض مع رسوم إضافية'
+                },
+                {
+                    id: 2,
+                    brand: 'هوندا',
+                    model: 'أكورد',
+                    year: '2022',
+                    daily_rate: 120,
+                    deposit: 400,
+                    owner_name: 'فاطمة علي',
+                    location: 'جدة',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: 30000,
+                    description: 'سيارة اقتصادية ومناسبة للتنقل اليومي.',
+                    features: ['ac', 'bluetooth', 'gps'],
+                    photos: [
+                        { filename: 'car4.jpg' },
+                        { filename: 'car5.jpg' }
+                    ],
+                    // خدمة التوصيل غير متاحة
+                    delivery_service: false,
+                    delivery_fee: null,
+                    delivery_note: null
+                },
+                {
+                    id: 3,
+                    brand: 'نيسان',
+                    model: 'ألتيما',
+                    year: '2023',
+                    daily_rate: 180,
+                    deposit: 600,
+                    owner_name: 'محمد علي',
+                    location: 'الدمام',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: 15000,
+                    description: 'سيارة فاخرة مع جميع المميزات الحديثة.',
+                    features: ['ac', 'bluetooth', 'gps', 'backup_camera', 'cruise_control', 'leather_seats', 'sunroof'],
+                    photos: [
+                        { filename: 'car6.jpg' },
+                        { filename: 'car7.jpg' },
+                        { filename: 'car8.jpg' }
+                    ],
+                    // خدمة التوصيل متاحة مجاناً
+                    delivery_service: true,
+                    delivery_fee: 0,
+                    delivery_note: 'التوصيل مجاني في مدينة الدمام'
+                }
+            ];
+            
+            // حفظ السيارات في mockCars
+            localStorage.setItem('mockCars', JSON.stringify(testCars));
+            
+            alert('تم إنشاء البيانات التجريبية بنجاح!\n\n- 3 سيارات مع حالات توصيل مختلفة:\n  • تويوتا كامري: توصيل متاح (50 ريال)\n  • هوندا أكورد: توصيل غير متاح\n  • نيسان ألتيما: توصيل مجاني\n\nالآن يمكنك اختبار خيارات التوصيل!');
+        }
+
+        function testAllScenarios() {
+            // إنشاء مستخدم تجريبي إذا لم يكن موجوداً
+            if (!localStorage.getItem('userData')) {
+                createTestData();
+            }
+            
+            const scenarios = [
+                { id: 1, name: 'تويوتا كامري - توصيل مدفوع' },
+                { id: 2, name: 'هوندا أكورد - بدون توصيل' },
+                { id: 3, name: 'نيسان ألتيما - توصيل مجاني' }
+            ];
+            
+            let message = 'سيناريوهات الاختبار المتاحة:\n\n';
+            scenarios.forEach((scenario, index) => {
+                message += `${index + 1}. ${scenario.name}\n`;
+            });
+            message += '\nاضغط على الرابط المناسب لاختبار كل سيناريو:';
+            
+            alert(message);
+            
+            // إنشاء روابط للاختبار
+            const testLinks = scenarios.map(scenario => 
+                `<a href="car-details.html?id=${scenario.id}" target="_blank" style="display: block; margin: 10px 0; padding: 10px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; text-align: center;">
+                    ${scenario.name}
+                </a>`
+            ).join('');
+            
+            // إنشاء نافذة منبثقة مع الروابط
+            const popup = window.open('', '_blank', 'width=400,height=400');
+            popup.document.write(`
+                <html dir="rtl">
+                <head>
+                    <title>اختبار سيناريوهات التوصيل</title>
+                    <style>
+                        body { font-family: 'Cairo', sans-serif; padding: 20px; background: #f8f9fa; }
+                        h2 { color: #1f2937; text-align: center; }
+                    </style>
+                </head>
+                <body>
+                    <h2>اختبار سيناريوهات التوصيل</h2>
+                    ${testLinks}
+                </body>
+                </html>
+            `);
+        }
+
+        function showTestInstructions() {
+            const instructions = `
+                <h3>تعليمات اختبار خيارات التوصيل:</h3>
+                
+                <h4>الخطوة 1: إنشاء البيانات</h4>
+                <p>اضغط "إنشاء بيانات تجريبية" لإنشاء 3 سيارات مع حالات توصيل مختلفة.</p>
+                
+                <h4>الخطوة 2: اختبار السيناريوهات</h4>
+                <ul>
+                    <li><strong>سيناريو 1:</strong> تويوتا كامري - يجب أن تظهر خيارات التوصيل مع رسوم 50 ريال</li>
+                    <li><strong>سيناريو 2:</strong> هوندا أكورد - يجب ألا يظهر قسم خيارات التوصيل</li>
+                    <li><strong>سيناريو 3:</strong> نيسان ألتيما - يجب أن تظهر خيارات التوصيل مع "مجاني"</li>
+                </ul>
+                
+                <h4>الخطوة 3: اختبار التفاعل</h4>
+                <ul>
+                    <li>اختر خيارات التوصيل المختلفة</li>
+                    <li>تأكد من تحديث السعر الإجمالي</li>
+                    <li>تأكد من ظهور رسوم التوصيل في ملخص الحجز</li>
+                    <li>جرب إدخال تواريخ الحجز وتأكد من الحساب الصحيح</li>
+                </ul>
+                
+                <h4>الخطوة 4: اختبار الحجز</h4>
+                <ul>
+                    <li>املأ نموذج الحجز بالكامل</li>
+                    <li>اختر خيار التوصيل المطلوب</li>
+                    <li>اضغط "احجز السيارة"</li>
+                    <li>تأكد من حفظ خيار التوصيل في بيانات الحجز</li>
+                </ul>
+            `;
+            
+            const popup = window.open('', '_blank', 'width=600,height=500');
+            popup.document.write(`
+                <html dir="rtl">
+                <head>
+                    <title>تعليمات الاختبار</title>
+                    <style>
+                        body { font-family: 'Cairo', sans-serif; padding: 20px; background: #f8f9fa; line-height: 1.6; }
+                        h3 { color: #1f2937; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+                        h4 { color: #374151; margin-top: 20px; }
+                        ul { padding-right: 20px; }
+                        li { margin-bottom: 8px; }
+                    </style>
+                </head>
+                <body>
+                    ${instructions}
+                </body>
+                </html>
+            `);
+        }
+
+        // التحقق من وجود بيانات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            
+            if (cars.length === 0) {
+                console.log('لا توجد بيانات تجريبية للاختبار');
+            } else {
+                console.log(`تم العثور على ${cars.length} سيارة للاختبار`);
+                
+                // عرض إحصائيات التوصيل
+                const deliveryAvailable = cars.filter(car => car.delivery_service).length;
+                const deliveryNotAvailable = cars.filter(car => !car.delivery_service).length;
+                const deliveryFree = cars.filter(car => car.delivery_service && car.delivery_fee === 0).length;
+                const deliveryPaid = cars.filter(car => car.delivery_service && car.delivery_fee > 0).length;
+                
+                console.log(`- سيارات مع خدمة توصيل: ${deliveryAvailable}`);
+                console.log(`- سيارات بدون خدمة توصيل: ${deliveryNotAvailable}`);
+                console.log(`- توصيل مجاني: ${deliveryFree}`);
+                console.log(`- توصيل مدفوع: ${deliveryPaid}`);
+            }
+        });
+    </script>
+</body>
+</html>

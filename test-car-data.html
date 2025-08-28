@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار بيانات السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .car-data {
+            background: #f8f9ff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .car-data h3 {
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .data-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .data-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .data-value {
+            color: #666;
+        }
+        
+        .error {
+            color: #dc3545;
+            font-weight: 600;
+        }
+        
+        .success {
+            color: #28a745;
+            font-weight: 600;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add-car.html" class="nav-link">إضافة سيارة</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-cars.html" class="nav-link">تصفح السيارات</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار بيانات السيارات</h1>
+                <p>فحص البيانات المحفوظة في localStorage والتأكد من صحة أسماء الحقول</p>
+            </div>
+
+            <div class="test-container">
+                <h2>البيانات المحفوظة في localStorage</h2>
+                <div id="carsData"></div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="refreshData()">
+                        <i class="fas fa-refresh"></i>
+                        تحديث البيانات
+                    </button>
+                    <button class="btn btn-outline" onclick="addTestCar()">
+                        <i class="fas fa-plus"></i>
+                        إضافة سيارة تجريبية
+                    </button>
+                    <button class="btn btn-danger" onclick="clearAllData()">
+                        <i class="fas fa-trash"></i>
+                        مسح جميع البيانات
+                    </button>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>معلومات التصحيح</h2>
+                <div id="debugInfo"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCarsData();
+            displayDebugInfo();
+        });
+
+        function displayCarsData() {
+            const carsData = document.getElementById('carsData');
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            
+            if (cars.length === 0) {
+                carsData.innerHTML = `
+                    <div class="car-data">
+                        <h3>لا توجد سيارات محفوظة</h3>
+                        <p>لم يتم العثور على أي سيارات في localStorage</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            carsData.innerHTML = '';
+            
+            cars.forEach((car, index) => {
+                const carDiv = document.createElement('div');
+                carDiv.className = 'car-data';
+                
+                // Check for missing or incorrect fields
+                const issues = [];
+                if (!car.brand) issues.push('الماركة مفقودة');
+                if (!car.model) issues.push('الموديل مفقود');
+                if (!car.year) issues.push('السنة مفقودة');
+                if (!car.daily_rate) issues.push('السعر اليومي مفقود');
+                if (!car.location) issues.push('الموقع مفقود');
+                
+                const statusClass = issues.length > 0 ? 'error' : 'success';
+                const statusText = issues.length > 0 ? 'مشاكل في البيانات' : 'البيانات صحيحة';
+                
+                carDiv.innerHTML = `
+                    <h3>
+                        السيارة ${index + 1} 
+                        <span class="${statusClass}">(${statusText})</span>
+                    </h3>
+                    
+                    <div class="data-row">
+                        <span class="data-label">الماركة:</span>
+                        <span class="data-value">${car.brand || '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">الموديل:</span>
+                        <span class="data-value">${car.model || '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">السنة:</span>
+                        <span class="data-value">${car.year || '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">السعر اليومي:</span>
+                        <span class="data-value">${car.daily_rate || '<span class="error">غير محدد</span>'} ريال</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">الموقع:</span>
+                        <span class="data-value">${car.location || '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">ناقل الحركة:</span>
+                        <span class="data-value">${car.transmission || '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">نوع الوقود:</span>
+                        <span class="data-value">${car.fuel_type || '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">عدد الكيلومترات:</span>
+                        <span class="data-value">${car.mileage || '<span class="error">غير محدد</span>'} كم</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">الوصف:</span>
+                        <span class="data-value">${car.description || '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">المميزات:</span>
+                        <span class="data-value">${car.features ? car.features.join(', ') : '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">الحالة:</span>
+                        <span class="data-value">${car.status || '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="data-label">تاريخ الإنشاء:</span>
+                        <span class="data-value">${car.created_at ? new Date(car.created_at).toLocaleString('ar-SA') : '<span class="error">غير محدد</span>'}</span>
+                    </div>
+                    
+                    ${issues.length > 0 ? `
+                        <div class="data-row" style="background: #fff5f5; border: 1px solid #fed7d7;">
+                            <span class="data-label">المشاكل:</span>
+                            <span class="data-value error">${issues.join(', ')}</span>
+                        </div>
+                    ` : ''}
+                `;
+                
+                carsData.appendChild(carDiv);
+            });
+        }
+
+        function displayDebugInfo() {
+            const debugInfo = document.getElementById('debugInfo');
+            
+            const localStorageKeys = Object.keys(localStorage);
+            const carRelatedKeys = localStorageKeys.filter(key => 
+                key.includes('car') || key.includes('Car') || key.includes('mock')
+            );
+            
+            debugInfo.innerHTML = `
+                <div class="data-row">
+                    <span class="data-label">مفاتيح localStorage:</span>
+                    <span class="data-value">${localStorageKeys.join(', ')}</span>
+                </div>
+                
+                <div class="data-row">
+                    <span class="data-label">المفاتيح المتعلقة بالسيارات:</span>
+                    <span class="data-value">${carRelatedKeys.join(', ')}</span>
+                </div>
+                
+                <div class="data-row">
+                    <span class="data-label">عدد السيارات المحفوظة:</span>
+                    <span class="data-value">${JSON.parse(localStorage.getItem('mockCars') || '[]').length}</span>
+                </div>
+                
+                <div class="data-row">
+                    <span class="data-label">حجم البيانات:</span>
+                    <span class="data-value">${(JSON.stringify(localStorage.getItem('mockCars') || '[]').length / 1024).toFixed(2)} KB</span>
+                </div>
+            `;
+        }
+
+        function refreshData() {
+            displayCarsData();
+            displayDebugInfo();
+        }
+
+        function addTestCar() {
+            const testCar = {
+                id: Date.now(),
+                brand: 'تويوتا',
+                model: 'كامري',
+                year: '2023',
+                daily_rate: 150,
+                deposit: 500,
+                location: 'الرياض',
+                transmission: 'أوتوماتيك',
+                fuel_type: 'بنزين',
+                mileage: 25000,
+                description: 'سيارة تجريبية للاختبار',
+                features: ['ac', 'bluetooth', 'gps'],
+                photos: [],
+                status: 'active',
+                created_at: new Date().toISOString()
+            };
+            
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            existingCars.push(testCar);
+            localStorage.setItem('mockCars', JSON.stringify(existingCars));
+            
+            refreshData();
+            alert('تم إضافة سيارة تجريبية بنجاح');
+        }
+
+        function clearAllData() {
+            if (confirm('هل أنت متأكد من مسح جميع بيانات السيارات؟')) {
+                localStorage.removeItem('mockCars');
+                refreshData();
+                alert('تم مسح جميع البيانات بنجاح');
+            }
+        }
+    </script>
+</body>
+</html>

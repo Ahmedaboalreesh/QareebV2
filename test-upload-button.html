@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار زر رفع الصور</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .debug-info {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            color: white;
+        }
+        .success {
+            background-color: #28a745;
+        }
+        .error {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>اختبار زر رفع الصور</h1>
+        <p>هذه الصفحة لاختبار مشكلة زر رفع الصور</p>
+        
+        <form id="testForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="photos">اختيار الصور:</label>
+                <input type="file" id="photos" name="photos" multiple accept="image/*">
+            </div>
+            
+            <div class="form-group">
+                <label for="photoType">نوع الصور:</label>
+                <select id="photoType" name="photo_type">
+                    <option value="general">عامة</option>
+                    <option value="exterior">خارجية</option>
+                    <option value="interior">داخلية</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">الوصف:</label>
+                <textarea id="description" name="description" rows="3" placeholder="وصف الصور..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" id="submitBtn">
+                    رفع الصور
+                </button>
+                <button type="button" onclick="testButtonClick()">
+                    اختبار النقر
+                </button>
+            </div>
+        </form>
+        
+        <div class="debug-info">
+            <h3>معلومات التصحيح:</h3>
+            <div id="debugOutput"></div>
+        </div>
+        
+        <div id="messageContainer"></div>
+    </div>
+
+    <script>
+        // Debug output function
+        function debugLog(message) {
+            const debugOutput = document.getElementById('debugOutput');
+            const timestamp = new Date().toLocaleTimeString();
+            debugOutput.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            console.log(`[DEBUG] ${message}`);
+        }
+        
+        // Show message function
+        function showMessage(message, type) {
+            const container = document.getElementById('messageContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            container.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 5000);
+        }
+        
+        // Test button click function
+        function testButtonClick() {
+            debugLog('زر الاختبار تم النقر عليه');
+            showMessage('زر الاختبار يعمل بشكل صحيح', 'success');
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            debugLog('الصفحة تم تحميلها');
+            
+            const form = document.getElementById('testForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const photos = document.getElementById('photos');
+            const photoType = document.getElementById('photoType');
+            const description = document.getElementById('description');
+            
+            debugLog(`العناصر الموجودة: form=${!!form}, submitBtn=${!!submitBtn}, photos=${!!photos}, photoType=${!!photoType}, description=${!!description}`);
+            
+            // Add click event to submit button
+            if (submitBtn) {
+                submitBtn.addEventListener('click', function(event) {
+                    debugLog('زر رفع الصور تم النقر عليه');
+                    debugLog(`تفاصيل الحدث: type=${event.type}, target=${event.target.id}`);
+                });
+            }
+            
+            // Add form submit event
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    debugLog('حدث إرسال النموذج تم تشغيله');
+                    debugLog(`تفاصيل الحدث: type=${event.type}, target=${event.target.id}`);
+                    
+                    event.preventDefault();
+                    
+                    // Check form elements
+                    const files = photos.files;
+                    const selectedType = photoType.value;
+                    const desc = description.value;
+                    
+                    debugLog(`البيانات: files=${files.length}, type=${selectedType}, description=${desc.length} chars`);
+                    
+                    if (files.length === 0) {
+                        showMessage('يرجى اختيار صور للرفع', 'error');
+                        return;
+                    }
+                    
+                    showMessage('تم إرسال النموذج بنجاح!', 'success');
+                    debugLog('النموذج تم إرساله بنجاح');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

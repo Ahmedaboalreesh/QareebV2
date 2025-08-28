@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار واجهة إضافة السيارة المحسنة</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            text-align: right;
+            margin: 0;
+            padding-right: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .ui-preview {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .ui-preview h4 {
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .preview-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .preview-item h5 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .preview-item h5 i {
+            color: #667eea;
+        }
+        
+        .feature-badge {
+            background: #e8f5e8;
+            color: #27ae60;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        .improvement-note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-cars.html" class="nav-link">تصفح السيارات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add-car.html" class="nav-link">إضافة سيارة</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار واجهة إضافة السيارة المحسنة</h1>
+                <p>تحسينات شاملة على واجهة المستخدم والأيقونات</p>
+            </div>
+
+            <div class="test-container">
+                <h2>التحسينات الجديدة</h2>
+                <div class="info-box">
+                    <h4>التحسينات المطبقة:</h4>
+                    <ul>
+                        <li>✅ هيدر محسن مع أيقونات وتأثيرات بصرية</li>
+                        <li>✅ خطوات واضحة في رأس الصفحة</li>
+                        <li>✅ أيقونات محسنة لكل قسم</li>
+                        <li>✅ أزرار إجراءات محسنة مع وصف</li>
+                        <li>✅ تأثيرات حركية وتفاعلية</li>
+                        <li>✅ تصميم متجاوب محسن</li>
+                        <li>✅ ألوان وتدرجات جذابة</li>
+                        <li>✅ تحسين تجربة المستخدم</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار التحسينات</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="testAddCar()">
+                        <i class="fas fa-plus"></i>
+                        اختبار إضافة سيارة
+                    </button>
+                    <button class="btn btn-success" onclick="testResponsive()">
+                        <i class="fas fa-mobile-alt"></i>
+                        اختبار التجاوب
+                    </button>
+                    <button class="btn btn-outline" onclick="viewImprovements()">
+                        <i class="fas fa-eye"></i>
+                        عرض التحسينات
+                    </button>
+                </div>
+                
+                <div class="info-box">
+                    <h4>كيفية اختبار التحسينات:</h4>
+                    <ul>
+                        <li>1. اضغط على "اختبار إضافة سيارة" لفتح النموذج المحسن</li>
+                        <li>2. لاحظ الهيدر الجديد مع الأيقونات والتأثيرات</li>
+                        <li>3. تحقق من خطوات العمل في رأس الصفحة</li>
+                        <li>4. اختبر الأيقونات المحسنة في كل قسم</li>
+                        <li>5. جرب الأزرار الجديدة مع الوصف</li>
+                        <li>6. اختبر التأثيرات الحركية عند التفاعل</li>
+                        <li>7. تحقق من التصميم المتجاوب</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>معاينة التحسينات</h2>
+                <div class="ui-preview">
+                    <h4>التحسينات المطبقة:</h4>
+                    
+                    <div class="preview-item">
+                        <h5><i class="fas fa-header"></i> هيدر محسن</h5>
+                        <div class="feature-badge">أيقونات محسنة</div>
+                        <div class="improvement-note">هيدر جديد مع أيقونات واضحة وتأثيرات بصرية جذابة</div>
+                    </div>
+                    
+                    <div class="preview-item">
+                        <h5><i class="fas fa-route"></i> خطوات العمل</h5>
+                        <div class="feature-badge">دليل بصري</div>
+                        <div class="improvement-note">خطوات واضحة في رأس الصفحة تشرح عملية إضافة السيارة</div>
+                    </div>
+                    
+                    <div class="preview-item">
+                        <h5><i class="fas fa-icons"></i> أيقونات الأقسام</h5>
+                        <div class="feature-badge">تصميم محسن</div>
+                        <div class="improvement-note">أيقونات كبيرة وملونة لكل قسم مع خلفيات جذابة</div>
+                    </div>
+                    
+                    <div class="preview-item">
+                        <h5><i class="fas fa-mouse-pointer"></i> أزرار محسنة</h5>
+                        <div class="feature-badge">تفاعل محسن</div>
+                        <div class="improvement-note">أزرار كبيرة مع أيقونات ووصف وتأثيرات حركية</div>
+                    </div>
+                    
+                    <div class="preview-item">
+                        <h5><i class="fas fa-mobile-alt"></i> تصميم متجاوب</h5>
+                        <div class="feature-badge">جميع الأجهزة</div>
+                        <div class="improvement-note">تصميم متجاوب محسن للجوال والأجهزة اللوحية</div>
+                    </div>
+                    
+                    <div class="preview-item">
+                        <h5><i class="fas fa-palette"></i> ألوان وتدرجات</h5>
+                        <div class="feature-badge">جاذبية بصرية</div>
+                        <div class="improvement-note">تدرجات لونية جذابة وتأثيرات بصرية متقدمة</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>مقارنة قبل وبعد</h2>
+                <div class="info-box">
+                    <h4>قبل التحسين:</h4>
+                    <ul>
+                        <li>❌ هيدر بسيط بدون أيقونات</li>
+                        <li>❌ أقسام بدون تمييز بصري</li>
+                        <li>❌ أزرار بسيطة بدون وصف</li>
+                        <li>❌ تصميم ثابت بدون تأثيرات</li>
+                        <li>❌ تجربة مستخدم عادية</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>بعد التحسين:</h4>
+                    <ul>
+                        <li>✅ هيدر محسن مع أيقونات واضحة</li>
+                        <li>✅ أقسام مميزة بصرياً</li>
+                        <li>✅ أزرار تفاعلية مع وصف</li>
+                        <li>✅ تأثيرات حركية جذابة</li>
+                        <li>✅ تجربة مستخدم محسنة</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>الفوائد</h2>
+                <div class="info-box">
+                    <h4>فوائد التحسينات:</h4>
+                    <ul>
+                        <li>🎯 <strong>سهولة الاستخدام</strong>: واجهة أكثر وضوحاً وسهولة</li>
+                        <li>👁️ <strong>جاذبية بصرية</strong>: تصميم جذاب ومتطور</li>
+                        <li>📱 <strong>تجربة متجاوبة</strong>: يعمل على جميع الأجهزة</li>
+                        <li>⚡ <strong>تفاعل محسن</strong>: استجابة سريعة وتأثيرات حركية</li>
+                        <li>🎨 <strong>هوية بصرية</strong>: تصميم موحد ومتسق</li>
+                        <li>🚀 <strong>أداء محسن</strong>: تحميل سريع وتجربة سلسة</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>التقنيات المستخدمة:</h4>
+                    <ul>
+                        <li>🎨 <strong>CSS Gradients</strong>: تدرجات لونية جذابة</li>
+                        <li>🎭 <strong>CSS Animations</strong>: تأثيرات حركية متقدمة</li>
+                        <li>📐 <strong>Flexbox & Grid</strong>: تخطيط مرن ومتجاوب</li>
+                        <li>🎪 <strong>Hover Effects</strong>: تفاعلات عند التحويم</li>
+                        <li>📱 <strong>Media Queries</strong>: تصميم متجاوب</li>
+                        <li>✨ <strong>Backdrop Filter</strong>: تأثيرات زجاجية</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>نصائح للاختبار</h2>
+                <div class="info-box">
+                    <h4>نقاط الاختبار المهمة:</h4>
+                    <ul>
+                        <li>🔍 <strong>الهيدر</strong>: تحقق من الأيقونات والتأثيرات</li>
+                        <li>📋 <strong>الخطوات</strong>: تأكد من وضوح خطوات العمل</li>
+                        <li>🎯 <strong>الأقسام</strong>: اختبر أيقونات الأقسام المختلفة</li>
+                        <li>🔘 <strong>الأزرار</strong>: جرب الأزرار الجديدة مع الوصف</li>
+                        <li>📱 <strong>التجاوب</strong>: اختبر على أحجام شاشات مختلفة</li>
+                        <li>⚡ <strong>الأداء</strong>: تحقق من سرعة التحميل</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function testAddCar() {
+            // إنشاء مستخدم تجريبي إذا لم يكن موجوداً
+            if (!localStorage.getItem('userData')) {
+                const testUser = {
+                    id: 1,
+                    name: 'أحمد محمد',
+                    email: 'ahmed@test.com',
+                    phone: '+966501234567'
+                };
+                localStorage.setItem('userData', JSON.stringify(testUser));
+                localStorage.setItem('userToken', 'test-token');
+                localStorage.setItem('userType', 'owner');
+            }
+            
+            // فتح صفحة إضافة السيارة المحسنة
+            window.open('add-car.html', '_blank');
+        }
+
+        function testResponsive() {
+            alert('لاختبار التصميم المتجاوب:\n\n1. افتح صفحة إضافة السيارة\n2. اضغط F12 لفتح أدوات المطور\n3. اضغط على أيقونة الجوال في أعلى الأدوات\n4. اختبر أحجام شاشات مختلفة\n5. تحقق من تكيف العناصر مع الشاشات الصغيرة');
+        }
+
+        function viewImprovements() {
+            const improvements = [
+                '🎨 هيدر محسن مع أيقونات وتأثيرات بصرية',
+                '📋 خطوات واضحة في رأس الصفحة',
+                '🎯 أيقونات محسنة لكل قسم',
+                '🔘 أزرار إجراءات محسنة مع وصف',
+                '✨ تأثيرات حركية وتفاعلية',
+                '📱 تصميم متجاوب محسن',
+                '🌈 ألوان وتدرجات جذابة',
+                '🚀 تحسين تجربة المستخدم'
+            ];
+            
+            let message = 'التحسينات المطبقة:\n\n';
+            improvements.forEach((improvement, index) => {
+                message += `${index + 1}. ${improvement}\n`;
+            });
+            
+            message += '\nللاختبار: اضغط على "اختبار إضافة سيارة"';
+            
+            alert(message);
+        }
+    </script>
+</body>
+</html>

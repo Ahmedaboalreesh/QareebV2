@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار أزرار الإشعارات - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="notifications.html">
+                        <i class="fas fa-bell"></i>
+                        العودة للإشعارات
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>
+                    <i class="fas fa-bug"></i>
+                    اختبار أزرار الإشعارات
+                </h1>
+                <p>صفحة مخصصة لاختبار عمل أزرار الإشعارات</p>
+            </div>
+
+            <!-- Test Controls -->
+            <div class="notifications-controls">
+                <div class="controls-left">
+                    <button class="btn btn-outline" onclick="createTestNotification()">
+                        <i class="fas fa-plus"></i>
+                        إنشاء إشعار تجريبي
+                    </button>
+                    <button class="btn btn-outline" onclick="clearTestData()">
+                        <i class="fas fa-trash"></i>
+                        مسح البيانات التجريبية
+                    </button>
+                </div>
+                <div class="controls-right">
+                    <button class="btn btn-outline" onclick="testAllButtons()">
+                        <i class="fas fa-play"></i>
+                        اختبار جميع الأزرار
+                    </button>
+                </div>
+            </div>
+
+            <!-- Test Notifications List -->
+            <div class="notifications-container">
+                <div class="notifications-list" id="testNotificationsList">
+                    <!-- Test notifications will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Debug Info -->
+            <div class="debug-info" style="background: white; padding: 1rem; border-radius: 8px; margin-top: 2rem;">
+                <h3>معلومات التصحيح:</h3>
+                <div id="debugLog" style="background: #f8f9fa; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.9rem; max-height: 300px; overflow-y: auto;">
+                    جاري تحميل معلومات التصحيح...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notification Item Template -->
+    <template id="notificationTemplate">
+        <div class="notification-item" data-id="">
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="notification-content">
+                <div class="notification-header">
+                    <h4 class="notification-title"></h4>
+                    <div class="notification-actions">
+                        <button class="btn-icon btn-view" onclick="viewNotificationSource(this)" title="عرض المصدر">
+                            <i class="fas fa-external-link-alt"></i>
+                        </button>
+                        <button class="btn-icon" onclick="markAsRead(this)" title="تحديد كمقروء">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="btn-icon" onclick="deleteNotification(this)" title="حذف">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <p class="notification-description"></p>
+                <div class="notification-meta">
+                    <span class="notification-time"></span>
+                    <span class="notification-type"></span>
+                </div>
+            </div>
+            <div class="notification-status">
+                <div class="unread-indicator"></div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        // Global variables
+        let testNotifications = [];
+        let debugLog = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 Initializing notification buttons test page...');
+            addDebugLog('🔧 تم تهيئة صفحة اختبار أزرار الإشعارات');
+            
+            // Load test notifications
+            loadTestNotifications();
+            
+            addDebugLog('✅ تم تحميل الإشعارات التجريبية');
+        });
+
+        // Add debug log
+        function addDebugLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.push(`[${timestamp}] ${message}`);
+            
+            const debugElement = document.getElementById('debugLog');
+            if (debugElement) {
+                debugElement.innerHTML = debugLog.map(log => `<div>${log}</div>`).join('');
+                debugElement.scrollTop = debugElement.scrollHeight;
+            }
+            
+            console.log(message);
+        }
+
+        // Load test notifications
+        function loadTestNotifications() {
+            try {
+                const notificationsList = document.getElementById('testNotificationsList');
+                
+                // Get mock notifications from localStorage
+                const mockNotifications = JSON.parse(localStorage.getItem('mockNotifications') || '[]');
+                
+                if (mockNotifications.length === 0) {
+                    notificationsList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <i class="fas fa-bell-slash"></i>
+                            </div>
+                            <h3>لا توجد إشعارات تجريبية</h3>
+                            <p>اضغط على "إنشاء إشعار تجريبي" لبدء الاختبار</p>
+                        </div>
+                    `;
+                    addDebugLog('⚠️ لا توجد إشعارات تجريبية');
+                    return;
+                }
+                
+                testNotifications = mockNotifications;
+                displayTestNotifications();
+                addDebugLog(`✅ تم تحميل ${mockNotifications.length} إشعار تجريبي`);
+                
+            } catch (error) {
+                console.error('❌ Error loading test notifications:', error);
+                addDebugLog(`❌ خطأ في تحميل الإشعارات: ${error.message}`);
+            }
+        }
+
+        // Display test notifications
+        function displayTestNotifications() {
+            const notificationsList = document.getElementById('testNotificationsList');
+            notificationsList.innerHTML = '';
+            
+            testNotifications.forEach(notification => {
+                const notificationElement = createTestNotificationElement(notification);
+                notificationsList.appendChild(notificationElement);
+            });
+            
+            addDebugLog(`📋 تم عرض ${testNotifications.length} إشعار`);
+        }
+
+        // Create test notification element
+        function createTestNotificationElement(notification) {
+            const template = document.getElementById('notificationTemplate');
+            const notificationElement = template.content.cloneNode(true);
+            
+            const notificationItem = notificationElement.querySelector('.notification-item');
+            const icon = notificationElement.querySelector('.notification-icon i');
+            const title = notificationElement.querySelector('.notification-title');
+            const description = notificationElement.querySelector('.notification-description');
+            const time = notificationElement.querySelector('.notification-time');
+            const type = notificationElement.querySelector('.notification-type');
+            const unreadIndicator = notificationElement.querySelector('.unread-indicator');
+            
+            // Set notification ID
+            notificationItem.setAttribute('data-id', notification.id);
+            
+            // Set icon based on type
+            const iconMap = {
+                'photo_uploaded': 'fas fa-camera',
+                'booking_status_updated': 'fas fa-calendar-check',
+                'review_received': 'fas fa-star',
+                'booking_created': 'fas fa-calendar-plus',
+                'payment_received': 'fas fa-money-bill-wave'
+            };
+            
+            icon.className = iconMap[notification.type] || 'fas fa-bell';
+            
+            // Set content
+            title.textContent = notification.title;
+            description.textContent = notification.description;
+            time.textContent = formatTime(notification.created_at);
+            type.textContent = getNotificationTypeText(notification.type);
+            
+            // Set unread indicator
+            if (!notification.is_read) {
+                unreadIndicator.style.display = 'block';
+                notificationItem.classList.add('unread');
+            } else {
+                unreadIndicator.style.display = 'none';
+                notificationItem.classList.remove('unread');
+            }
+            
+            // Add event listeners for buttons
+            const viewButton = notificationElement.querySelector('.btn-view');
+            const markReadButton = notificationElement.querySelector('.btn-icon:not(.btn-view)');
+            const deleteButton = notificationElement.querySelector('.btn-icon:last-child');
+            
+            if (viewButton) {
+                viewButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    addDebugLog(`🔗 تم النقر على زر "عرض المصدر" للإشعار: ${notification.id}`);
+                    testViewNotificationSource(this);
+                });
+            }
+            
+            if (markReadButton) {
+                markReadButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    addDebugLog(`✅ تم النقر على زر "تحديد كمقروء" للإشعار: ${notification.id}`);
+                    testMarkAsRead(this);
+                });
+            }
+            
+            if (deleteButton) {
+                deleteButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    addDebugLog(`🗑️ تم النقر على زر "حذف" للإشعار: ${notification.id}`);
+                    testDeleteNotification(this);
+                });
+            }
+            
+            return notificationElement;
+        }
+
+        // Test functions
+        function testViewNotificationSource(button) {
+            const notificationItem = button.closest('.notification-item');
+            const notificationId = notificationItem.getAttribute('data-id');
+            
+            addDebugLog(`🔗 اختبار زر عرض المصدر - معرف الإشعار: ${notificationId}`);
+            
+            // Simulate navigation
+            setTimeout(() => {
+                addDebugLog(`✅ تم محاكاة الانتقال إلى المصدر للإشعار: ${notificationId}`);
+            }, 1000);
+        }
+
+        function testMarkAsRead(button) {
+            const notificationItem = button.closest('.notification-item');
+            const notificationId = notificationItem.getAttribute('data-id');
+            
+            addDebugLog(`✅ اختبار زر تحديد كمقروء - معرف الإشعار: ${notificationId}`);
+            
+            // Update UI
+            notificationItem.classList.remove('unread');
+            const unreadIndicator = notificationItem.querySelector('.unread-indicator');
+            if (unreadIndicator) {
+                unreadIndicator.style.display = 'none';
+            }
+            
+            // Update notification in array
+            const notification = testNotifications.find(n => n.id === notificationId);
+            if (notification) {
+                notification.is_read = true;
+            }
+            
+            addDebugLog(`✅ تم تحديث حالة الإشعار إلى مقروء: ${notificationId}`);
+        }
+
+        function testDeleteNotification(button) {
+            const notificationItem = button.closest('.notification-item');
+            const notificationId = notificationItem.getAttribute('data-id');
+            
+            addDebugLog(`🗑️ اختبار زر الحذف - معرف الإشعار: ${notificationId}`);
+            
+            if (confirm('هل أنت متأكد من حذف هذا الإشعار التجريبي؟')) {
+                // Remove from array
+                testNotifications = testNotifications.filter(n => n.id !== notificationId);
+                
+                // Remove from UI
+                notificationItem.remove();
+                
+                addDebugLog(`✅ تم حذف الإشعار التجريبي: ${notificationId}`);
+            } else {
+                addDebugLog(`❌ تم إلغاء حذف الإشعار: ${notificationId}`);
+            }
+        }
+
+        // Utility functions
+        function formatTime(timestamp) {
+            const now = new Date();
+            const notificationTime = new Date(timestamp);
+            const diffInMinutes = Math.floor((now - notificationTime) / (1000 * 60));
+            
+            if (diffInMinutes < 1) {
+                return 'الآن';
+            } else if (diffInMinutes < 60) {
+                return `منذ ${diffInMinutes} دقيقة`;
+            } else if (diffInMinutes < 1440) {
+                const hours = Math.floor(diffInMinutes / 60);
+                return `منذ ${hours} ساعة`;
+            } else {
+                const days = Math.floor(diffInMinutes / 1440);
+                return `منذ ${days} يوم`;
+            }
+        }
+
+        function getNotificationTypeText(type) {
+            const typeMap = {
+                'photo_uploaded': 'رفع الصور',
+                'booking_status_updated': 'تحديث الحجز',
+                'review_received': 'التقييمات',
+                'booking_created': 'حجز جديد',
+                'payment_received': 'الدفع'
+            };
+            
+            return typeMap[type] || type;
+        }
+
+        // Control functions
+        function createTestNotification() {
+            const testNotification = {
+                id: `test-${Date.now()}`,
+                user_id: 'test-user',
+                type: 'photo_uploaded',
+                title: 'إشعار تجريبي جديد',
+                description: 'هذا إشعار تجريبي لاختبار الأزرار',
+                related_id: 'test-booking',
+                related_type: 'booking',
+                is_read: false,
+                created_at: new Date().toISOString(),
+                car_name: 'سيارة تجريبية',
+                renter_name: 'مستخدم تجريبي'
+            };
+            
+            testNotifications.unshift(testNotification);
+            displayTestNotifications();
+            
+            addDebugLog(`➕ تم إنشاء إشعار تجريبي جديد: ${testNotification.id}`);
+        }
+
+        function clearTestData() {
+            if (confirm('هل أنت متأكد من مسح جميع البيانات التجريبية؟')) {
+                testNotifications = [];
+                displayTestNotifications();
+                addDebugLog('🗑️ تم مسح جميع البيانات التجريبية');
+            }
+        }
+
+        function testAllButtons() {
+            addDebugLog('🧪 بدء اختبار جميع الأزرار...');
+            
+            const buttons = document.querySelectorAll('.btn-icon');
+            addDebugLog(`🔍 تم العثور على ${buttons.length} زر`);
+            
+            buttons.forEach((button, index) => {
+                setTimeout(() => {
+                    addDebugLog(`🔘 اختبار الزر رقم ${index + 1}: ${button.title || 'زر بدون عنوان'}`);
+                    button.style.transform = 'scale(1.1)';
+                    button.style.backgroundColor = '#ffeb3b';
+                    
+                    setTimeout(() => {
+                        button.style.transform = '';
+                        button.style.backgroundColor = '';
+                    }, 500);
+                }, index * 200);
+            });
+        }
+    </script>
+</body>
+</html>

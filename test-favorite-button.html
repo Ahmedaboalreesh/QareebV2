@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار زر المفضلة</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            text-align: right;
+            margin: 0;
+            padding-right: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .demo-favorite {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .demo-favorite h4 {
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .favorite-demo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .favorite-status {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .favorite-status.active {
+            background: #e8f5e8;
+            color: #27ae60;
+        }
+        
+        .favorite-status.inactive {
+            background: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-cars.html" class="nav-link">تصفح السيارات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add-car.html" class="nav-link">إضافة سيارة</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار زر المفضلة</h1>
+                <p>تفعيل زر المفضلة في صفحة تفاصيل السيارة</p>
+            </div>
+
+            <div class="test-container">
+                <h2>الميزة الجديدة</h2>
+                <div class="info-box">
+                    <h4>زر المفضلة في صفحة تفاصيل السيارة:</h4>
+                    <ul>
+                        <li>✅ زر تفاعلي لإضافة/إزالة السيارة من المفضلة</li>
+                        <li>✅ تحديث فوري لمظهر الزر عند النقر</li>
+                        <li>✅ حفظ حالة المفضلة في localStorage</li>
+                        <li>✅ رسائل تأكيد عند الإضافة/الإزالة</li>
+                        <li>✅ تصميم متجاوب للجوال</li>
+                        <li>✅ أيقونة قلب متغيرة حسب الحالة</li>
+                        <li>✅ نص متغير حسب الحالة</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار الميزة</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="testCarDetails()">
+                        <i class="fas fa-eye"></i>
+                        اختبار صفحة تفاصيل السيارة
+                    </button>
+                    <button class="btn btn-success" onclick="addSampleCars()">
+                        <i class="fas fa-plus"></i>
+                        إضافة سيارات تجريبية
+                    </button>
+                    <button class="btn btn-outline" onclick="testFavoriteFunction()">
+                        <i class="fas fa-heart"></i>
+                        اختبار وظيفة المفضلة
+                    </button>
+                </div>
+                
+                <div class="info-box">
+                    <h4>كيفية اختبار زر المفضلة:</h4>
+                    <ul>
+                        <li>1. اضغط على "إضافة سيارات تجريبية" لإنشاء بيانات</li>
+                        <li>2. اضغط على "اختبار صفحة تفاصيل السيارة" لفتح الصفحة</li>
+                        <li>3. لاحظ زر المفضلة في أعلى الصفحة</li>
+                        <li>4. اضغط على الزر لإضافة السيارة للمفضلة</li>
+                        <li>5. لاحظ تغيير مظهر الزر والنص</li>
+                        <li>6. اضغط مرة أخرى لإزالة السيارة من المفضلة</li>
+                        <li>7. تحقق من رسائل التأكيد</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>حالة المفضلة الحالية</h2>
+                <div class="demo-favorite">
+                    <h4>السيارات في المفضلة:</h4>
+                    <div id="favoritesList">
+                        <!-- سيتم عرض السيارات المفضلة هنا -->
+                    </div>
+                    <div class="favorite-demo">
+                        <button class="btn btn-outline" onclick="clearFavorites()">
+                            <i class="fas fa-trash"></i>
+                            مسح جميع المفضلة
+                        </button>
+                        <button class="btn btn-success" onclick="refreshFavorites()">
+                            <i class="fas fa-sync"></i>
+                            تحديث القائمة
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>مثال على زر المفضلة</h2>
+                <div class="demo-favorite">
+                    <h4>زر المفضلة في صفحة التفاصيل:</h4>
+                    <div class="favorite-demo">
+                        <button class="btn btn-outline btn-favorite" id="demoFavoriteBtn" onclick="toggleDemoFavorite()">
+                            <i class="far fa-heart"></i>
+                            <span class="favorite-text">أضف للمفضلة</span>
+                        </button>
+                        <div class="favorite-status inactive" id="demoStatus">
+                            غير مفضلة
+                        </div>
+                    </div>
+                    <p><strong>ملاحظة:</strong> هذا مثال على شكل الزر في صفحة تفاصيل السيارة. الزر الفعلي سيكون في أعلى الصفحة بجانب عنوان السيارة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Sample cars data
+        const sampleCars = [
+            {
+                id: 1,
+                brand: 'تويوتا',
+                model: 'كامري',
+                year: '2023',
+                daily_rate: 150,
+                location: 'الرياض'
+            },
+            {
+                id: 2,
+                brand: 'مرسيدس',
+                model: 'C-Class',
+                year: '2023',
+                daily_rate: 300,
+                location: 'جدة'
+            },
+            {
+                id: 3,
+                brand: 'هيونداي',
+                model: 'سوناتا',
+                year: '2022',
+                daily_rate: 120,
+                location: 'الدمام'
+            }
+        ];
+
+        function testCarDetails() {
+            // إنشاء مستخدم تجريبي إذا لم يكن موجوداً
+            if (!localStorage.getItem('userData')) {
+                const testUser = {
+                    id: 1,
+                    name: 'أحمد محمد',
+                    email: 'ahmed@test.com',
+                    phone: '+966501234567'
+                };
+                localStorage.setItem('userData', JSON.stringify(testUser));
+                localStorage.setItem('userToken', 'test-token');
+                localStorage.setItem('userType', 'renter');
+            }
+            
+            // فتح صفحة تفاصيل السيارة الأولى
+            window.open('car-details.html?id=1', '_blank');
+        }
+
+        function addSampleCars() {
+            // Get existing cars
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            
+            // Add sample cars if they don't exist
+            sampleCars.forEach(car => {
+                if (!existingCars.find(c => c.id === car.id)) {
+                    const fullCar = {
+                        ...car,
+                        deposit: 500,
+                        owner_name: 'أحمد محمد',
+                        transmission: 'أوتوماتيك',
+                        fuel_type: 'بنزين',
+                        mileage: 25000,
+                        description: 'سيارة ممتازة في حالة جيدة، مكيفة بالكامل، مناسبة للرحلات العائلية والتنقل اليومي.',
+                        features: ['ac', 'bluetooth', 'gps', 'backup_camera'],
+                        photos: [{ filename: `car${car.id}.jpg` }]
+                    };
+                    existingCars.push(fullCar);
+                }
+            });
+            
+            localStorage.setItem('mockCars', JSON.stringify(existingCars));
+            
+            alert('تم إضافة سيارات تجريبية بنجاح! يمكنك الآن اختبار صفحة تفاصيل السيارة');
+        }
+
+        function testFavoriteFunction() {
+            alert('اختبار وظيفة المفضلة:\n\n1. زر تفاعلي مع أيقونة قلب\n2. تغيير النص حسب الحالة\n3. حفظ في localStorage\n4. رسائل تأكيد\n5. تصميم متجاوب');
+        }
+
+        function clearFavorites() {
+            if (confirm('هل تريد مسح جميع السيارات من المفضلة؟')) {
+                localStorage.removeItem('favorites');
+                refreshFavorites();
+                alert('تم مسح جميع المفضلة بنجاح');
+            }
+        }
+
+        function refreshFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const favoritesList = document.getElementById('favoritesList');
+            
+            if (favorites.length === 0) {
+                favoritesList.innerHTML = '<p>لا توجد سيارات في المفضلة</p>';
+                return;
+            }
+            
+            // Get car details for favorites
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            
+            favoritesList.innerHTML = favorites.map(carId => {
+                const car = existingCars.find(c => c.id === carId);
+                if (car) {
+                    return `
+                        <div class="favorite-demo">
+                            <span><strong>${car.brand} ${car.model} ${car.year}</strong> - ${car.location}</span>
+                            <button class="btn btn-outline" onclick="removeFromFavorites(${carId})">
+                                <i class="fas fa-times"></i>
+                                إزالة
+                            </button>
+                        </div>
+                    `;
+                }
+                return '';
+            }).join('');
+        }
+
+        function removeFromFavorites(carId) {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const updatedFavorites = favorites.filter(id => id !== carId);
+            localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+            refreshFavorites();
+            alert('تم إزالة السيارة من المفضلة');
+        }
+
+        function toggleDemoFavorite() {
+            const demoBtn = document.getElementById('demoFavoriteBtn');
+            const demoStatus = document.getElementById('demoStatus');
+            const favoriteIcon = demoBtn.querySelector('i');
+            const favoriteText = demoBtn.querySelector('.favorite-text');
+            
+            const isActive = demoBtn.classList.contains('active');
+            
+            if (isActive) {
+                // Remove from favorite
+                demoBtn.classList.remove('active');
+                favoriteIcon.className = 'far fa-heart';
+                favoriteText.textContent = 'أضف للمفضلة';
+                demoStatus.textContent = 'غير مفضلة';
+                demoStatus.className = 'favorite-status inactive';
+            } else {
+                // Add to favorite
+                demoBtn.classList.add('active');
+                favoriteIcon.className = 'fas fa-heart';
+                favoriteText.textContent = 'إزالة من المفضلة';
+                demoStatus.textContent = 'مفضلة';
+                demoStatus.className = 'favorite-status active';
+            }
+        }
+
+        // Load favorites on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshFavorites();
+        });
+    </script>
+</body>
+</html>

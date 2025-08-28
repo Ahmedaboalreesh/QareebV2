@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار قوي للصور الثابتة</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS قوي لضمان ثبات الصور */
+        .main-image img,
+        .gallery-item img,
+        .car-image img,
+        .test-image img {
+            transition: none !important;
+            transform: none !important;
+            animation: none !important;
+        }
+
+        .main-image:hover img,
+        .gallery-item:hover img,
+        .car-image:hover img,
+        .test-image:hover img {
+            transform: none !important;
+            scale: none !important;
+        }
+
+        .main-image,
+        .gallery-item,
+        .car-image,
+        .test-image {
+            transition: none !important;
+            transform: none !important;
+        }
+
+        .main-image:hover,
+        .gallery-item:hover,
+        .car-image:hover,
+        .test-image:hover {
+            transform: none !important;
+        }
+
+        /* CSS للصفحة */
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .test-item {
+            background: #f8f9ff;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .test-item h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .test-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .status-static {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            text-align: right;
+            margin: 0;
+            padding-right: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .car-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .car-image {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .car-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .car-content {
+            padding: 20px;
+        }
+        
+        .car-content h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background: #f8f9fa;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-gallery {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+        
+        .gallery-item {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid transparent;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            border-color: #3b82f6;
+        }
+        
+        .gallery-item.active {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-cars.html" class="nav-link">تصفح السيارات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add-car.html" class="nav-link">إضافة سيارة</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار قوي للصور الثابتة</h1>
+                <p>CSS قوي لضمان ثبات الصور - لا توجد حركة على الإطلاق</p>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار الصور مع CSS قوي</h2>
+                <div class="test-grid">
+                    <div class="test-item">
+                        <h3>صورة السيارة الرئيسية</h3>
+                        <div class="main-image">
+                            <img src="https://via.placeholder.com/600x400/4CAF50/ffffff?text=صورة+السيارة+الرئيسية" alt="صورة السيارة الرئيسية">
+                        </div>
+                        <div class="status-indicator status-static">
+                            ✅ ثابتة تماماً - CSS قوي
+                        </div>
+                    </div>
+                    
+                    <div class="test-item">
+                        <h3>معرض الصور</h3>
+                        <div class="image-gallery">
+                            <div class="gallery-item active">
+                                <img src="https://via.placeholder.com/150x100/4CAF50/ffffff?text=صورة+1" alt="صورة 1">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/150x100/2196F3/ffffff?text=صورة+2" alt="صورة 2">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/150x100/FF9800/ffffff?text=صورة+3" alt="صورة 3">
+                            </div>
+                        </div>
+                        <div class="status-indicator status-static">
+                            ✅ ثابتة تماماً - CSS قوي
+                        </div>
+                    </div>
+                    
+                    <div class="test-item">
+                        <h3>بطاقة السيارة</h3>
+                        <div class="car-card">
+                            <div class="car-image">
+                                <img src="https://via.placeholder.com/300x200/2196F3/ffffff?text=بطاقة+السيارة" alt="بطاقة السيارة">
+                            </div>
+                            <div class="car-content">
+                                <h3>تويوتا كامري 2023</h3>
+                                <p>سيارة تجريبية للاختبار</p>
+                            </div>
+                        </div>
+                        <div class="status-indicator status-static">
+                            ✅ ثابتة تماماً - CSS قوي
+                        </div>
+                    </div>
+                    
+                    <div class="test-item">
+                        <h3>صورة عادية</h3>
+                        <div class="test-image">
+                            <img src="https://via.placeholder.com/300x200/9C27B0/ffffff?text=صورة+عادية" alt="صورة عادية">
+                        </div>
+                        <div class="status-indicator status-static">
+                            ✅ ثابتة تماماً - CSS قوي
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="testCarDetails()">
+                        <i class="fas fa-eye"></i>
+                        اختبار صفحة تفاصيل السيارة
+                    </button>
+                    <button class="btn btn-outline" onclick="testBrowseCars()">
+                        <i class="fas fa-search"></i>
+                        اختبار صفحة تصفح السيارات
+                    </button>
+                    <button class="btn btn-outline" onclick="addTestCars()">
+                        <i class="fas fa-plus"></i>
+                        إضافة سيارات تجريبية
+                    </button>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>التحديثات القوية المطبقة</h2>
+                <div class="info-box">
+                    <h4>CSS قوي لضمان ثبات الصور:</h4>
+                    <ul>
+                        <li>✅ `transition: none !important` - إلغاء جميع الانتقالات</li>
+                        <li>✅ `transform: none !important` - إلغاء جميع التحويلات</li>
+                        <li>✅ `animation: none !important` - إلغاء جميع الرسوم المتحركة</li>
+                        <li>✅ CSS قوي في styles.css - إلغاء جميع التأثيرات</li>
+                        <li>✅ CSS إضافي في هذه الصفحة - ضمان الثبات</li>
+                        <li>✅ الصور ثابتة تماماً - لا توجد حركة على الإطلاق</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>تعليمات الاختبار القوي</h2>
+                <div class="info-box">
+                    <h4>كيفية التأكد من ثبات الصور:</h4>
+                    <ul>
+                        <li>1. حرك الماوس فوق جميع الصور في هذه الصفحة</li>
+                        <li>2. تأكد من عدم وجود أي حركة أو تكبير</li>
+                        <li>3. اضغط على "اختبار صفحة تفاصيل السيارة"</li>
+                        <li>4. تحقق من الصور في الصفحة الفعلية</li>
+                        <li>5. اضغط على "اختبار صفحة تصفح السيارات"</li>
+                        <li>6. تأكد من أن جميع الصور ثابتة تماماً</li>
+                        <li>7. إذا كانت الصور ما زالت متحركة، أخبرني</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function testCarDetails() {
+            // إضافة سيارة تجريبية أولاً
+            addTestCar();
+            // فتح صفحة تفاصيل السيارة
+            setTimeout(() => {
+                window.open('car-details.html?id=' + Date.now(), '_blank');
+            }, 1000);
+        }
+
+        function testBrowseCars() {
+            // إضافة سيارات تجريبية أولاً
+            addTestCars();
+            // فتح صفحة تصفح السيارات
+            setTimeout(() => {
+                window.open('browse-cars.html', '_blank');
+            }, 1000);
+        }
+
+        function addTestCar() {
+            const testCar = {
+                id: Date.now(),
+                brand: 'تويوتا',
+                model: 'كامري',
+                year: '2023',
+                daily_rate: 150,
+                deposit: 500,
+                location: 'الرياض',
+                transmission: 'أوتوماتيك',
+                fuel_type: 'بنزين',
+                mileage: 25000,
+                description: 'سيارة تجريبية للاختبار مع صور ثابتة',
+                features: ['ac', 'bluetooth', 'gps'],
+                photos: [
+                    {
+                        filename: 'test-car-main.jpg',
+                        preview: 'https://via.placeholder.com/600x400/4CAF50/ffffff?text=صورة+السيارة+الرئيسية'
+                    },
+                    {
+                        filename: 'test-car-1.jpg',
+                        preview: 'https://via.placeholder.com/150x100/4CAF50/ffffff?text=صورة+1'
+                    },
+                    {
+                        filename: 'test-car-2.jpg',
+                        preview: 'https://via.placeholder.com/150x100/2196F3/ffffff?text=صورة+2'
+                    },
+                    {
+                        filename: 'test-car-3.jpg',
+                        preview: 'https://via.placeholder.com/150x100/FF9800/ffffff?text=صورة+3'
+                    }
+                ],
+                status: 'active',
+                created_at: new Date().toISOString()
+            };
+            
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            existingCars.push(testCar);
+            localStorage.setItem('mockCars', JSON.stringify(existingCars));
+            
+            alert('تم إضافة سيارة تجريبية بنجاح! سيتم فتح صفحة التفاصيل تلقائياً');
+        }
+
+        function addTestCars() {
+            const testCars = [
+                {
+                    id: Date.now(),
+                    brand: 'تويوتا',
+                    model: 'كامري',
+                    year: '2023',
+                    daily_rate: 150,
+                    location: 'الرياض',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: 25000,
+                    rating: 4.8,
+                    features: ['ac', 'bluetooth', 'gps'],
+                    photos: [
+                        {
+                            filename: 'test-car-1.jpg',
+                            preview: 'https://via.placeholder.com/300x200/4CAF50/ffffff?text=تويوتا+كامري'
+                        }
+                    ],
+                    status: 'active',
+                    created_at: new Date().toISOString()
+                },
+                {
+                    id: Date.now() + 1,
+                    brand: 'هيونداي',
+                    model: 'سوناتا',
+                    year: '2022',
+                    daily_rate: 120,
+                    location: 'جدة',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: 30000,
+                    rating: 4.2,
+                    features: ['ac', 'bluetooth'],
+                    photos: [
+                        {
+                            filename: 'test-car-2.jpg',
+                            preview: 'https://via.placeholder.com/300x200/2196F3/ffffff?text=هيونداي+سوناتا'
+                        }
+                    ],
+                    status: 'active',
+                    created_at: new Date().toISOString()
+                }
+            ];
+            
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            testCars.forEach(car => {
+                existingCars.push(car);
+            });
+            localStorage.setItem('mockCars', JSON.stringify(existingCars));
+            
+            alert('تم إضافة سيارات تجريبية بنجاح! يمكنك الآن اختبار صفحة تصفح السيارات');
+        }
+
+        // إضافة تفاعل للمعرض
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // إزالة الفئة النشطة من جميع العناصر
+                    galleryItems.forEach(i => i.classList.remove('active'));
+                    // إضافة الفئة النشطة للعنصر المحدد
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

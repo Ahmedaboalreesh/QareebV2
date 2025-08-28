@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الأزرار المحسنة</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            text-align: right;
+            margin: 0;
+            padding-right: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .old-design, .new-design {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .old-design h4 {
+            color: #dc3545;
+            margin-bottom: 15px;
+        }
+        
+        .new-design h4 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Old Button Style for comparison */
+        .old-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        .old-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 250px;
+            justify-content: flex-start;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .old-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .old-btn.outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add-car.html" class="nav-link">إضافة سيارة</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار الأزرار المحسنة</h1>
+                <p>تحسين حجم وموقع أزرار "حفظ كمسودة" و "إضافة السيارة"</p>
+            </div>
+
+            <div class="test-container">
+                <h2>المشكلة والحل</h2>
+                <div class="info-box">
+                    <h4>المشكلة السابقة:</h4>
+                    <ul>
+                        <li>❌ الأزرار كبيرة جداً وتشغل مساحة كثيرة</li>
+                        <li>❌ الأزرار على يمين الصفحة وليست متوسطة</li>
+                        <li>❌ التصميم غير متوازن ومناسب للصفحة</li>
+                        <li>❌ النص والأيقونات غير محاذية بشكل صحيح</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الحل الجديد:</h4>
+                    <ul>
+                        <li>✅ حجم مناسب ومتوازن للأزرار</li>
+                        <li>✅ الأزرار متوسطة في الصفحة</li>
+                        <li>✅ تصميم متجاوب يعمل على جميع الأحجام</li>
+                        <li>✅ محاذاة مثالية للنص والأيقونات</li>
+                        <li>✅ مساحة مناسبة بين الأزرار</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>التصميم الجديد - الأزرار المحسنة</h2>
+                
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-outline">
+                        <div class="btn-icon">
+                            <i class="fas fa-save"></i>
+                        </div>
+                        <div class="btn-content">
+                            <span class="btn-title">حفظ كمسودة</span>
+                            <span class="btn-subtitle">احفظ البيانات للعودة لاحقاً</span>
+                        </div>
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <div class="btn-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="btn-content">
+                            <span class="btn-title">إضافة السيارة</span>
+                            <span class="btn-subtitle">انشر السيارة وابدأ الربح</span>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <span>الآن الأزرار بحجم مناسب ومتوسطة في الصفحة!</span>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>مقارنة التصميم القديم والجديد</h2>
+                <div class="comparison-container">
+                    <div class="old-design">
+                        <h4><i class="fas fa-times"></i> التصميم القديم (مشكلة)</h4>
+                        <div class="old-buttons">
+                            <button class="old-btn outline">
+                                <div class="btn-icon">
+                                    <i class="fas fa-save"></i>
+                                </div>
+                                <div class="btn-content">
+                                    <span class="btn-title">حفظ كمسودة</span>
+                                    <span class="btn-subtitle">احفظ البيانات للعودة لاحقاً</span>
+                                </div>
+                            </button>
+                        </div>
+                        <p style="color: #dc3545; font-size: 0.9rem; margin-top: 10px;">
+                            ❌ كبير جداً وعلى اليمين
+                        </p>
+                    </div>
+                    
+                    <div class="new-design">
+                        <h4><i class="fas fa-check"></i> التصميم الجديد (محلول)</h4>
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-outline" style="max-width: 200px;">
+                                <div class="btn-icon">
+                                    <i class="fas fa-save"></i>
+                                </div>
+                                <div class="btn-content">
+                                    <span class="btn-title">حفظ كمسودة</span>
+                                    <span class="btn-subtitle">احفظ البيانات للعودة لاحقاً</span>
+                                </div>
+                            </button>
+                        </div>
+                        <p style="color: #28a745; font-size: 0.9rem; margin-top: 10px;">
+                            ✅ حجم مناسب ومتوسط في الصفحة
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>التحسينات المطبقة</h2>
+                <div class="info-box">
+                    <h4>تحسينات التصميم:</h4>
+                    <ul>
+                        <li>🔧 <strong>الحجم</strong>: تقليل min-width من 250px إلى 200px وإضافة max-width 280px</li>
+                        <li>🔧 <strong>الموقع</strong>: تغيير justify-content من flex-start إلى center</li>
+                        <li>🔧 <strong>المساحة</strong>: إضافة margin و padding مناسب</li>
+                        <li>🔧 <strong>المحاذاة</strong>: توسيط المحتوى داخل الأزرار</li>
+                        <li>🔧 <strong>المرونة</strong>: إضافة flex: 1 للتوزيع المتساوي</li>
+                        <li>🔧 <strong>التجاوب</strong>: تحسين التصميم للهواتف المحمولة</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>CSS المحدث:</h4>
+                    <ul>
+                        <li>📝 <strong>.action-buttons</strong>: justify-content: center</li>
+                        <li>📝 <strong>.action-buttons .btn</strong>: حجم وموقع محسن</li>
+                        <li>📝 <strong>.btn-content</strong>: توسيط المحتوى</li>
+                        <li>📝 <strong>التصميم المتجاوب</strong>: تحسين للشاشات الصغيرة</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار الصفحة الأصلية</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="testAddCar()">
+                        <i class="fas fa-plus"></i>
+                        اختبار إضافة سيارة
+                    </button>
+                    <button class="btn btn-success" onclick="testButtons()">
+                        <i class="fas fa-eye"></i>
+                        مقارنة الأزرار
+                    </button>
+                    <button class="btn btn-outline" onclick="viewChanges()">
+                        <i class="fas fa-list"></i>
+                        عرض التغييرات
+                    </button>
+                </div>
+                
+                <div class="info-box">
+                    <h4>كيفية اختبار التحسينات:</h4>
+                    <ul>
+                        <li>1. جرب الأزرار أعلاه ولاحظ الحجم والموقع</li>
+                        <li>2. اضغط "اختبار إضافة سيارة" لفتح الصفحة الأصلية</li>
+                        <li>3. انتقل إلى نهاية الصفحة لرؤية الأزرار</li>
+                        <li>4. لاحظ أن الأزرار متوسطة ومتوازنة</li>
+                        <li>5. جرب تصغير الشاشة لاختبار التجاوب</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>التفاصيل التقنية</h2>
+                <div class="info-box">
+                    <h4>التغييرات المطبقة:</h4>
+                    <ul>
+                        <li>🔧 <strong>display: flex</strong> مع justify-content: center</li>
+                        <li>🔧 <strong>gap: 2rem</strong> للمساحة بين الأزرار</li>
+                        <li>🔧 <strong>margin: 2rem 0</strong> للمساحة العمودية</li>
+                        <li>🔧 <strong>min-width: 200px, max-width: 280px</strong></li>
+                        <li>🔧 <strong>flex: 1</strong> للتوزيع المتساوي</li>
+                        <li>🔧 <strong>text-align: center</strong> للمحتوى</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الفوائد المحققة:</h4>
+                    <ul>
+                        <li>✅ <strong>حجم مناسب</strong>: ليس كبير جداً أو صغير</li>
+                        <li>✅ <strong>موقع متوسط</strong>: في وسط الصفحة</li>
+                        <li>✅ <strong>تصميم متوازن</strong>: مساحة مناسبة</li>
+                        <li>✅ <strong>تجربة أفضل</strong>: سهولة الوصول والاستخدام</li>
+                        <li>✅ <strong>تجاوب ممتاز</strong>: يعمل على جميع الأحجام</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function testAddCar() {
+            // إنشاء مستخدم تجريبي إذا لم يكن موجوداً
+            if (!localStorage.getItem('userData')) {
+                const testUser = {
+                    id: 1,
+                    name: 'أحمد محمد',
+                    email: 'ahmed@test.com',
+                    phone: '+966501234567'
+                };
+                localStorage.setItem('userData', JSON.stringify(testUser));
+                localStorage.setItem('userToken', 'test-token');
+                localStorage.setItem('userType', 'owner');
+            }
+            
+            // فتح صفحة إضافة السيارة
+            window.open('add-car.html', '_blank');
+        }
+
+        function testButtons() {
+            alert('مقارنة الأزرار:\n\n✅ التصميم الجديد:\n- حجم مناسب (200-280px)\n- متوسط في الصفحة\n- محاذاة مثالية\n- تجاوب ممتاز\n\n❌ التصميم القديم:\n- كبير جداً (250px+)\n- على يمين الصفحة\n- محاذاة سيئة\n- تجاوب ضعيف');
+        }
+
+        function viewChanges() {
+            const changes = [
+                '🔧 تقليل حجم الأزرار لتكون مناسبة',
+                '🔧 توسيط الأزرار في الصفحة',
+                '🔧 تحسين المساحات والهوامش',
+                '🔧 توسيط المحتوى داخل الأزرار',
+                '🔧 تحسين التصميم المتجاوب',
+                '🔧 إضافة مرونة في التوزيع',
+                '🔧 تحسين تجربة المستخدم'
+            ];
+            
+            let message = 'التغييرات المطبقة على الأزرار:\n\n';
+            changes.forEach((change, index) => {
+                message += `${index + 1}. ${change}\n`;
+            });
+            
+            message += '\nالآن الأزرار بحجم مناسب ومتوسطة!';
+            
+            alert(message);
+        }
+
+        // إضافة تأثيرات تفاعلية للأزرار
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.action-buttons .btn');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                    this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.15)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

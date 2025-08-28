@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار ربط معلومات السيارة - صفحة عرض التفاصيل</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            text-align: right;
+            margin: 0;
+            padding-right: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .fix-details {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .fix-details h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .car-preview {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .car-preview h4 {
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        
+        .car-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .info-item strong {
+            color: #374151;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .info-item span {
+            color: #6b7280;
+        }
+        
+        .features-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .feature-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bookings.html" class="nav-link">الحجوزات</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار ربط معلومات السيارة</h1>
+                <p>ربط معلومات السيارة من صفحة إضافة سيارة مع صفحة عرض التفاصيل</p>
+            </div>
+
+            <div class="test-container">
+                <h2>المشكلة والحل</h2>
+                <div class="info-box">
+                    <h4>المشكلة السابقة:</h4>
+                    <ul>
+                        <li>❌ معلومات السيارة محدودة في صفحة التفاصيل</li>
+                        <li>❌ عدم عرض مميزات السيارة</li>
+                        <li>❌ عدم عرض صور السيارة</li>
+                        <li>❌ عدم عرض معلومات التوصيل</li>
+                        <li>❌ عدم ربط البيانات من صفحة إضافة سيارة</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الحل الجديد:</h4>
+                    <ul>
+                        <li>✅ ربط معلومات السيارة من mockCars</li>
+                        <li>✅ عرض جميع مميزات السيارة</li>
+                        <li>✅ عرض صور السيارة مع إمكانية التكبير</li>
+                        <li>✅ عرض معلومات خدمة التوصيل</li>
+                        <li>✅ عرض وصف السيارة التفصيلي</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>إنشاء بيانات تجريبية</h2>
+                <div class="car-preview">
+                    <h4>بيانات سيارة تجريبية للاختبار:</h4>
+                    <div class="car-info">
+                        <div class="info-item">
+                            <strong>الماركة:</strong>
+                            <span>تويوتا</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>الموديل:</strong>
+                            <span>كامري</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>السنة:</strong>
+                            <span>2023</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>ناقل الحركة:</strong>
+                            <span>أوتوماتيك</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>نوع الوقود:</strong>
+                            <span>بنزين</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>عدد الكيلومترات:</strong>
+                            <span>50000 كم</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <strong>الوصف:</strong>
+                        <span>سيارة تويوتا كامري 2023 بحالة ممتازة، مكيفة بالكامل مع جميع المميزات الحديثة. مناسبة للرحلات العائلية والتنقل اليومي.</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <strong>المميزات:</strong>
+                        <div class="features-preview">
+                            <span class="feature-tag">مكيف</span>
+                            <span class="feature-tag">بلوتوث</span>
+                            <span class="feature-tag">ملاحة</span>
+                            <span class="feature-tag">كاميرا خلفية</span>
+                            <span class="feature-tag">تحكم في السرعة</span>
+                            <span class="feature-tag">مقاعد جلدية</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <strong>خدمة التوصيل:</strong>
+                        <span>متاحة - رسوم التوصيل: 50 ريال</span>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="createTestData()">
+                        <i class="fas fa-plus"></i>
+                        إنشاء بيانات تجريبية
+                    </button>
+                    <button class="btn btn-success" onclick="testBookingDetails()">
+                        <i class="fas fa-eye"></i>
+                        اختبار عرض التفاصيل
+                    </button>
+                </div>
+                
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <span>الآن تعرض صفحة التفاصيل جميع معلومات السيارة من صفحة إضافة سيارة!</span>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>التفاصيل التقنية للربط</h2>
+                <div class="fix-details">
+                    <h4>الربط المطبق:</h4>
+                    
+                    <h5>1. البحث عن السيارة في mockCars:</h5>
+                    <div class="code-example">
+// Get car details from mockCars
+const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+const carDetails = cars.find(car => 
+    car.brand === (booking.brand || booking.car_brand) && 
+    car.model === (booking.model || booking.car_model) && 
+    car.year === (booking.year || booking.car_year)
+);
+                    </div>
+                    
+                    <h5>2. استخراج معلومات السيارة:</h5>
+                    <div class="code-example">
+// Car details from add-car form
+const carTransmission = carDetails?.transmission || 'غير محدد';
+const carFuelType = carDetails?.fuel_type || 'غير محدد';
+const carMileage = carDetails?.mileage || 'غير محدد';
+const carLocation = carDetails?.location || 'غير محدد';
+const carDescription = carDetails?.description || 'غير محدد';
+const carFeatures = carDetails?.features || [];
+const carPhotos = carDetails?.photos || [];
+const carDeliveryService = carDetails?.delivery_service || false;
+                    </div>
+                    
+                    <h5>3. عرض المميزات:</h5>
+                    <div class="code-example">
+${carFeatures.map(feature => {
+    const featureNames = {
+        'ac': 'مكيف',
+        'bluetooth': 'بلوتوث',
+        'gps': 'ملاحة',
+        'backup_camera': 'كاميرا خلفية',
+        'cruise_control': 'تحكم في السرعة',
+        'leather_seats': 'مقاعد جلدية',
+        'sunroof': 'سقف قابل للفتح',
+        'child_seat': 'مقعد أطفال'
+    };
+    return `<span class="feature-tag">${featureNames[feature] || feature}</span>`;
+}).join('')}
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>الميزات الجديدة</h2>
+                <div class="info-box">
+                    <h4>التحسينات المطبقة:</h4>
+                    <ul>
+                        <li>🔧 <strong>ربط البيانات</strong>: ربط معلومات السيارة من mockCars</li>
+                        <li>🔧 <strong>معلومات شاملة</strong>: عرض جميع تفاصيل السيارة</li>
+                        <li>🔧 <strong>المميزات</strong>: عرض مميزات السيارة بتصميم جميل</li>
+                        <li>🔧 <strong>الصور</strong>: عرض صور السيارة مع إمكانية التكبير</li>
+                        <li>🔧 <strong>خدمة التوصيل</strong>: عرض معلومات التوصيل إذا كانت متاحة</li>
+                        <li>🔧 <strong>الوصف التفصيلي</strong>: عرض وصف السيارة الكامل</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>المعلومات المعروضة:</h4>
+                    <ul>
+                        <li>✅ <strong>معلومات السيارة الأساسية</strong>: الماركة، الموديل، السنة، ناقل الحركة، نوع الوقود، الكيلومترات، الموقع</li>
+                        <li>✅ <strong>وصف السيارة</strong>: الوصف التفصيلي المدخل في صفحة إضافة سيارة</li>
+                        <li>✅ <strong>مميزات السيارة</strong>: جميع المميزات المختارة مع أسماء عربية</li>
+                        <li>✅ <strong>صور السيارة</strong>: عرض أول 3 صور مع إمكانية رؤية المزيد</li>
+                        <li>✅ <strong>خدمة التوصيل</strong>: معلومات التوصيل والرسوم والملاحظات</li>
+                        <li>✅ <strong>معلومات الحجز</strong>: تفاصيل الحجز والمستأجر</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار الوظائف</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="createTestData()">
+                        <i class="fas fa-database"></i>
+                        إنشاء بيانات تجريبية
+                    </button>
+                    <button class="btn btn-success" onclick="testBookingDetails()">
+                        <i class="fas fa-eye"></i>
+                        اختبار عرض التفاصيل
+                    </button>
+                    <button class="btn btn-outline" onclick="viewBookingsPage()">
+                        <i class="fas fa-calendar"></i>
+                        اختبار صفحة الحجوزات
+                    </button>
+                </div>
+                
+                <div class="info-box">
+                    <h4>خطوات الاختبار:</h4>
+                    <ul>
+                        <li>1. اضغط "إنشاء بيانات تجريبية" لإنشاء سيارة وحجز تجريبي</li>
+                        <li>2. اضغط "اختبار عرض التفاصيل" لرؤية النافذة المنبثقة</li>
+                        <li>3. تأكد من ظهور جميع معلومات السيارة</li>
+                        <li>4. تأكد من ظهور المميزات والصور</li>
+                        <li>5. اضغط "اختبار صفحة الحجوزات" لاختبار الصفحة الكاملة</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>الملفات المحدثة</h2>
+                <div class="info-box">
+                    <h4>التغييرات المطبقة:</h4>
+                    <ul>
+                        <li>📝 <strong>bookings.js</strong>: تحديث دالة showBookingModal لربط معلومات السيارة</li>
+                        <li>📝 <strong>styles.css</strong>: إضافة CSS للمميزات والصور والنافذة المنبثقة</li>
+                        <li>📝 <strong>test-car-details-integration.html</strong>: صفحة الاختبار هذه</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الوظائف المحسنة:</h4>
+                    <ul>
+                        <li>✅ <strong>showBookingModal()</strong>: ربط معلومات السيارة من mockCars</li>
+                        <li>✅ <strong>openPhotoModal()</strong>: عرض الصور بحجم كبير</li>
+                        <li>✅ <strong>closePhotoModal()</strong>: إغلاق نافذة الصور</li>
+                        <li>✅ <strong>عرض المميزات</strong>: ترجمة أسماء المميزات للعربية</li>
+                        <li>✅ <strong>عرض الصور</strong>: شبكة صور مع إمكانية التكبير</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Details Modal -->
+    <div class="modal" id="bookingModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تفاصيل الحجز</h2>
+                <button class="close-btn" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Booking details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createTestData() {
+            // إنشاء مستخدم تجريبي
+            const testUser = {
+                id: 1,
+                name: 'أحمد محمد',
+                email: 'ahmed@test.com',
+                phone: '+966501234567'
+            };
+            localStorage.setItem('userData', JSON.stringify(testUser));
+            localStorage.setItem('userToken', 'test-token');
+            localStorage.setItem('userType', 'owner');
+            
+            // إنشاء سيارة تجريبية
+            const testCar = {
+                id: 1,
+                brand: 'تويوتا',
+                model: 'كامري',
+                year: '2023',
+                daily_rate: 150,
+                deposit: 500,
+                location: 'الرياض',
+                transmission: 'أوتوماتيك',
+                fuel_type: 'بنزين',
+                mileage: 50000,
+                description: 'سيارة تويوتا كامري 2023 بحالة ممتازة، مكيفة بالكامل مع جميع المميزات الحديثة. مناسبة للرحلات العائلية والتنقل اليومي.',
+                features: ['ac', 'bluetooth', 'gps', 'backup_camera', 'cruise_control', 'leather_seats'],
+                photos: [
+                    {
+                        filename: 'car1.jpg',
+                        preview: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNjY3ZWVhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7Zhtin2YbYqiDYp9mE2YHZitivPC90ZXh0Pjwvc3ZnPg=='
+                    },
+                    {
+                        filename: 'car2.jpg',
+                        preview: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNzY0YmEyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7Zhtin2YbYqiDYp9mE2YHZitivPC90ZXh0Pjwvc3ZnPg=='
+                    },
+                    {
+                        filename: 'car3.jpg',
+                        preview: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMjhhNzQ1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7Zhtin2YbYqiDYp9mE2YHZitivPC90ZXh0Pjwvc3ZnPg=='
+                    }
+                ],
+                delivery_service: true,
+                delivery_fee: 50,
+                delivery_note: 'التوصيل متاح في جميع أنحاء الرياض مع رسوم إضافية',
+                status: 'active',
+                created_at: new Date().toISOString()
+            };
+            
+            // حفظ السيارة في mockCars
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            existingCars.push(testCar);
+            localStorage.setItem('mockCars', JSON.stringify(existingCars));
+            
+            // إنشاء حجز تجريبي
+            const testBooking = {
+                id: 1,
+                brand: 'تويوتا',
+                model: 'كامري',
+                year: '2023',
+                daily_rate: '150',
+                renter_name: 'أحمد محمد',
+                renter_email: 'ahmed@test.com',
+                renter_phone: '+966501234567',
+                start_date: '2024-01-15',
+                end_date: '2024-01-20',
+                total_amount: '750',
+                deposit_amount: '500',
+                pickup_location: 'مطار الملك خالد',
+                renter_notes: 'أحتاج سيارة مريحة للرحلات العائلية',
+                status: 'pending',
+                created_at: '2024-01-10T10:00:00Z',
+                owner_id: 1,
+                renter_id: 2
+            };
+            
+            // حفظ الحجز في mockBookings
+            const existingBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            existingBookings.push(testBooking);
+            localStorage.setItem('mockBookings', JSON.stringify(existingBookings));
+            
+            alert('تم إنشاء البيانات التجريبية بنجاح!\n\n- سيارة تويوتا كامري 2023\n- حجز تجريبي\n- جميع المميزات والصور\n\nالآن يمكنك اختبار عرض التفاصيل!');
+        }
+
+        function testBookingDetails() {
+            // استدعاء دالة viewBookingDetails
+            viewBookingDetails(1);
+        }
+
+        function viewBookingsPage() {
+            window.open('bookings.html', '_blank');
+        }
+
+        // دالة viewBookingDetails المحدثة (نسخة من bookings.js)
+        async function viewBookingDetails(bookingId) {
+            try {
+                // Get bookings from localStorage
+                const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                
+                // Find the booking by ID
+                const booking = bookings.find(b => b.id === bookingId);
+                
+                if (booking) {
+                    showBookingModal(booking);
+                } else {
+                    showMessage('لم يتم العثور على الحجز', 'error');
+                }
+            } catch (error) {
+                console.error('Error loading booking details:', error);
+                showMessage('حدث خطأ في تحميل تفاصيل الحجز', 'error');
+            }
+        }
+
+        // دالة showBookingModal المحدثة (نسخة من bookings.js)
+        function showBookingModal(booking) {
+            const modal = document.getElementById('bookingModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            // Get car details from mockCars
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            const carDetails = cars.find(car => 
+                car.brand === (booking.brand || booking.car_brand) && 
+                car.model === (booking.model || booking.car_model) && 
+                car.year === (booking.year || booking.car_year)
+            );
+            
+            // Safe data access with fallbacks
+            const carBrand = booking.brand || booking.car_brand || 'غير محدد';
+            const carModel = booking.model || booking.car_model || 'غير محدد';
+            const carYear = booking.year || booking.car_year || 'غير محدد';
+            const dailyRate = booking.daily_rate || booking.dailyRate || 'غير محدد';
+            const renterName = booking.renter_name || booking.user_name || 'غير محدد';
+            const renterEmail = booking.renter_email || booking.user_email || 'غير محدد';
+            const renterPhone = booking.renter_phone || booking.user_phone || 'غير محدد';
+            const startDate = booking.start_date || booking.rental_start || 'غير محدد';
+            const endDate = booking.end_date || booking.rental_end || 'غير محدد';
+            const totalAmount = booking.total_amount || booking.amount || '0';
+            const depositAmount = booking.deposit_amount || booking.deposit || '0';
+            const pickupLocation = booking.pickup_location || booking.pickupLocation || '';
+            const returnLocation = booking.return_location || booking.returnLocation || '';
+            const renterNotes = booking.renter_notes || booking.notes || '';
+            const ownerNotes = booking.owner_notes || booking.ownerNotes || '';
+            
+            // Car details from add-car form
+            const carTransmission = carDetails?.transmission || 'غير محدد';
+            const carFuelType = carDetails?.fuel_type || 'غير محدد';
+            const carMileage = carDetails?.mileage || 'غير محدد';
+            const carLocation = carDetails?.location || 'غير محدد';
+            const carDescription = carDetails?.description || 'غير محدد';
+            const carFeatures = carDetails?.features || [];
+            const carPhotos = carDetails?.photos || [];
+            const carDeliveryService = carDetails?.delivery_service || false;
+            const carDeliveryFee = carDetails?.delivery_fee || null;
+            const carDeliveryNote = carDetails?.delivery_note || null;
+            
+            modalBody.innerHTML = `
+                <div class="booking-details-modal">
+                    <div class="detail-section">
+                        <h3>معلومات السيارة الأساسية</h3>
+                        <p><strong>الماركة:</strong> ${carBrand}</p>
+                        <p><strong>الموديل:</strong> ${carModel}</p>
+                        <p><strong>السنة:</strong> ${carYear}</p>
+                        <p><strong>ناقل الحركة:</strong> ${carTransmission}</p>
+                        <p><strong>نوع الوقود:</strong> ${carFuelType}</p>
+                        <p><strong>عدد الكيلومترات:</strong> ${carMileage} كم</p>
+                        <p><strong>الموقع:</strong> ${carLocation}</p>
+                        <p><strong>السعر اليومي:</strong> ${dailyRate} ريال</p>
+                    </div>
+                    
+                    ${carDescription && carDescription !== 'غير محدد' ? `
+                        <div class="detail-section">
+                            <h3>وصف السيارة</h3>
+                            <p>${carDescription}</p>
+                        </div>
+                    ` : ''}
+                    
+                    ${carFeatures.length > 0 ? `
+                        <div class="detail-section">
+                            <h3>مميزات السيارة</h3>
+                            <div class="features-list">
+                                ${carFeatures.map(feature => {
+                                    const featureNames = {
+                                        'ac': 'مكيف',
+                                        'bluetooth': 'بلوتوث',
+                                        'gps': 'ملاحة',
+                                        'backup_camera': 'كاميرا خلفية',
+                                        'cruise_control': 'تحكم في السرعة',
+                                        'leather_seats': 'مقاعد جلدية',
+                                        'sunroof': 'سقف قابل للفتح',
+                                        'child_seat': 'مقعد أطفال'
+                                    };
+                                    return `<span class="feature-tag">${featureNames[feature] || feature}</span>`;
+                                }).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${carPhotos.length > 0 ? `
+                        <div class="detail-section">
+                            <h3>صور السيارة</h3>
+                            <div class="car-photos-grid">
+                                ${carPhotos.slice(0, 3).map(photo => `
+                                    <div class="car-photo">
+                                        <img src="${photo.preview}" alt="صورة السيارة" onclick="openPhotoModal('${photo.preview}')">
+                                    </div>
+                                `).join('')}
+                                ${carPhotos.length > 3 ? `<div class="more-photos">+${carPhotos.length - 3} صور أخرى</div>` : ''}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${carDeliveryService ? `
+                        <div class="detail-section">
+                            <h3>خدمة التوصيل</h3>
+                            <p><strong>متاحة:</strong> نعم</p>
+                            ${carDeliveryFee ? `<p><strong>رسوم التوصيل:</strong> ${carDeliveryFee} ريال</p>` : ''}
+                            ${carDeliveryNote ? `<p><strong>ملاحظات التوصيل:</strong> ${carDeliveryNote}</p>` : ''}
+                        </div>
+                    ` : ''}
+                    
+                    <div class="detail-section">
+                        <h3>معلومات المستأجر</h3>
+                        <p><strong>الاسم:</strong> ${renterName}</p>
+                        <p><strong>البريد الإلكتروني:</strong> ${renterEmail}</p>
+                        <p><strong>رقم الهاتف:</strong> ${renterPhone}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>تفاصيل الحجز</h3>
+                        <p><strong>تاريخ البداية:</strong> ${formatDate(startDate)}</p>
+                        <p><strong>تاريخ النهاية:</strong> ${formatDate(endDate)}</p>
+                        <p><strong>السعر الإجمالي:</strong> ${totalAmount} ريال</p>
+                        <p><strong>الوديعة:</strong> ${depositAmount} ريال</p>
+                        <p><strong>الحالة:</strong> <span class="${getStatusClass(booking.status)}">${getStatusText(booking.status)}</span></p>
+                    </div>
+                    
+                    ${pickupLocation ? `
+                        <div class="detail-section">
+                            <h3>مواقع الحجز</h3>
+                            <p><strong>موقع الاستلام:</strong> ${pickupLocation}</p>
+                            ${returnLocation ? `<p><strong>موقع الإرجاع:</strong> ${returnLocation}</p>` : ''}
+                        </div>
+                    ` : ''}
+                    
+                    ${renterNotes ? `
+                        <div class="detail-section">
+                            <h3>ملاحظات المستأجر</h3>
+                            <p>${renterNotes}</p>
+                        </div>
+                    ` : ''}
+                    
+                    ${ownerNotes ? `
+                        <div class="detail-section">
+                            <h3>ملاحظات المالك</h3>
+                            <p>${ownerNotes}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // دالة closeModal
+        function closeModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.style.display = 'none';
+        }
+
+        // دالة openPhotoModal
+        function openPhotoModal(photoSrc) {
+            // Create photo modal if it doesn't exist
+            let photoModal = document.getElementById('photoModal');
+            if (!photoModal) {
+                photoModal = document.createElement('div');
+                photoModal.id = 'photoModal';
+                photoModal.className = 'photo-modal';
+                photoModal.innerHTML = `
+                    <span class="photo-modal-close" onclick="closePhotoModal()">&times;</span>
+                    <div class="photo-modal-content">
+                        <img id="photoModalImg" src="" alt="صورة السيارة">
+                    </div>
+                `;
+                document.body.appendChild(photoModal);
+            }
+            
+            // Set image source and show modal
+            document.getElementById('photoModalImg').src = photoSrc;
+            photoModal.style.display = 'block';
+            
+            // Close modal when clicking outside
+            photoModal.addEventListener('click', function(e) {
+                if (e.target === photoModal) {
+                    closePhotoModal();
+                }
+            });
+        }
+
+        // دالة closePhotoModal
+        function closePhotoModal() {
+            const photoModal = document.getElementById('photoModal');
+            if (photoModal) {
+                photoModal.style.display = 'none';
+            }
+        }
+
+        // دالة formatDate
+        function formatDate(dateString) {
+            if (!dateString || dateString === 'غير محدد') {
+                return 'غير محدد';
+            }
+            
+            try {
+                const date = new Date(dateString);
+                
+                if (isNaN(date.getTime())) {
+                    return 'غير محدد';
+                }
+                
+                return date.toLocaleDateString('ar-SA', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } catch (error) {
+                console.error('Error formatting date:', error);
+                return 'غير محدد';
+            }
+        }
+
+        // دالة getStatusClass
+        function getStatusClass(status) {
+            switch (status) {
+                case 'pending': return 'status-pending';
+                case 'approved': return 'status-approved';
+                case 'rejected': return 'status-rejected';
+                case 'completed': return 'status-completed';
+                default: return 'status-pending';
+            }
+        }
+
+        // دالة getStatusText
+        function getStatusText(status) {
+            switch (status) {
+                case 'pending': return 'في الانتظار';
+                case 'approved': return 'موافق عليها';
+                case 'rejected': return 'مرفوضة';
+                case 'completed': return 'مكتملة';
+                default: return 'غير محدد';
+            }
+        }
+
+        // دالة showMessage
+        function showMessage(message, type) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${type}`;
+            messageElement.innerHTML = `
+                <div class="message-content">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(messageElement);
+            
+            setTimeout(() => {
+                messageElement.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                messageElement.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(messageElement);
+                }, 300);
+            }, 3000);
+        }
+
+        // التحقق من وجود بيانات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            
+            if (cars.length === 0 || bookings.length === 0) {
+                console.log('لا توجد بيانات تجريبية للاختبار');
+            } else {
+                console.log(`تم العثور على ${cars.length} سيارة و ${bookings.length} حجز للاختبار`);
+            }
+        });
+    </script>
+</body>
+</html>

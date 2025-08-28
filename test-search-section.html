@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار منطقة البحث - الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .test-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .test-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            text-align: center;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .test-header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .test-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .test-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .test-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .test-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .test-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .responsive-test {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .screen-size {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .screen-size h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .screen-size p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .vision-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="vision-pattern"></div>
+        
+        <div class="test-header">
+            <h1>🔍 اختبار منطقة البحث في الصفحة الرئيسية</h1>
+        </div>
+        
+        <div class="test-content">
+            <!-- Hero Section with Search -->
+            <section class="hero" id="home">
+                <div class="hero-container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">استأجر سيارتك المفضلة من أصحابها مباشرة</h1>
+                        <p class="hero-subtitle">منصة آمنة وموثوقة لتأجير السيارات من شخص لشخص - دعم الاقتصاد التشاركي في المملكة</p>
+                        
+                        <div class="hero-search">
+                            <div class="search-box">
+                                <div class="search-input">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <input type="text" placeholder="أين تريد استئجار السيارة؟" id="searchLocation">
+                                </div>
+                                <div class="search-input">
+                                    <i class="fas fa-calendar"></i>
+                                    <input type="date" placeholder="تاريخ البداية" id="searchStartDate">
+                                </div>
+                                <div class="search-input">
+                                    <i class="fas fa-calendar"></i>
+                                    <input type="date" placeholder="تاريخ النهاية" id="searchEndDate">
+                                </div>
+                                <button class="btn btn-primary search-btn" id="searchBtn">
+                                    <i class="fas fa-search"></i>
+                                    ابحث عن سيارات
+                                </button>
+                            </div>
+                            <div class="search-suggestions">
+                                <span class="suggestion-label">مواقع شائعة:</span>
+                                <button class="suggestion-btn" onclick="setLocation('الرياض')">الرياض</button>
+                                <button class="suggestion-btn" onclick="setLocation('جدة')">جدة</button>
+                                <button class="suggestion-btn" onclick="setLocation('الدمام')">الدمام</button>
+                                <button class="suggestion-btn" onclick="setLocation('مكة')">مكة</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Test Controls -->
+            <div class="test-section">
+                <h2>🎛️ أدوات الاختبار</h2>
+                <p>استخدم هذه الأزرار لاختبار وظائف منطقة البحث:</p>
+                
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testLocationSuggestions()">
+                        <i class="fas fa-map-marker-alt"></i>
+                        اختبار اقتراحات المواقع
+                    </button>
+                    <button class="test-btn" onclick="testDateValidation()">
+                        <i class="fas fa-calendar-check"></i>
+                        اختبار التحقق من التواريخ
+                    </button>
+                    <button class="test-btn" onclick="testSearchFunction()">
+                        <i class="fas fa-search"></i>
+                        اختبار وظيفة البحث
+                    </button>
+                    <button class="test-btn" onclick="resetSearchForm()">
+                        <i class="fas fa-undo"></i>
+                        إعادة تعيين النموذج
+                    </button>
+                    <button class="test-btn" onclick="openMainPage()">
+                        <i class="fas fa-external-link-alt"></i>
+                        فتح الصفحة الرئيسية
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Responsive Test Info -->
+            <div class="test-section">
+                <h2>📱 اختبار التجاوب</h2>
+                <p>اختبر منطقة البحث على أحجام شاشات مختلفة:</p>
+                
+                <div class="responsive-test">
+                    <div class="screen-size">
+                        <h4>🖥️ سطح المكتب</h4>
+                        <p>عرض 4 أعمدة: الموقع، تاريخ البداية، تاريخ النهاية، زر البحث</p>
+                    </div>
+                    <div class="screen-size">
+                        <h4>📱 الهاتف المحمول</h4>
+                        <p>عرض عمود واحد: كل حقل في سطر منفصل</p>
+                    </div>
+                    <div class="screen-size">
+                        <h4>💻 التابلت</h4>
+                        <p>عرض عمودين أو ثلاثة حسب الحجم</p>
+                    </div>
+                </div>
+                
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="simulateMobile()">
+                        <i class="fas fa-mobile-alt"></i>
+                        محاكاة الهاتف المحمول
+                    </button>
+                    <button class="test-btn" onclick="simulateTablet()">
+                        <i class="fas fa-tablet-alt"></i>
+                        محاكاة التابلت
+                    </button>
+                    <button class="test-btn" onclick="resetViewport()">
+                        <i class="fas fa-desktop"></i>
+                        إعادة تعيين العرض
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Features Test -->
+            <div class="test-section">
+                <h2>✨ الميزات المختبرة</h2>
+                <div class="responsive-test">
+                    <div class="screen-size">
+                        <h4>🎨 التصميم</h4>
+                        <p>خلفية شفافة مع تأثير blur، ظلال جميلة، حواف دائرية</p>
+                    </div>
+                    <div class="screen-size">
+                        <h4>🔍 الوظائف</h4>
+                        <p>اقتراحات المواقع، التحقق من التواريخ، البحث الذكي</p>
+                    </div>
+                    <div class="screen-size">
+                        <h4>📱 التجاوب</h4>
+                        <p>يتكيف مع جميع أحجام الشاشات، تصميم متجاوب</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize search form
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSearchForm();
+        });
+
+        // Initialize search form
+        function initializeSearchForm() {
+            const locationInput = document.getElementById('searchLocation');
+            const startDateInput = document.getElementById('searchStartDate');
+            const endDateInput = document.getElementById('searchEndDate');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            startDateInput.min = today;
+            endDateInput.min = today;
+            
+            // Auto-fill current date and next day
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+            
+            startDateInput.value = today;
+            endDateInput.value = tomorrowStr;
+            
+            // Event listeners
+            searchBtn.addEventListener('click', function() {
+                performSearch();
+            });
+            
+            // Enter key handlers
+            locationInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            startDateInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            endDateInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Date validation
+            startDateInput.addEventListener('change', function() {
+                endDateInput.min = this.value;
+                if (endDateInput.value && endDateInput.value < this.value) {
+                    endDateInput.value = this.value;
+                }
+            });
+        }
+
+        // Set location function for suggestion buttons
+        function setLocation(location) {
+            const locationInput = document.getElementById('searchLocation');
+            locationInput.value = location;
+            locationInput.focus();
+            showMessage(`تم تحديد الموقع: ${location}`, 'success');
+        }
+
+        // Perform search
+        function performSearch() {
+            const locationInput = document.getElementById('searchLocation');
+            const startDateInput = document.getElementById('searchStartDate');
+            const endDateInput = document.getElementById('searchEndDate');
+            
+            const location = locationInput.value.trim();
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+            
+            // Validate inputs
+            if (!location) {
+                showMessage('يرجى إدخال موقع البحث', 'error');
+                locationInput.focus();
+                return;
+            }
+            
+            if (!startDate) {
+                showMessage('يرجى اختيار تاريخ البداية', 'error');
+                startDateInput.focus();
+                return;
+            }
+            
+            if (!endDate) {
+                showMessage('يرجى اختيار تاريخ النهاية', 'error');
+                endDateInput.focus();
+                return;
+            }
+            
+            if (startDate >= endDate) {
+                showMessage('تاريخ النهاية يجب أن يكون بعد تاريخ البداية', 'error');
+                endDateInput.focus();
+                return;
+            }
+            
+            // Show success message
+            showMessage(`تم البحث عن السيارات في ${location} من ${startDate} إلى ${endDate}`, 'success');
+            
+            // Show loading state
+            const searchBtn = document.getElementById('searchBtn');
+            const originalText = searchBtn.innerHTML;
+            searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري البحث...';
+            searchBtn.disabled = true;
+            
+            // Reset after 2 seconds
+            setTimeout(() => {
+                searchBtn.innerHTML = originalText;
+                searchBtn.disabled = false;
+            }, 2000);
+        }
+
+        // Test functions
+        function testLocationSuggestions() {
+            const locations = ['الرياض', 'جدة', 'الدمام', 'مكة'];
+            locations.forEach((location, index) => {
+                setTimeout(() => {
+                    setLocation(location);
+                }, index * 500);
+            });
+        }
+
+        function testDateValidation() {
+            const startDateInput = document.getElementById('searchStartDate');
+            const endDateInput = document.getElementById('searchEndDate');
+            
+            // Set invalid dates
+            startDateInput.value = '2024-12-31';
+            endDateInput.value = '2024-12-30';
+            
+            showMessage('تم تعيين تواريخ غير صحيحة لاختبار التحقق', 'info');
+            
+            // Try to search
+            setTimeout(() => {
+                performSearch();
+            }, 1000);
+        }
+
+        function testSearchFunction() {
+            const locationInput = document.getElementById('searchLocation');
+            locationInput.value = 'الرياض';
+            performSearch();
+        }
+
+        function resetSearchForm() {
+            const locationInput = document.getElementById('searchLocation');
+            locationInput.value = '';
+            
+            const today = new Date().toISOString().split('T')[0];
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+            
+            document.getElementById('searchStartDate').value = today;
+            document.getElementById('searchEndDate').value = tomorrowStr;
+            
+            showMessage('تم إعادة تعيين نموذج البحث', 'success');
+        }
+
+        function openMainPage() {
+            window.open('index.html', '_blank');
+        }
+
+        // Responsive test functions
+        function simulateMobile() {
+            const viewport = document.querySelector('meta[name="viewport"]');
+            viewport.setAttribute('content', 'width=375, initial-scale=1.0');
+            showMessage('تم محاكاة الهاتف المحمول (375px)', 'info');
+        }
+
+        function simulateTablet() {
+            const viewport = document.querySelector('meta[name="viewport"]');
+            viewport.setAttribute('content', 'width=768, initial-scale=1.0');
+            showMessage('تم محاكاة التابلت (768px)', 'info');
+        }
+
+        function resetViewport() {
+            const viewport = document.querySelector('meta[name="viewport"]');
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+            showMessage('تم إعادة تعيين العرض', 'success');
+        }
+
+        // Message function
+        function showMessage(message, type = 'info') {
+            // Create message element
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                color: white;
+                font-family: 'Cairo', sans-serif;
+                font-weight: 500;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                max-width: 300px;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            
+            // Set background based on type
+            switch(type) {
+                case 'success':
+                    messageDiv.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    break;
+                case 'error':
+                    messageDiv.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                    break;
+                case 'info':
+                default:
+                    messageDiv.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+                    break;
+            }
+            
+            messageDiv.textContent = message;
+            document.body.appendChild(messageDiv);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                messageDiv.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => {
+                    document.body.removeChild(messageDiv);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

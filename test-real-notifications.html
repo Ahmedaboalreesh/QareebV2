@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الإشعارات الحقيقية - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="test-real-notifications.html" class="active">اختبار الإشعارات الحقيقية</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار الإشعارات الحقيقية</h1>
+                <p>اختبار نظام الإشعارات الذي ينشئ إشعارات بناءً على الأحداث الحقيقية للمستخدم</p>
+            </div>
+
+            <!-- User Setup -->
+            <div class="user-setup">
+                <h3>إعداد المستخدم</h3>
+                <div class="setup-controls">
+                    <button class="btn btn-primary" onclick="setupRenterUser()">
+                        <i class="fas fa-user"></i>
+                        إنشاء مستخدم مستأجر
+                    </button>
+                    <button class="btn btn-success" onclick="setupOwnerUser()">
+                        <i class="fas fa-user-tie"></i>
+                        إنشاء مستخدم صاحب سيارة
+                    </button>
+                    <button class="btn btn-info" onclick="showCurrentUser()">
+                        <i class="fas fa-eye"></i>
+                        عرض المستخدم الحالي
+                    </button>
+                </div>
+                <div id="currentUserInfo" class="user-info"></div>
+            </div>
+
+            <!-- Event Simulation -->
+            <div class="event-simulation">
+                <h3>محاكاة الأحداث</h3>
+                <div class="simulation-controls">
+                    <div class="simulation-card">
+                        <h4>أحداث الحجوزات</h4>
+                        <button class="btn btn-primary" onclick="simulateBookingCreated()">
+                            <i class="fas fa-calendar-plus"></i>
+                            إنشاء حجز جديد
+                        </button>
+                        <button class="btn btn-success" onclick="simulateBookingApproved()">
+                            <i class="fas fa-check-circle"></i>
+                            موافقة على الحجز
+                        </button>
+                        <button class="btn btn-warning" onclick="simulateBookingRejected()">
+                            <i class="fas fa-times-circle"></i>
+                            رفض الحجز
+                        </button>
+                        <button class="btn btn-info" onclick="simulateBookingCompleted()">
+                            <i class="fas fa-calendar-check"></i>
+                            إكمال الحجز
+                        </button>
+                    </div>
+                    
+                    <div class="simulation-card">
+                        <h4>أحداث أخرى</h4>
+                        <button class="btn btn-primary" onclick="simulatePaymentReceived()">
+                            <i class="fas fa-money-bill-wave"></i>
+                            استلام دفعة
+                        </button>
+                        <button class="btn btn-success" onclick="simulateReviewReceived()">
+                            <i class="fas fa-star"></i>
+                            استلام تقييم
+                        </button>
+                        <button class="btn btn-info" onclick="simulatePhotoUploaded()">
+                            <i class="fas fa-camera"></i>
+                            رفع صور
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications Display -->
+            <div class="notifications-display">
+                <h3>الإشعارات الحالية</h3>
+                <div class="display-controls">
+                    <button class="btn btn-primary" onclick="refreshNotifications()">
+                        <i class="fas fa-sync-alt"></i>
+                        تحديث الإشعارات
+                    </button>
+                    <button class="btn btn-success" onclick="openNotificationsPage()">
+                        <i class="fas fa-bell"></i>
+                        فتح صفحة الإشعارات
+                    </button>
+                    <button class="btn btn-warning" onclick="clearAllNotifications()">
+                        <i class="fas fa-trash"></i>
+                        مسح جميع الإشعارات
+                    </button>
+                </div>
+                <div id="notificationsList" class="notifications-list">
+                    <!-- Notifications will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Test Results -->
+            <div class="test-results">
+                <h3>نتائج الاختبار</h3>
+                <div id="testResults" class="results-container">
+                    <p>لم يتم تشغيل أي اختبار بعد</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Test functions
+        function setupRenterUser() {
+            try {
+                const renterUser = {
+                    id: 1,
+                    full_name: 'أحمد المستأجر',
+                    email: 'ahmed@test.com',
+                    phone: '+966501234567',
+                    city: 'الرياض',
+                    user_type: 'renter'
+                };
+
+                localStorage.setItem('userData', JSON.stringify(renterUser));
+                localStorage.setItem('userToken', 'test-token-renter');
+                localStorage.setItem('userType', 'renter');
+
+                updateTestResults('✅ تم إنشاء مستخدم مستأجر بنجاح', 'success');
+                showCurrentUser();
+                
+            } catch (error) {
+                updateTestResults('❌ خطأ في إنشاء مستخدم مستأجر: ' + error.message, 'error');
+            }
+        }
+
+        function setupOwnerUser() {
+            try {
+                const ownerUser = {
+                    id: 2,
+                    full_name: 'محمد المالك',
+                    email: 'mohammed@test.com',
+                    phone: '+966507654321',
+                    city: 'جدة',
+                    user_type: 'owner'
+                };
+
+                localStorage.setItem('userData', JSON.stringify(ownerUser));
+                localStorage.setItem('userToken', 'test-token-owner');
+                localStorage.setItem('userType', 'owner');
+
+                updateTestResults('✅ تم إنشاء مستخدم صاحب سيارة بنجاح', 'success');
+                showCurrentUser();
+                
+            } catch (error) {
+                updateTestResults('❌ خطأ في إنشاء مستخدم صاحب سيارة: ' + error.message, 'error');
+            }
+        }
+
+        function showCurrentUser() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                const userType = localStorage.getItem('userType');
+                
+                const userInfo = document.getElementById('currentUserInfo');
+                if (userData.id) {
+                    userInfo.innerHTML = `
+                        <div class="user-card">
+                            <h4>المستخدم الحالي:</h4>
+                            <p><strong>الاسم:</strong> ${userData.full_name}</p>
+                            <p><strong>البريد الإلكتروني:</strong> ${userData.email}</p>
+                            <p><strong>نوع المستخدم:</strong> ${userType === 'renter' ? 'مستأجر' : 'صاحب سيارة'}</p>
+                            <p><strong>المدينة:</strong> ${userData.city}</p>
+                        </div>
+                    `;
+                } else {
+                    userInfo.innerHTML = '<p>لا يوجد مستخدم محدد</p>';
+                }
+                
+            } catch (error) {
+                console.error('Error showing current user:', error);
+            }
+        }
+
+        function simulateBookingCreated() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                const userType = localStorage.getItem('userType');
+                
+                if (!userData.id) {
+                    updateTestResults('❌ يرجى إنشاء مستخدم أولاً', 'error');
+                    return;
+                }
+
+                const bookingData = {
+                    id: Date.now(),
+                    car_id: 1,
+                    renter_id: userType === 'renter' ? userData.id : 1,
+                    car_name: 'تويوتا كامري 2023',
+                    start_date: '2024-02-15',
+                    end_date: '2024-02-18',
+                    total_amount: 450,
+                    status: 'pending',
+                    created_at: new Date().toISOString(),
+                    renter_name: userType === 'renter' ? userData.full_name : 'أحمد المستأجر'
+                };
+
+                // Add to bookings
+                const mockBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                mockBookings.push(bookingData);
+                localStorage.setItem('mockBookings', JSON.stringify(mockBookings));
+
+                // Create notification
+                if (typeof createNotification === 'function') {
+                    createNotification('booking_created', bookingData);
+                }
+
+                updateTestResults('✅ تم إنشاء حجز جديد وإنشاء إشعار', 'success');
+                refreshNotifications();
+                
+            } catch (error) {
+                updateTestResults('❌ خطأ في إنشاء الحجز: ' + error.message, 'error');
+            }
+        }
+
+        function simulateBookingApproved() {
+            try {
+                const mockBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                if (mockBookings.length === 0) {
+                    updateTestResults('❌ لا توجد حجوزات متاحة للموافقة', 'error');
+                    return;
+                }
+
+                const booking = mockBookings[mockBookings.length - 1];
+                booking.status = 'approved';
+                booking.updated_at = new Date().toISOString();
+                booking.old_status = 'pending';
+
+                localStorage.setItem('mockBookings', JSON.stringify(mockBookings));
+
+                // Create notification
+                if (typeof createNotification === 'function') {
+                    createNotification('booking_status_updated', booking);
+                }
+
+                updateTestResults('✅ تمت الموافقة على الحجز وإنشاء إشعار', 'success');
+                refreshNotifications();
+                
+            } catch (error) {
+                updateTestResults('❌ خطأ في الموافقة على الحجز: ' + error.message, 'error');
+            }
+        }
+
+        function simulateBookingRejected() {
+            try {
+                const mockBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                if (mockBookings.length === 0) {
+                    updateTestResults('❌ لا توجد حجوزات متاحة للرفض', 'error');
+                    return;
+                }
+
+                const booking = mockBookings[mockBookings.length - 1];
+                booking.status = 'rejected';
+                booking.updated_at = new Date().toISOString();
+                booking.old_status = 'pending';
+                booking.owner_notes = 'السيارة غير متاحة في هذا التاريخ';
+
+                localStorage.setItem('mockBookings', JSON.stringify(mockBookings));
+
+                // Create notification
+                if (typeof createNotification === 'function') {
+                    createNotification('booking_status_updated', booking);
+                }
+
+                updateTestResults('✅ تم رفض الحجز وإنشاء إشعار', 'success');
+                refreshNotifications();
+                
+            } catch (error) {
+                updateTestResults('❌ خطأ في رفض الحجز: ' + error.message, 'error');
+            }
+        }
+
+        function simulateBookingCompleted() {
+            try {
+                const mockBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                if (mockBookings.length === 0) {
+                    updateTestResults('❌ لا توجد حجوزات متاحة للإكمال', 'error');
+                    return;
+                }
+
+                const booking = mockBookings[mockBookings.length - 1];
+                booking.status = 'completed';
+                booking.updated_at = new Date().toISOString();
+                booking.old_status = 'approved';
+
+                localStorage.setItem('mockBookings', JSON.stringify(mockBookings));
+
+                // Create notification
+                if (typeof createNotification === 'function') {
+                    createNotification('booking_completed', booking);
+                }
+
+                updateTestResults('✅ تم إكمال الحجز وإنشاء إشعار', 'success');
+                refreshNotifications();
+                
+            } catch (error) {
+                updateTestResults('❌ خطأ في إكمال الحجز: ' + error.message, 'error');
+            }
+        }
+
+        function refreshNotifications() {
+            try {
+                const mockNotifications = JSON.parse(localStorage.getItem('mockNotifications') || '[]');
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                
+                const userNotifications = mockNotifications.filter(n => n.user_id === userData.id);
+                
+                const notificationsList = document.getElementById('notificationsList');
+                
+                if (userNotifications.length === 0) {
+                    notificationsList.innerHTML = '<p>لا توجد إشعارات</p>';
+                    return;
+                }
+                
+                notificationsList.innerHTML = userNotifications.map(notification => `
+                    <div class="notification-item ${notification.is_read ? '' : 'unread'}">
+                        <div class="notification-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4>${notification.title}</h4>
+                            <p>${notification.description}</p>
+                            <small>${new Date(notification.created_at).toLocaleString('ar-SA')}</small>
+                        </div>
+                        ${!notification.is_read ? '<div class="unread-indicator"></div>' : ''}
+                    </div>
+                `).join('');
+                
+                updateTestResults(`✅ تم تحديث الإشعارات (${userNotifications.length} إشعار)`, 'success');
+                
+            } catch (error) {
+                updateTestResults('❌ خطأ في تحديث الإشعارات: ' + error.message, 'error');
+            }
+        }
+
+        function openNotificationsPage() {
+            window.open('notifications.html', '_blank');
+            updateTestResults('🔗 تم فتح صفحة الإشعارات في تبويب جديد', 'info');
+        }
+
+        function clearAllNotifications() {
+            try {
+                localStorage.removeItem('mockNotifications');
+                refreshNotifications();
+                updateTestResults('🔄 تم مسح جميع الإشعارات', 'warning');
+            } catch (error) {
+                updateTestResults('❌ خطأ في مسح الإشعارات: ' + error.message, 'error');
+            }
+        }
+
+        function updateTestResults(message, type) {
+            const resultsContainer = document.getElementById('testResults');
+            const timestamp = new Date().toLocaleTimeString('ar-SA');
+            
+            const resultElement = document.createElement('div');
+            resultElement.className = `test-result ${type}`;
+            resultElement.innerHTML = `
+                <span class="timestamp">${timestamp}</span>
+                <span class="message">${message}</span>
+            `;
+            
+            resultsContainer.appendChild(resultElement);
+            resultsContainer.scrollTop = resultsContainer.scrollHeight;
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showCurrentUser();
+            refreshNotifications();
+        });
+    </script>
+
+    <style>
+        .test-section {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+
+        .test-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .test-header h1 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .test-header p {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        .user-setup, .event-simulation, .notifications-display, .test-results {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .user-setup h3, .event-simulation h3, .notifications-display h3, .test-results h3 {
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .setup-controls, .display-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .simulation-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .simulation-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .simulation-card h4 {
+            color: #374151;
+            margin-bottom: 15px;
+        }
+
+        .simulation-card .btn {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .user-info {
+            margin-top: 20px;
+        }
+
+        .user-card {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .user-card h4 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .user-card p {
+            margin: 5px 0;
+            color: #374151;
+        }
+
+        .notifications-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f9fafb;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .notification-item.unread {
+            border-left: 4px solid #3b82f6;
+            background: #f0f9ff;
+        }
+
+        .notification-icon {
+            color: #3b82f6;
+            font-size: 1.2rem;
+        }
+
+        .notification-content h4 {
+            color: #1f2937;
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+        }
+
+        .notification-content p {
+            color: #6b7280;
+            margin: 0 0 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .notification-content small {
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
+        .unread-indicator {
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        .results-container {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f9fafb;
+        }
+
+        .test-result {
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            gap: 10px;
+        }
+
+        .test-result:last-child {
+            border-bottom: none;
+        }
+
+        .test-result .timestamp {
+            color: #6b7280;
+            font-size: 0.8rem;
+            min-width: 80px;
+        }
+
+        .test-result.success .message {
+            color: #059669;
+        }
+
+        .test-result.error .message {
+            color: #dc2626;
+        }
+
+        .test-result.warning .message {
+            color: #d97706;
+        }
+
+        .test-result.info .message {
+            color: #2563eb;
+        }
+
+        @media (max-width: 768px) {
+            .setup-controls, .display-controls {
+                flex-direction: column;
+            }
+            
+            .simulation-controls {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

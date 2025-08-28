@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار صفحة تعديل السيارة</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            text-align: right;
+            margin: 0;
+            padding-right: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .car-preview {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .car-preview h4 {
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        
+        .car-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .detail-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .detail-item strong {
+            color: #374151;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .detail-item span {
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my-cars.html" class="nav-link">سياراتي</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار صفحة تعديل السيارة</h1>
+                <p>إصلاح زر "تعديل" في صفحة my-cars.html</p>
+            </div>
+
+            <div class="test-container">
+                <h2>المشكلة والحل</h2>
+                <div class="info-box">
+                    <h4>المشكلة السابقة:</h4>
+                    <ul>
+                        <li>❌ زر "تعديل" يعرض رسالة تنبيه فقط</li>
+                        <li>❌ لا يوجد صفحة تعديل للسيارات</li>
+                        <li>❌ لا يمكن تعديل معلومات السيارة</li>
+                        <li>❌ تجربة مستخدم سيئة</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الحل الجديد:</h4>
+                    <ul>
+                        <li>✅ إنشاء صفحة تعديل السيارة `edit-car.html`</li>
+                        <li>✅ إصلاح زر "تعديل" ليتوجه للصفحة الجديدة</li>
+                        <li>✅ تحميل بيانات السيارة تلقائياً</li>
+                        <li>✅ واجهة تعديل سهلة ومتدرجة</li>
+                        <li>✅ حفظ التعديلات في localStorage</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>إنشاء سيارة تجريبية</h2>
+                <div class="car-preview">
+                    <h4>سيارة تجريبية للاختبار:</h4>
+                    <div class="car-details">
+                        <div class="detail-item">
+                            <strong>الماركة:</strong>
+                            <span>تويوتا</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>الموديل:</strong>
+                            <span>كامري</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>السنة:</strong>
+                            <span>2023</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>اللون:</strong>
+                            <span>أبيض</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>السعر اليومي:</strong>
+                            <span>150 ريال</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>الموقع:</strong>
+                            <span>الرياض</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="createTestCar()">
+                        <i class="fas fa-plus"></i>
+                        إنشاء سيارة تجريبية
+                    </button>
+                    <button class="btn btn-success" onclick="viewMyCars()">
+                        <i class="fas fa-car"></i>
+                        عرض سياراتي
+                    </button>
+                </div>
+                
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <span>الآن زر "تعديل" يعمل بشكل صحيح!</span>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>الميزات الجديدة</h2>
+                <div class="info-box">
+                    <h4>صفحة تعديل السيارة تتضمن:</h4>
+                    <ul>
+                        <li>🔧 <strong>5 خطوات متدرجة</strong>: معلومات السيارة، التأجير، التوفر، التوصيل، الوصف</li>
+                        <li>🔧 <strong>تحميل تلقائي</strong>: بيانات السيارة تُحمل تلقائياً في النموذج</li>
+                        <li>🔧 <strong>تحقق من الحقول</strong>: التحقق من صحة البيانات في كل خطوة</li>
+                        <li>🔧 <strong>واجهة تفاعلية</strong>: تصميم عصري وسهل الاستخدام</li>
+                        <li>🔧 <strong>حفظ التعديلات</strong>: تحديث البيانات في localStorage</li>
+                        <li>🔧 <strong>رسائل تأكيد</strong>: إشعارات نجاح وخطأ واضحة</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الملفات المحدثة:</h4>
+                    <ul>
+                        <li>📝 <strong>edit-car.html</strong>: صفحة تعديل السيارة الجديدة</li>
+                        <li>📝 <strong>edit-car.js</strong>: وظائف صفحة التعديل</li>
+                        <li>📝 <strong>my-cars.js</strong>: إصلاح دالة editCar</li>
+                        <li>📝 <strong>test-edit-car.html</strong>: صفحة الاختبار هذه</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار الوظائف</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="testEditCar()">
+                        <i class="fas fa-edit"></i>
+                        اختبار تعديل السيارة
+                    </button>
+                    <button class="btn btn-success" onclick="testMyCars()">
+                        <i class="fas fa-list"></i>
+                        اختبار صفحة سياراتي
+                    </button>
+                    <button class="btn btn-outline" onclick="viewFeatures()">
+                        <i class="fas fa-star"></i>
+                        عرض الميزات
+                    </button>
+                </div>
+                
+                <div class="info-box">
+                    <h4>خطوات الاختبار:</h4>
+                    <ul>
+                        <li>1. اضغط "إنشاء سيارة تجريبية" لإضافة سيارة للاختبار</li>
+                        <li>2. اضغط "عرض سياراتي" لرؤية السيارة المضافة</li>
+                        <li>3. اضغط زر "تعديل" على السيارة</li>
+                        <li>4. ستنتقل إلى صفحة التعديل مع البيانات المحملة</li>
+                        <li>5. جرب تعديل البيانات وحفظ التغييرات</li>
+                        <li>6. تأكد من تحديث البيانات في صفحة "سياراتي"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>التفاصيل التقنية</h2>
+                <div class="info-box">
+                    <h4>التغييرات المطبقة:</h4>
+                    <ul>
+                        <li>🔧 <strong>إنشاء edit-car.html</strong>: صفحة تعديل كاملة مع 5 خطوات</li>
+                        <li>🔧 <strong>إنشاء edit-car.js</strong>: وظائف التحميل والتحديث والتحقق</li>
+                        <li>🔧 <strong>تحديث my-cars.js</strong>: إصلاح دالة editCar للتوجيه</li>
+                        <li>🔧 <strong>تحميل البيانات</strong>: من localStorage حسب ID السيارة</li>
+                        <li>🔧 <strong>حفظ التعديلات</strong>: تحديث البيانات في localStorage</li>
+                        <li>🔧 <strong>التصميم المتجاوب</strong>: يعمل على جميع الأجهزة</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>الوظائف الرئيسية:</h4>
+                    <ul>
+                        <li>✅ <strong>loadCarData()</strong>: تحميل بيانات السيارة</li>
+                        <li>✅ <strong>populateFormFields()</strong>: ملء النموذج بالبيانات</li>
+                        <li>✅ <strong>validateCurrentStep()</strong>: التحقق من صحة البيانات</li>
+                        <li>✅ <strong>updateCar()</strong>: حفظ التعديلات</li>
+                        <li>✅ <strong>nextStep() / previousStep()</strong>: التنقل بين الخطوات</li>
+                        <li>✅ <strong>showMessage()</strong>: عرض رسائل التأكيد</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function createTestCar() {
+            // إنشاء مستخدم تجريبي إذا لم يكن موجوداً
+            if (!localStorage.getItem('userData')) {
+                const testUser = {
+                    id: 1,
+                    name: 'أحمد محمد',
+                    email: 'ahmed@test.com',
+                    phone: '+966501234567'
+                };
+                localStorage.setItem('userData', JSON.stringify(testUser));
+                localStorage.setItem('userToken', 'test-token');
+                localStorage.setItem('userType', 'owner');
+            }
+            
+            // إنشاء سيارة تجريبية
+            const testCar = {
+                id: Date.now(),
+                brand: 'تويوتا',
+                model: 'كامري',
+                year: '2023',
+                color: 'أبيض',
+                type: 'سيدان',
+                transmission: 'أوتوماتيك',
+                fuelType: 'بنزين',
+                mileage: '25000',
+                dailyRate: '150',
+                weeklyRate: '900',
+                monthlyRate: '3000',
+                deposit: '500',
+                availableFrom: '2024-01-01',
+                availableTo: '2024-12-31',
+                location: 'الرياض',
+                pickupLocation: 'مطار الملك خالد',
+                delivery_service: true,
+                delivery_fee: '50',
+                delivery_note: 'توصيل مجاني داخل الرياض',
+                description: 'سيارة تويوتا كامري 2023 بحالة ممتازة، مكيفة، مع GPS وبلوتوث. مناسبة للرحلات العائلية والتنقل اليومي.',
+                features: ['ac', 'bluetooth', 'gps', 'backup_camera'],
+                status: 'active',
+                owner_id: 1,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+            };
+            
+            // إضافة السيارة إلى localStorage
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            existingCars.push(testCar);
+            localStorage.setItem('mockCars', JSON.stringify(existingCars));
+            
+            alert(`تم إنشاء سيارة تجريبية بنجاح!\n\nالماركة: ${testCar.brand} ${testCar.model}\nالسعر: ${testCar.dailyRate} ريال/يوم\nID: ${testCar.id}\n\nيمكنك الآن اختبار زر التعديل!`);
+        }
+
+        function viewMyCars() {
+            // إنشاء مستخدم تجريبي إذا لم يكن موجوداً
+            if (!localStorage.getItem('userData')) {
+                createTestCar();
+            }
+            
+            // فتح صفحة سياراتي
+            window.open('my-cars.html', '_blank');
+        }
+
+        function testEditCar() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            if (cars.length === 0) {
+                alert('لا توجد سيارات للاختبار. يرجى إنشاء سيارة تجريبية أولاً.');
+                return;
+            }
+            
+            const firstCar = cars[0];
+            window.open(`edit-car.html?id=${firstCar.id}`, '_blank');
+        }
+
+        function testMyCars() {
+            // إنشاء مستخدم تجريبي إذا لم يكن موجوداً
+            if (!localStorage.getItem('userData')) {
+                createTestCar();
+            }
+            
+            window.open('my-cars.html', '_blank');
+        }
+
+        function viewFeatures() {
+            const features = [
+                '🔧 5 خطوات متدرجة للتعديل',
+                '🔧 تحميل تلقائي لبيانات السيارة',
+                '🔧 تحقق من صحة البيانات',
+                '🔧 واجهة تفاعلية وعصرية',
+                '🔧 حفظ التعديلات في localStorage',
+                '🔧 رسائل تأكيد واضحة',
+                '🔧 تصميم متجاوب',
+                '🔧 دعم خدمة التوصيل',
+                '🔧 اختيار مميزات السيارة',
+                '🔧 تحديث فوري للبيانات'
+            ];
+            
+            let message = 'ميزات صفحة تعديل السيارة:\n\n';
+            features.forEach((feature, index) => {
+                message += `${index + 1}. ${feature}\n`;
+            });
+            
+            message += '\nالآن زر "تعديل" يعمل بشكل مثالي!';
+            
+            alert(message);
+        }
+
+        // التحقق من وجود سيارات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            const userData = localStorage.getItem('userData');
+            
+            if (cars.length === 0 || !userData) {
+                console.log('لا توجد سيارات أو مستخدم للاختبار');
+            } else {
+                console.log(`تم العثور على ${cars.length} سيارة للاختبار`);
+            }
+        });
+    </script>
+</body>
+</html>

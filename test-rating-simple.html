@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار التقييم البسيط</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .rating-test {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .rating-display {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            margin: 10px 0;
+        }
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .rating-stars i {
+            font-size: 0.9rem;
+            color: #fbbf24;
+        }
+        .rating-score {
+            font-weight: 600;
+            color: #f59e0b;
+            font-size: 0.9rem;
+        }
+        .text-warning {
+            color: #fbbf24 !important;
+        }
+        .btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>اختبار عرض التقييم</h1>
+        
+        <div class="rating-test">
+            <h3>تقييم 5.0</h3>
+            <div class="rating-display">
+                <div class="rating-stars">
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                </div>
+                <span class="rating-score">5.0</span>
+            </div>
+        </div>
+
+        <div class="rating-test">
+            <h3>تقييم 4.5</h3>
+            <div class="rating-display">
+                <div class="rating-stars">
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star-half-alt text-warning"></i>
+                </div>
+                <span class="rating-score">4.5</span>
+            </div>
+        </div>
+
+        <div class="rating-test">
+            <h3>تقييم 4.0</h3>
+            <div class="rating-display">
+                <div class="rating-stars">
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="far fa-star text-warning"></i>
+                </div>
+                <span class="rating-score">4.0</span>
+            </div>
+        </div>
+
+        <div class="rating-test">
+            <h3>تقييم 3.5</h3>
+            <div class="rating-display">
+                <div class="rating-stars">
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star-half-alt text-warning"></i>
+                    <i class="far fa-star text-warning"></i>
+                </div>
+                <span class="rating-score">3.5</span>
+            </div>
+        </div>
+
+        <div class="rating-test">
+            <h3>تقييم 3.0</h3>
+            <div class="rating-display">
+                <div class="rating-stars">
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="far fa-star text-warning"></i>
+                    <i class="far fa-star text-warning"></i>
+                </div>
+                <span class="rating-score">3.0</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <button class="btn" onclick="testGenerateRating()">اختبار دالة generateStarRating</button>
+            <button class="btn" onclick="testBrowseCars()">اختبار صفحة تصفح السيارات</button>
+            <button class="btn" onclick="addTestCars()">إضافة سيارات تجريبية</button>
+        </div>
+
+        <div id="testResult" style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px;"></div>
+    </div>
+
+    <script>
+        // Generate star rating HTML (same as in browse-cars.js)
+        function generateStarRating(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            
+            let starsHTML = '';
+            
+            // Full stars
+            for (let i = 0; i < fullStars; i++) {
+                starsHTML += '<i class="fas fa-star text-warning"></i>';
+            }
+            
+            // Half star
+            if (hasHalfStar) {
+                starsHTML += '<i class="fas fa-star-half-alt text-warning"></i>';
+            }
+            
+            // Empty stars
+            for (let i = 0; i < emptyStars; i++) {
+                starsHTML += '<i class="far fa-star text-warning"></i>';
+            }
+            
+            return starsHTML;
+        }
+
+        function testGenerateRating() {
+            const resultDiv = document.getElementById('testResult');
+            const testRatings = [5.0, 4.5, 4.0, 3.5, 3.0];
+            
+            let resultHTML = '<h4>نتائج اختبار دالة generateStarRating:</h4>';
+            
+            testRatings.forEach(rating => {
+                const starsHTML = generateStarRating(rating);
+                resultHTML += `
+                    <div style="margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <strong>تقييم ${rating}:</strong><br>
+                        ${starsHTML} <span style="color: #f59e0b; font-weight: bold;">${rating}</span>
+                    </div>
+                `;
+            });
+            
+            resultDiv.innerHTML = resultHTML;
+        }
+
+        function testBrowseCars() {
+            window.open('browse-cars.html', '_blank');
+        }
+
+        function addTestCars() {
+            const testCars = [
+                {
+                    id: Date.now(),
+                    brand: 'تويوتا',
+                    model: 'كامري',
+                    year: '2023',
+                    daily_rate: 150,
+                    location: 'الرياض',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: 25000,
+                    rating: 4.8,
+                    features: ['ac', 'bluetooth', 'gps'],
+                    photos: [
+                        {
+                            filename: 'test-car-1.jpg',
+                            preview: 'https://via.placeholder.com/300x200/4CAF50/ffffff?text=تويوتا+كامري'
+                        }
+                    ],
+                    status: 'active',
+                    created_at: new Date().toISOString()
+                },
+                {
+                    id: Date.now() + 1,
+                    brand: 'هيونداي',
+                    model: 'سوناتا',
+                    year: '2022',
+                    daily_rate: 120,
+                    location: 'جدة',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: 30000,
+                    rating: 4.2,
+                    features: ['ac', 'bluetooth'],
+                    photos: [
+                        {
+                            filename: 'test-car-2.jpg',
+                            preview: 'https://via.placeholder.com/300x200/2196F3/ffffff?text=هيونداي+سوناتا'
+                        }
+                    ],
+                    status: 'active',
+                    created_at: new Date().toISOString()
+                }
+            ];
+            
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            testCars.forEach(car => {
+                existingCars.push(car);
+            });
+            localStorage.setItem('mockCars', JSON.stringify(existingCars));
+            
+            alert('تم إضافة سيارات تجريبية بنجاح! يمكنك الآن اختبار صفحة تصفح السيارات');
+        }
+
+        // اختبار عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Font Awesome loaded:', typeof FontAwesome !== 'undefined');
+            console.log('Test rating HTML:', generateStarRating(4.5));
+        });
+    </script>
+</body>
+</html>

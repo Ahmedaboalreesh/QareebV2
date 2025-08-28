@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تسجيل Firebase - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="register.html">تسجيل جديد</a></li>
+                    <li><a href="test-register-debug.html" class="active">اختبار التسجيل</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار تسجيل Firebase</h1>
+                <p>فحص وإصلاح مشاكل التسجيل في Firebase</p>
+            </div>
+
+            <!-- Firebase Status -->
+            <div class="status-section">
+                <h3>حالة Firebase</h3>
+                <div class="status-grid">
+                    <div class="status-card" id="firebaseStatus">
+                        <i class="fas fa-fire"></i>
+                        <div class="status-content">
+                            <span class="status-label">حالة Firebase</span>
+                            <span class="status-value">جاري التحقق...</span>
+                        </div>
+                    </div>
+                    <div class="status-card" id="authStatus">
+                        <i class="fas fa-user-check"></i>
+                        <div class="status-content">
+                            <span class="status-label">المصادقة</span>
+                            <span class="status-value">غير متصل</span>
+                        </div>
+                    </div>
+                    <div class="status-card" id="databaseStatus">
+                        <i class="fas fa-database"></i>
+                        <div class="status-content">
+                            <span class="status-label">قاعدة البيانات</span>
+                            <span class="status-value">غير متصل</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Controls -->
+            <div class="test-controls">
+                <div class="test-card">
+                    <h4>اختبار الاتصال</h4>
+                    <div class="test-buttons">
+                        <button class="btn btn-primary" onclick="testFirebaseConnection()">
+                            <i class="fas fa-wifi"></i>
+                            اختبار الاتصال
+                        </button>
+                        <button class="btn btn-success" onclick="testFirebaseService()">
+                            <i class="fas fa-cog"></i>
+                            اختبار Firebase Service
+                        </button>
+                        <button class="btn btn-warning" onclick="testRegistration()">
+                            <i class="fas fa-user-plus"></i>
+                            اختبار التسجيل
+                        </button>
+                    </div>
+                </div>
+
+                <div class="test-card">
+                    <h4>اختبار التسجيل التجريبي</h4>
+                    <div class="test-form">
+                        <div class="form-group">
+                            <label for="testEmail">البريد الإلكتروني التجريبي:</label>
+                            <input type="email" id="testEmail" placeholder="test@example.com" value="test@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="testPassword">كلمة المرور التجريبية:</label>
+                            <input type="password" id="testPassword" placeholder="123456" value="123456">
+                        </div>
+                        <div class="form-group">
+                            <label for="testName">الاسم التجريبي:</label>
+                            <input type="text" id="testName" placeholder="مستخدم تجريبي" value="مستخدم تجريبي">
+                        </div>
+                        <button class="btn btn-danger" onclick="testFullRegistration()">
+                            <i class="fas fa-play"></i>
+                            تشغيل اختبار التسجيل الكامل
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Display -->
+            <div class="results-display">
+                <h3>نتائج الاختبار</h3>
+                <div id="resultsList" class="results-list">
+                    <p>لم يتم تنفيذ أي اختبار بعد</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    
+    <!-- Firebase Service -->
+    <script src="firebase-service.js"></script>
+    
+    <script>
+        let firebaseService = null;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            updateTestResults('🚀 بدء اختبار Firebase', 'info');
+            await checkFirebaseStatus();
+        });
+
+        // Check Firebase status
+        async function checkFirebaseStatus() {
+            try {
+                updateTestResults('🔍 فحص حالة Firebase...', 'info');
+
+                // Check Firebase initialization
+                if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
+                    updateStatus('firebaseStatus', '✅ متصل', 'success');
+                    updateTestResults('✅ Firebase SDK متاح', 'success');
+                } else {
+                    updateStatus('firebaseStatus', '❌ غير متصل', 'error');
+                    updateTestResults('❌ Firebase SDK غير متاح', 'error');
+                    return;
+                }
+
+                // Check Authentication
+                try {
+                    if (firebase.auth) {
+                        updateStatus('authStatus', '✅ متصل', 'success');
+                        updateTestResults('✅ Firebase Auth متاح', 'success');
+                    } else {
+                        updateStatus('authStatus', '❌ غير متاح', 'error');
+                        updateTestResults('❌ Firebase Auth غير متاح', 'error');
+                    }
+                } catch (error) {
+                    updateStatus('authStatus', '❌ خطأ', 'error');
+                    updateTestResults('❌ خطأ في Firebase Auth: ' + error.message, 'error');
+                }
+
+                // Check Database
+                try {
+                    const testRef = firebase.database().ref('test');
+                    await testRef.set({ timestamp: Date.now() });
+                    await testRef.remove();
+                    updateStatus('databaseStatus', '✅ متصل', 'success');
+                    updateTestResults('✅ Firebase Database متاح', 'success');
+                } catch (error) {
+                    updateStatus('databaseStatus', '❌ خطأ', 'error');
+                    updateTestResults('❌ خطأ في Firebase Database: ' + error.message, 'error');
+                }
+
+            } catch (error) {
+                console.error('Error checking Firebase status:', error);
+                updateTestResults('❌ خطأ في فحص حالة Firebase: ' + error.message, 'error');
+            }
+        }
+
+        // Test Firebase connection
+        async function testFirebaseConnection() {
+            try {
+                updateTestResults('🔍 اختبار الاتصال بـ Firebase...', 'info');
+
+                // Test basic Firebase availability
+                if (typeof firebase === 'undefined') {
+                    throw new Error('Firebase SDK not loaded');
+                }
+
+                // Test database connection
+                const testRef = firebase.database().ref('connection_test');
+                await testRef.set({ 
+                    timestamp: Date.now(),
+                    test: 'connection_test'
+                });
+                
+                const snapshot = await testRef.once('value');
+                const data = snapshot.val();
+                
+                if (data && data.test === 'connection_test') {
+                    await testRef.remove();
+                    updateTestResults('✅ اختبار الاتصال نجح', 'success');
+                } else {
+                    throw new Error('Database read/write test failed');
+                }
+
+            } catch (error) {
+                console.error('Connection test error:', error);
+                updateTestResults('❌ اختبار الاتصال فشل: ' + error.message, 'error');
+            }
+        }
+
+        // Test Firebase Service
+        async function testFirebaseService() {
+            try {
+                updateTestResults('🔍 اختبار Firebase Service...', 'info');
+
+                firebaseService = new FirebaseService();
+                updateTestResults('✅ Firebase Service تم إنشاؤه بنجاح', 'success');
+
+                // Wait a bit for initialization
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                if (firebaseService.auth && firebaseService.db) {
+                    updateTestResults('✅ Firebase Service مهيأ بشكل صحيح', 'success');
+                } else {
+                    throw new Error('Firebase Service not properly initialized');
+                }
+
+            } catch (error) {
+                console.error('Firebase Service test error:', error);
+                updateTestResults('❌ اختبار Firebase Service فشل: ' + error.message, 'error');
+            }
+        }
+
+        // Test registration
+        async function testRegistration() {
+            try {
+                updateTestResults('🔍 اختبار دالة التسجيل...', 'info');
+
+                if (!firebaseService) {
+                    firebaseService = new FirebaseService();
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+
+                // Test with dummy data
+                const testUserData = {
+                    email: 'test@example.com',
+                    password: '123456',
+                    full_name: 'مستخدم تجريبي',
+                    phone: '0500000000',
+                    city: 'الرياض',
+                    user_type: 'renter',
+                    newsletter: false
+                };
+
+                updateTestResults('🔄 محاولة تسجيل مستخدم تجريبي...', 'info');
+                
+                const result = await firebaseService.registerUser(testUserData);
+                
+                if (result && result.user && result.profile) {
+                    updateTestResults('✅ اختبار التسجيل نجح', 'success');
+                    updateTestResults(`📝 تم إنشاء المستخدم: ${result.user.uid}`, 'info');
+                    
+                    // Clean up - delete test user
+                    try {
+                        await firebaseService.auth.currentUser.delete();
+                        updateTestResults('🧹 تم حذف المستخدم التجريبي', 'info');
+                    } catch (cleanupError) {
+                        updateTestResults('⚠️ فشل في حذف المستخدم التجريبي: ' + cleanupError.message, 'warning');
+                    }
+                } else {
+                    throw new Error('Registration result is invalid');
+                }
+
+            } catch (error) {
+                console.error('Registration test error:', error);
+                
+                let errorMessage = 'خطأ في اختبار التسجيل';
+                
+                if (error.code) {
+                    switch (error.code) {
+                        case 'auth/email-already-in-use':
+                            errorMessage = 'البريد الإلكتروني التجريبي مستخدم بالفعل';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'البريد الإلكتروني التجريبي غير صحيح';
+                            break;
+                        case 'auth/weak-password':
+                            errorMessage = 'كلمة المرور التجريبية ضعيفة';
+                            break;
+                        case 'auth/operation-not-allowed':
+                            errorMessage = 'إنشاء الحساب غير مسموح';
+                            break;
+                        case 'auth/network-request-failed':
+                            errorMessage = 'خطأ في الاتصال بالشبكة';
+                            break;
+                        case 'auth/identity-toolkit-api-has-not-been-used-in-project-382655918338-before-or-it-is-disabled.-enable-it-by-visiting-https://console.developers.google.com/apis/api/identitytoolkit.googleapis.com/overview?project=382655918338-then-retry.-if-you-enabled-this-api-recently,-wait-a-few-minutes-for-the-action-to-propagate-to-our-systems-and-retry.':
+                            errorMessage = 'خطأ في إعدادات Firebase: يجب تفعيل Identity Toolkit API. اضغط على الرابط في Console للحصول على التعليمات.';
+                            break;
+                        default:
+                            errorMessage = `خطأ في Firebase: ${error.message}`;
+                    }
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+                
+                updateTestResults('❌ ' + errorMessage, 'error');
+            }
+        }
+
+        // Test full registration with form data
+        async function testFullRegistration() {
+            try {
+                const testEmail = document.getElementById('testEmail').value;
+                const testPassword = document.getElementById('testPassword').value;
+                const testName = document.getElementById('testName').value;
+
+                if (!testEmail || !testPassword || !testName) {
+                    updateTestResults('❌ يرجى ملء جميع الحقول التجريبية', 'error');
+                    return;
+                }
+
+                updateTestResults(`🔍 اختبار التسجيل الكامل للمستخدم: ${testEmail}`, 'info');
+
+                if (!firebaseService) {
+                    firebaseService = new FirebaseService();
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+
+                const userData = {
+                    email: testEmail,
+                    password: testPassword,
+                    full_name: testName,
+                    phone: '0500000000',
+                    city: 'الرياض',
+                    user_type: 'renter',
+                    newsletter: false
+                };
+
+                updateTestResults('🔄 إنشاء حساب تجريبي...', 'info');
+                
+                const result = await firebaseService.registerUser(userData);
+                
+                if (result && result.user && result.profile) {
+                    updateTestResults('✅ تم إنشاء الحساب التجريبي بنجاح', 'success');
+                    updateTestResults(`📝 معرف المستخدم: ${result.user.uid}`, 'info');
+                    updateTestResults(`📧 البريد الإلكتروني: ${result.profile.email}`, 'info');
+                    updateTestResults(`👤 الاسم: ${result.profile.full_name}`, 'info');
+                    
+                    // Clean up
+                    try {
+                        await firebaseService.auth.currentUser.delete();
+                        updateTestResults('🧹 تم حذف الحساب التجريبي', 'info');
+                    } catch (cleanupError) {
+                        updateTestResults('⚠️ فشل في حذف الحساب التجريبي: ' + cleanupError.message, 'warning');
+                    }
+                } else {
+                    throw new Error('Registration result is invalid');
+                }
+
+            } catch (error) {
+                console.error('Full registration test error:', error);
+                
+                let errorMessage = 'خطأ في التسجيل التجريبي';
+                
+                if (error.code) {
+                    switch (error.code) {
+                        case 'auth/email-already-in-use':
+                            errorMessage = 'البريد الإلكتروني مستخدم بالفعل - جرب بريد إلكتروني آخر';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'البريد الإلكتروني غير صحيح';
+                            break;
+                        case 'auth/weak-password':
+                            errorMessage = 'كلمة المرور ضعيفة جداً';
+                            break;
+                        case 'auth/operation-not-allowed':
+                            errorMessage = 'إنشاء الحساب غير مسموح حالياً';
+                            break;
+                        case 'auth/network-request-failed':
+                            errorMessage = 'خطأ في الاتصال بالشبكة';
+                            break;
+                        case 'auth/identity-toolkit-api-has-not-been-used-in-project-382655918338-before-or-it-is-disabled.-enable-it-by-visiting-https://console.developers.google.com/apis/api/identitytoolkit.googleapis.com/overview?project=382655918338-then-retry.-if-you-enabled-this-api-recently,-wait-a-few-minutes-for-the-action-to-propagate-to-our-systems-and-retry.':
+                            errorMessage = 'خطأ في إعدادات Firebase: يجب تفعيل Identity Toolkit API. اضغط على الرابط في Console للحصول على التعليمات.';
+                            break;
+                        default:
+                            errorMessage = `خطأ في Firebase: ${error.message}`;
+                    }
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+                
+                updateTestResults('❌ ' + errorMessage, 'error');
+            }
+        }
+
+        // Update status display
+        function updateStatus(elementId, value, type) {
+            try {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    const statusValue = element.querySelector('.status-value');
+                    if (statusValue) {
+                        statusValue.textContent = value;
+                        statusValue.className = `status-value ${type}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+            }
+        }
+
+        // Update test results
+        function updateTestResults(message, type) {
+            try {
+                const resultsList = document.getElementById('resultsList');
+                const timestamp = new Date().toLocaleTimeString('ar-SA');
+                
+                const resultElement = document.createElement('div');
+                resultElement.className = `result-item ${type}`;
+                resultElement.innerHTML = `
+                    <span class="timestamp">${timestamp}</span>
+                    <span class="message">${message}</span>
+                `;
+                
+                resultsList.appendChild(resultElement);
+                resultsList.scrollTop = resultsList.scrollHeight;
+                
+                console.log(`[${type.toUpperCase()}] ${message}`);
+            } catch (error) {
+                console.error('Error updating test results:', error);
+            }
+        }
+    </script>
+
+    <style>
+        .test-section {
+            padding: 2rem 0;
+        }
+
+        .test-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .test-header h1 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .test-header p {
+            color: #7f8c8d;
+        }
+
+        .status-section {
+            margin-bottom: 2rem;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .status-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-card i {
+            font-size: 1.5rem;
+            color: #3498db;
+        }
+
+        .status-content {
+            flex: 1;
+        }
+
+        .status-label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .status-value {
+            display: block;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .status-value.success {
+            color: #27ae60;
+        }
+
+        .status-value.error {
+            color: #e74c3c;
+        }
+
+        .test-controls {
+            margin-bottom: 2rem;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .test-card h4 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .test-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .test-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .btn {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .results-display {
+            margin-bottom: 2rem;
+        }
+
+        .results-list {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-item .timestamp {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            min-width: 80px;
+        }
+
+        .result-item .message {
+            flex: 1;
+        }
+
+        .result-item.success .message {
+            color: #27ae60;
+        }
+
+        .result-item.error .message {
+            color: #e74c3c;
+        }
+
+        .result-item.warning .message {
+            color: #f39c12;
+        }
+
+        .result-item.info .message {
+            color: #3498db;
+        }
+    </style>
+</body>
+</html>

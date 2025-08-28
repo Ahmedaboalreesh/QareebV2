@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار صفحة المفضلة</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-section {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            text-align: right;
+            margin: 0;
+            padding-right: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .demo-favorites {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .demo-favorites h4 {
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .favorites-demo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .favorites-status {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .favorites-status.has-favorites {
+            background: #e8f5e8;
+            color: #27ae60;
+        }
+        
+        .favorites-status.no-favorites {
+            background: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-cars.html" class="nav-link">تصفح السيارات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add-car.html" class="nav-link">إضافة سيارة</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-header">
+                <h1>اختبار صفحة المفضلة</h1>
+                <p>صفحة عرض السيارات المفضلة للمستخدم</p>
+            </div>
+
+            <div class="test-container">
+                <h2>الميزات الجديدة</h2>
+                <div class="info-box">
+                    <h4>صفحة المفضلة تتضمن:</h4>
+                    <ul>
+                        <li>✅ عرض جميع السيارات المفضلة</li>
+                        <li>✅ بحث في السيارات المفضلة</li>
+                        <li>✅ تصفية حسب السعر والتقييم</li>
+                        <li>✅ إزالة سيارة من المفضلة</li>
+                        <li>✅ مسح جميع المفضلة</li>
+                        <li>✅ عرض عدد السيارات في المفضلة</li>
+                        <li>✅ حالة فارغة عندما لا توجد مفضلة</li>
+                        <li>✅ تصميم متجاوب للجوال</li>
+                        <li>✅ رسائل تأكيد للعمليات</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>اختبار الصفحة</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="testFavoritesPage()">
+                        <i class="fas fa-heart"></i>
+                        اختبار صفحة المفضلة
+                    </button>
+                    <button class="btn btn-success" onclick="addSampleFavorites()">
+                        <i class="fas fa-plus"></i>
+                        إضافة سيارات للمفضلة
+                    </button>
+                    <button class="btn btn-outline" onclick="clearAllFavorites()">
+                        <i class="fas fa-trash"></i>
+                        مسح جميع المفضلة
+                    </button>
+                </div>
+                
+                <div class="info-box">
+                    <h4>كيفية اختبار صفحة المفضلة:</h4>
+                    <ul>
+                        <li>1. اضغط على "إضافة سيارات للمفضلة" لإنشاء بيانات</li>
+                        <li>2. اضغط على "اختبار صفحة المفضلة" لفتح الصفحة</li>
+                        <li>3. لاحظ عرض السيارات المفضلة</li>
+                        <li>4. اختبر البحث في المفضلة</li>
+                        <li>5. اختبر التصفية حسب السعر والتقييم</li>
+                        <li>6. اختبر إزالة سيارة من المفضلة</li>
+                        <li>7. اختبر مسح جميع المفضلة</li>
+                        <li>8. تحقق من التصميم المتجاوب</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>حالة المفضلة الحالية</h2>
+                <div class="demo-favorites">
+                    <h4>معلومات المفضلة:</h4>
+                    <div id="favoritesInfo">
+                        <!-- سيتم عرض معلومات المفضلة هنا -->
+                    </div>
+                    <div class="favorites-demo">
+                        <button class="btn btn-outline" onclick="refreshFavoritesInfo()">
+                            <i class="fas fa-sync"></i>
+                            تحديث المعلومات
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-container">
+                <h2>ميزات الصفحة</h2>
+                <div class="info-box">
+                    <h4>الوظائف المتاحة:</h4>
+                    <ul>
+                        <li>🔍 <strong>البحث</strong>: البحث في السيارات المفضلة بالاسم أو الموقع</li>
+                        <li>📊 <strong>التصفية</strong>: ترتيب حسب السعر أو التقييم</li>
+                        <li>❤️ <strong>إزالة</strong>: إزالة سيارة من المفضلة بنقرة واحدة</li>
+                        <li>🗑️ <strong>مسح الكل</strong>: مسح جميع السيارات من المفضلة</li>
+                        <li>📱 <strong>تصميم متجاوب</strong>: عرض مثالي على جميع الأجهزة</li>
+                        <li>💬 <strong>رسائل تأكيد</strong>: رسائل واضحة لجميع العمليات</li>
+                        <li>📈 <strong>عداد السيارات</strong>: عرض عدد السيارات في المفضلة</li>
+                        <li>🚗 <strong>عرض التفاصيل</strong>: الانتقال لصفحة تفاصيل السيارة</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Sample cars data
+        const sampleCars = [
+            {
+                id: 1,
+                brand: 'تويوتا',
+                model: 'كامري',
+                year: '2023',
+                daily_rate: 150,
+                original_price: 180,
+                location: 'الرياض',
+                transmission: 'أوتوماتيك',
+                fuel_type: 'بنزين',
+                mileage: 25000,
+                rating: 4.8,
+                features: ['ac', 'bluetooth', 'gps', 'backup_camera']
+            },
+            {
+                id: 2,
+                brand: 'مرسيدس',
+                model: 'C-Class',
+                year: '2023',
+                daily_rate: 300,
+                location: 'جدة',
+                transmission: 'أوتوماتيك',
+                fuel_type: 'بنزين',
+                mileage: 15000,
+                rating: 4.9,
+                features: ['ac', 'bluetooth', 'gps', 'leather_seats', 'sunroof']
+            },
+            {
+                id: 3,
+                brand: 'هيونداي',
+                model: 'سوناتا',
+                year: '2022',
+                daily_rate: 120,
+                location: 'الدمام',
+                transmission: 'أوتوماتيك',
+                fuel_type: 'بنزين',
+                mileage: 30000,
+                rating: 4.6,
+                features: ['ac', 'bluetooth', 'cruise_control']
+            }
+        ];
+
+        function testFavoritesPage() {
+            // إنشاء مستخدم تجريبي إذا لم يكن موجوداً
+            if (!localStorage.getItem('userData')) {
+                const testUser = {
+                    id: 1,
+                    name: 'أحمد محمد',
+                    email: 'ahmed@test.com',
+                    phone: '+966501234567'
+                };
+                localStorage.setItem('userData', JSON.stringify(testUser));
+                localStorage.setItem('userToken', 'test-token');
+                localStorage.setItem('userType', 'renter');
+            }
+            
+            // فتح صفحة المفضلة
+            window.open('favorites.html', '_blank');
+        }
+
+        function addSampleFavorites() {
+            // Get existing cars
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            
+            // Add sample cars if they don't exist
+            sampleCars.forEach(car => {
+                if (!existingCars.find(c => c.id === car.id)) {
+                    const fullCar = {
+                        ...car,
+                        deposit: 500,
+                        owner_name: 'أحمد محمد',
+                        description: 'سيارة ممتازة في حالة جيدة، مكيفة بالكامل، مناسبة للرحلات العائلية والتنقل اليومي.',
+                        photos: [{ filename: `car${car.id}.jpg` }]
+                    };
+                    existingCars.push(fullCar);
+                }
+            });
+            
+            localStorage.setItem('mockCars', JSON.stringify(existingCars));
+            
+            // Add cars to favorites
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            sampleCars.forEach(car => {
+                if (!favorites.includes(car.id)) {
+                    favorites.push(car.id);
+                }
+            });
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            
+            alert('تم إضافة سيارات للمفضلة بنجاح! يمكنك الآن اختبار صفحة المفضلة');
+            refreshFavoritesInfo();
+        }
+
+        function clearAllFavorites() {
+            if (confirm('هل تريد مسح جميع السيارات من المفضلة؟')) {
+                localStorage.removeItem('favorites');
+                alert('تم مسح جميع المفضلة بنجاح');
+                refreshFavoritesInfo();
+            }
+        }
+
+        function refreshFavoritesInfo() {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const existingCars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            
+            const favoritesInfo = document.getElementById('favoritesInfo');
+            
+            if (favorites.length === 0) {
+                favoritesInfo.innerHTML = `
+                    <div class="favorites-demo">
+                        <span>عدد السيارات في المفضلة:</span>
+                        <div class="favorites-status no-favorites">0 سيارة</div>
+                    </div>
+                    <p>لا توجد سيارات في المفضلة</p>
+                `;
+            } else {
+                const favoriteCars = favorites.map(carId => {
+                    return existingCars.find(car => car.id === carId);
+                }).filter(car => car);
+                
+                favoritesInfo.innerHTML = `
+                    <div class="favorites-demo">
+                        <span>عدد السيارات في المفضلة:</span>
+                        <div class="favorites-status has-favorites">${favoriteCars.length} سيارة</div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <strong>السيارات المفضلة:</strong>
+                        <ul style="margin-top: 10px; padding-right: 20px;">
+                            ${favoriteCars.map(car => `
+                                <li>${car.brand} ${car.model} ${car.year} - ${car.location}</li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        // Load favorites info on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshFavoritesInfo();
+        });
+    </script>
+</body>
+</html>
