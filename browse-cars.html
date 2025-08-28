@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصفح السيارات - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="renter-dashboard.html">لوحة التحكم</a></li>
+                    <li><a href="browse-cars.html" class="active">تصفح السيارات</a></li>
+                    <li><a href="my-bookings.html">حجوزاتي</a></li>
+                    <li><a href="favorites.html">المفضلة</a></li>
+                    <li><a href="reviews.html">التقييمات</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Browse Cars Section -->
+    <section class="browse-section">
+        <div class="container">
+            <div class="browse-header">
+
+                <h1>تصفح السيارات المتاحة</h1>
+                <p>ابحث عن السيارة المناسبة لك واحجزها بسهولة</p>
+            </div>
+
+            <!-- Search Filters -->
+            <div class="search-filters">
+                <form id="searchFiltersForm" class="filters-form">
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <label for="locationFilter">
+                                <i class="fas fa-map-marker-alt"></i>
+                                الموقع
+                            </label>
+                            <select id="locationFilter" name="location">
+                                <option value="">جميع المدن</option>
+                                <option value="الرياض">الرياض</option>
+                                <option value="جدة">جدة</option>
+                                <option value="الدمام">الدمام</option>
+                                <option value="مكة">مكة</option>
+                                <option value="المدينة">المدينة</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="brandFilter">
+                                <i class="fas fa-car"></i>
+                                الماركة
+                            </label>
+                            <select id="brandFilter" name="brand">
+                                <option value="">جميع الماركات</option>
+                                <option value="تويوتا">تويوتا</option>
+                                <option value="مرسيدس">مرسيدس</option>
+                                <option value="هيونداي">هيونداي</option>
+                                <option value="لكزس">لكزس</option>
+                                <option value="بي إم دبليو">بي إم دبليو</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="priceFilter">
+                                <i class="fas fa-money-bill-wave"></i>
+                                السعر
+                            </label>
+                            <select id="priceFilter" name="price">
+                                <option value="">جميع الأسعار</option>
+                                <option value="0-100">أقل من 100 ريال</option>
+                                <option value="100-200">100 - 200 ريال</option>
+                                <option value="200-300">200 - 300 ريال</option>
+                                <option value="300+">أكثر من 300 ريال</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="transmissionFilter">
+                                <i class="fas fa-cog"></i>
+                                ناقل الحركة
+                            </label>
+                            <select id="transmissionFilter" name="transmission">
+                                <option value="">الكل</option>
+                                <option value="أوتوماتيك">أوتوماتيك</option>
+                                <option value="يدوي">يدوي</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="filters-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                            بحث
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="clearFilters()">
+                            <i class="fas fa-times"></i>
+                            مسح الفلاتر
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Results Info -->
+            <div class="results-info">
+                <div class="results-count">
+                    <span id="resultsCount">0</span> سيارة متاحة
+                </div>
+                <div class="results-actions">
+                    <div class="sort-options">
+                        <label for="sortBy">ترتيب حسب:</label>
+                        <select id="sortBy" onchange="sortCars()">
+                            <option value="recommended">الأكثر توصية</option>
+                            <option value="price-low">السعر: من الأقل للأعلى</option>
+                            <option value="price-high">السعر: من الأعلى للأقل</option>
+                            <option value="rating">التقييم</option>
+                            <option value="newest">الأحدث</option>
+                        </select>
+                    </div>
+                    <div class="refresh-section">
+                        <button class="btn btn-outline" id="refreshCars" title="تحديث السيارات">
+                            <i class="fas fa-sync-alt"></i>
+                            تحديث
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cars Grid -->
+            <div class="cars-grid" id="carsGrid">
+                <!-- Cars will be loaded here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container">
+                <button id="loadMoreBtn" class="btn btn-outline" onclick="loadMoreCars()" style="display: none;">
+                    <i class="fas fa-plus"></i>
+                    عرض المزيد
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script src="browse-cars.js"></script>
+</body>
+</html>

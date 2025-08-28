@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار ملخص الحجز</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 اختبار ملخص الحجز</h1>
+        
+        <div class="test-section">
+            <h3>1. إنشاء بيانات تجريبية</h3>
+            <button class="btn" onclick="createTestData()">إنشاء بيانات تجريبية</button>
+            <button class="btn" onclick="checkLocalStorage()">فحص localStorage</button>
+            <div id="localStorageResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>2. اختبار دالة updateBookingSummary</h3>
+            <button class="btn" onclick="testUpdateBookingSummary()">اختبار الدالة</button>
+            <div id="testResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>3. اختبار الحسابات</h3>
+            <button class="btn" onclick="testCalculations()">اختبار الحسابات</button>
+            <div id="calculationsResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>4. فتح صفحة تفاصيل السيارة</h3>
+            <button class="btn" onclick="openCarDetails(1)">فتح سيارة مرسيدس (ID: 1)</button>
+            <button class="btn" onclick="openCarDetails(2)">فتح سيارة تويوتا (ID: 2)</button>
+            <button class="btn" onclick="openCarDetails(3)">فتح سيارة هوندا (ID: 3)</button>
+        </div>
+    </div>
+
+    <script>
+        // إنشاء بيانات تجريبية
+        function createTestData() {
+            const testCars = [
+                {
+                    id: 1,
+                    brand: 'مرسيدس',
+                    model: 'S-Class',
+                    year: '2023',
+                    daily_rate: 500,
+                    deposit: 2000,
+                    delivery_service: true,
+                    delivery_fee: 100,
+                    owner_name: 'أحمد محمد',
+                    location: 'الرياض'
+                },
+                {
+                    id: 2,
+                    brand: 'تويوتا',
+                    model: 'ياريس',
+                    year: '2022',
+                    daily_rate: 80,
+                    deposit: 300,
+                    delivery_service: false,
+                    delivery_fee: 0,
+                    owner_name: 'فاطمة علي',
+                    location: 'جدة'
+                },
+                {
+                    id: 3,
+                    brand: 'هوندا',
+                    model: 'أكورد',
+                    year: '2023',
+                    daily_rate: 200,
+                    deposit: 800,
+                    delivery_service: true,
+                    delivery_fee: 50,
+                    owner_name: 'محمد حسن',
+                    location: 'الدمام'
+                }
+            ];
+            
+            localStorage.setItem('mockCars', JSON.stringify(testCars));
+            
+            // إنشاء بيانات مستخدم تجريبية
+            localStorage.setItem('userToken', 'test-token');
+            localStorage.setItem('userType', 'renter');
+            
+            document.getElementById('localStorageResult').innerHTML = 
+                '<div class="success">✅ تم إنشاء البيانات التجريبية بنجاح</div>';
+        }
+        
+        // فحص localStorage
+        function checkLocalStorage() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            const userToken = localStorage.getItem('userToken');
+            const userType = localStorage.getItem('userType');
+            
+            let result = '<h4>محتويات localStorage:</h4>';
+            result += `<p><strong>عدد السيارات:</strong> ${cars.length}</p>`;
+            result += `<p><strong>userToken:</strong> ${userToken || 'غير موجود'}</p>`;
+            result += `<p><strong>userType:</strong> ${userType || 'غير موجود'}</p>`;
+            
+            if (cars.length > 0) {
+                result += '<h4>تفاصيل السيارات:</h4>';
+                cars.forEach(car => {
+                    result += `
+                        <div style="margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <strong>ID:</strong> ${car.id}<br>
+                            <strong>السيارة:</strong> ${car.brand} ${car.model} ${car.year}<br>
+                            <strong>السعر اليومي:</strong> ${car.daily_rate} ريال<br>
+                            <strong>الوديعة:</strong> ${car.deposit} ريال<br>
+                            <strong>خدمة التوصيل:</strong> ${car.delivery_service ? 'متوفرة' : 'غير متوفرة'}<br>
+                            <strong>رسوم التوصيل:</strong> ${car.delivery_fee} ريال
+                        </div>
+                    `;
+                });
+            }
+            
+            document.getElementById('localStorageResult').innerHTML = result;
+        }
+        
+        // اختبار دالة updateBookingSummary
+        function testUpdateBookingSummary() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            if (cars.length === 0) {
+                document.getElementById('testResult').innerHTML = 
+                    '<div class="error">❌ لا توجد بيانات سيارات. قم بإنشاء البيانات التجريبية أولاً.</div>';
+                return;
+            }
+            
+            const car = cars[0]; // استخدام السيارة الأولى
+            const startDate = '2024-02-01';
+            const endDate = '2024-02-03';
+            
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            const basePrice = days * car.daily_rate;
+            const totalPrice = basePrice; // بدون توصيل
+            
+            let result = '<h4>نتيجة الاختبار:</h4>';
+            result += `<p><strong>السيارة:</strong> ${car.brand} ${car.model}</p>`;
+            result += `<p><strong>تاريخ البداية:</strong> ${startDate}</p>`;
+            result += `<p><strong>تاريخ النهاية:</strong> ${endDate}</p>`;
+            result += `<p><strong>عدد الأيام:</strong> ${days}</p>`;
+            result += `<p><strong>السعر اليومي:</strong> ${car.daily_rate} ريال</p>`;
+            result += `<p><strong>السعر الأساسي:</strong> ${basePrice} ريال</p>`;
+            result += `<p><strong>السعر الإجمالي:</strong> ${totalPrice} ريال</p>`;
+            result += `<p><strong>الوديعة:</strong> ${car.deposit} ريال</p>`;
+            
+            document.getElementById('testResult').innerHTML = result;
+        }
+        
+        // اختبار الحسابات
+        function testCalculations() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            if (cars.length === 0) {
+                document.getElementById('calculationsResult').innerHTML = 
+                    '<div class="error">❌ لا توجد بيانات سيارات. قم بإنشاء البيانات التجريبية أولاً.</div>';
+                return;
+            }
+            
+            let result = '<h4>اختبار الحسابات لجميع السيارات:</h4>';
+            
+            cars.forEach(car => {
+                const startDate = '2024-02-01';
+                const endDate = '2024-02-03';
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+                const basePrice = days * car.daily_rate;
+                const totalWithDelivery = basePrice + car.delivery_fee;
+                
+                result += `
+                    <div style="margin: 15px 0; padding: 15px; border: 2px solid #007bff; border-radius: 8px;">
+                        <h5>${car.brand} ${car.model} (ID: ${car.id})</h5>
+                        <p><strong>السعر اليومي:</strong> ${car.daily_rate} ريال</p>
+                        <p><strong>الوديعة:</strong> ${car.deposit} ريال</p>
+                        <p><strong>عدد الأيام:</strong> ${days} أيام</p>
+                        <p><strong>السعر الأساسي:</strong> ${basePrice} ريال</p>
+                        <p><strong>رسوم التوصيل:</strong> ${car.delivery_fee} ريال</p>
+                        <p><strong>السعر مع التوصيل:</strong> ${totalWithDelivery} ريال</p>
+                        <p><strong>خدمة التوصيل:</strong> ${car.delivery_service ? '✅ متوفرة' : '❌ غير متوفرة'}</p>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('calculationsResult').innerHTML = result;
+        }
+        
+        // فتح صفحة تفاصيل السيارة
+        function openCarDetails(carId) {
+            window.open(`car-details.html?id=${carId}`, '_blank');
+        }
+        
+        // فحص البيانات عند تحميل الصفحة
+        window.onload = function() {
+            checkLocalStorage();
+        };
+    </script>
+</body>
+</html>

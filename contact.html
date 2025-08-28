@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بنا - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="index.html#cars">السيارات</a></li>
+                    <li><a href="index.html#how-it-works">كيف يعمل</a></li>
+                    <li><a href="contact.html" class="active">اتصل بنا</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="window.location.href='login.html'">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </button>
+                    <button class="btn btn-primary" onclick="window.location.href='register.html'">
+                        <i class="fas fa-car"></i>
+                        شارك سيارتك
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-header">
+                <h1>اتصل بنا</h1>
+                <p>نحن هنا لمساعدتك في أي استفسار أو مشكلة تواجهها</p>
+            </div>
+            
+            <div class="contact-content">
+                <!-- Contact Information -->
+                <div class="contact-info-section">
+                    <h2>معلومات التواصل</h2>
+                    <div class="contact-info-grid">
+                        <div class="contact-info-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h3>الهاتف</h3>
+                            <p>+966 50 123 4567</p>
+                            <p>+966 11 234 5678</p>
+                            <span class="contact-time">الأحد - الخميس: 8:00 ص - 6:00 م</span>
+                        </div>
+                        
+                        <div class="contact-info-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>البريد الإلكتروني</h3>
+                            <p>info@shareyourcar.sa</p>
+                            <p>support@shareyourcar.sa</p>
+                            <span class="contact-time">رد خلال 24 ساعة</span>
+                        </div>
+                        
+                        <div class="contact-info-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>العنوان</h3>
+                            <p>شارع الملك فهد</p>
+                            <p>الرياض، المملكة العربية السعودية</p>
+                            <span class="contact-time">المكتب الرئيسي</span>
+                        </div>
+                        
+                        <div class="contact-info-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>ساعات العمل</h3>
+                            <p>الأحد - الخميس: 8:00 ص - 6:00 م</p>
+                            <p>الجمعة: 9:00 ص - 1:00 م</p>
+                            <span class="contact-time">السبت: عطلة</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <h2>أرسل لنا رسالة</h2>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">الاسم الأول *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">اسم العائلة *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">البريد الإلكتروني *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">رقم الهاتف *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">نوع الاستفسار *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">اختر نوع الاستفسار</option>
+                                <option value="general">استفسار عام</option>
+                                <option value="technical">مشكلة تقنية</option>
+                                <option value="billing">مشكلة في الفواتير</option>
+                                <option value="booking">مشكلة في الحجز</option>
+                                <option value="safety">مشكلة أمنية</option>
+                                <option value="partnership">شراكة تجارية</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">الرسالة *</label>
+                            <textarea id="message" name="message" rows="6" placeholder="اكتب رسالتك هنا..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="privacy" name="privacy" required>
+                                <span class="checkmark"></span>
+                                أوافق على <a href="#" class="privacy-link">سياسة الخصوصية</a> و <a href="#" class="terms-link">الشروط والأحكام</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            إرسال الرسالة
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2>الأسئلة الشائعة</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني إضافة سيارتي للتأجير؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكنك إضافة سيارتك بسهولة من خلال إنشاء حساب جديد، ثم ملء نموذج إضافة السيارة مع الصور والمعلومات المطلوبة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ما هي رسوم الخدمة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>نحن نأخذ نسبة 10% من كل حجز ناجح كرسوم خدمة. هذه النسبة تشمل التأمين والدعم الفني.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يتم التأمين على السيارات؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>جميع السيارات مؤمنة تأميناً شاملاً خلال فترة التأجير. يغطي التأمين الأضرار والحوادث.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ما هي سياسة الإلغاء؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكن إلغاء الحجز مجاناً قبل 24 ساعة من موعد الاستلام. الإلغاء في نفس اليوم يخضع لرسوم.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Social Media Section -->
+            <div class="social-contact-section">
+                <h2>تواصل معنا على وسائل التواصل الاجتماعي</h2>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="فيسبوك">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>فيسبوك</span>
+                    </a>
+                    <a href="#" class="social-link" title="تويتر">
+                        <i class="fab fa-twitter"></i>
+                        <span>تويتر</span>
+                    </a>
+                    <a href="#" class="social-link" title="إنستغرام">
+                        <i class="fab fa-instagram"></i>
+                        <span>إنستغرام</span>
+                    </a>
+                    <a href="#" class="social-link" title="لينكد إن">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span>لينكد إن</span>
+                    </a>
+                    <a href="#" class="social-link" title="واتساب">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>واتساب</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-car"></i>
+                        <span>شارك سيارتك</span>
+                    </div>
+                    <p>منصة آمنة وموثوقة لتأجير السيارات من شخص لشخص - دعم الاقتصاد التشاركي في المملكة العربية السعودية</p>
+                    
+                    <!-- Social Media Links -->
+                    <div class="social-media">
+                        <h4>تابعنا على</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="فيسبوك">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-link" title="تويتر">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" title="إنستغرام">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" title="لينكد إن">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link" title="يوتيوب">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="social-link" title="واتساب">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="index.html#cars">السيارات</a></li>
+                        <li><a href="index.html#how-it-works">كيف يعمل</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="login.html">تسجيل الدخول</a></li>
+                        <li><a href="register.html">إنشاء حساب</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>الدعم والمساعدة</h4>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                        <li><a href="cancellation-policy.html">سياسة الإلغاء</a></li>
+                                                    <li><a href="user-guide.html">دليل الاستخدام</a></li>
+                            <li><a href="report-problem.html">الإبلاغ عن مشكلة</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>معلومات التواصل</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+966 50 123 4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@shareyourcar.sa</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>الرياض، المملكة العربية السعودية</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>الأحد - الخميس: 8:00 ص - 6:00 م</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 شارك سيارتك. جميع الحقوق محفوظة.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">سياسة الخصوصية</a>
+                        <a href="#">الشروط والأحكام</a>
+                        <a href="#">خريطة الموقع</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="contact.js"></script>
+</body>
+</html>

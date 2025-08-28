@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعداد EmailJS - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="emailjs-setup.html" class="active">إعداد EmailJS</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Setup Section -->
+    <section class="setup-section">
+        <div class="container">
+            <div class="setup-header">
+                <h1>إعداد EmailJS لإرسال البريد الإلكتروني</h1>
+                <p>خطوات تفعيل إرسال رمز التحقق عبر البريد الإلكتروني</p>
+            </div>
+
+            <!-- EmailJS Setup Steps -->
+            <div class="setup-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>إنشاء حساب EmailJS</h3>
+                        <p>اذهب إلى <a href="https://www.emailjs.com/" target="_blank">EmailJS.com</a> وأنشئ حساب مجاني</p>
+                        <div class="step-actions">
+                            <button class="btn btn-primary" onclick="openEmailJS()">
+                                <i class="fas fa-external-link-alt"></i>
+                                الذهاب إلى EmailJS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>إعداد خدمة البريد الإلكتروني</h3>
+                        <p>أضف خدمة Gmail أو أي خدمة بريد إلكتروني أخرى</p>
+                        <div class="step-details">
+                            <h4>الخطوات:</h4>
+                            <ol>
+                                <li>اذهب إلى "Email Services"</li>
+                                <li>انقر على "Add New Service"</li>
+                                <li>اختر "Gmail" أو "Custom SMTP"</li>
+                                <li>أدخل بيانات البريد الإلكتروني</li>
+                                <li>احفظ الخدمة</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>إنشاء قالب البريد الإلكتروني</h3>
+                        <p>أنشئ قالب لرسالة رمز التحقق</p>
+                        <div class="step-details">
+                            <h4>محتوى القالب:</h4>
+                            <div class="email-template">
+                                <strong>الموضوع:</strong> رمز التحقق - شارك سيارتك<br>
+                                <strong>المحتوى:</strong><br>
+                                مرحباً {{to_name}}،<br><br>
+                                رمز التحقق الخاص بك هو: <strong>{{verification_code}}</strong><br><br>
+                                هذا الرمز صالح لمدة 10 دقائق فقط.<br>
+                                إذا لم تطلب هذا الرمز، يرجى تجاهل هذه الرسالة.<br><br>
+                                مع تحيات،<br>
+                                فريق شارك سيارتك
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>تحديث الإعدادات في الكود</h3>
+                        <p>أدخل معرفات EmailJS في الكود</p>
+                        <div class="config-form">
+                            <div class="form-group">
+                                <label for="serviceId">معرف الخدمة (Service ID):</label>
+                                <input type="text" id="serviceId" placeholder="service_xxxxxxx">
+                            </div>
+                            <div class="form-group">
+                                <label for="templateId">معرف القالب (Template ID):</label>
+                                <input type="text" id="templateId" placeholder="template_xxxxxxx">
+                            </div>
+                            <div class="form-group">
+                                <label for="userId">معرف المستخدم (User ID):</label>
+                                <input type="text" id="userId" placeholder="user_xxxxxxx">
+                            </div>
+                            <button class="btn btn-success" onclick="updateEmailJSConfig()">
+                                <i class="fas fa-save"></i>
+                                حفظ الإعدادات
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>اختبار الإرسال</h3>
+                        <p>اختبر إرسال البريد الإلكتروني</p>
+                        <div class="test-form">
+                            <div class="form-group">
+                                <label for="testEmail">البريد الإلكتروني للاختبار:</label>
+                                <input type="email" id="testEmail" placeholder="test@example.com">
+                            </div>
+                            <button class="btn btn-info" onclick="testEmailSending()">
+                                <i class="fas fa-paper-plane"></i>
+                                اختبار الإرسال
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Configuration -->
+            <div class="current-config">
+                <h3>الإعدادات الحالية</h3>
+                <div id="currentConfig" class="config-display">
+                    <p>لم يتم حفظ أي إعدادات بعد</p>
+                </div>
+            </div>
+
+            <!-- Alternative Solutions -->
+            <div class="alternatives">
+                <h3>حلول بديلة</h3>
+                <div class="alternatives-grid">
+                    <div class="alternative-card">
+                        <h4>استخدام SendGrid</h4>
+                        <p>خدمة بريد إلكتروني احترافية مع 100 رسالة مجانية يومياً</p>
+                        <a href="https://sendgrid.com/" target="_blank" class="btn btn-outline">
+                            <i class="fas fa-external-link-alt"></i>
+                            زيارة SendGrid
+                        </a>
+                    </div>
+                    <div class="alternative-card">
+                        <h4>استخدام Mailgun</h4>
+                        <p>خدمة بريد إلكتروني للمطورين مع 5000 رسالة مجانية شهرياً</p>
+                        <a href="https://www.mailgun.com/" target="_blank" class="btn btn-outline">
+                            <i class="fas fa-external-link-alt"></i>
+                            زيارة Mailgun
+                        </a>
+                    </div>
+                    <div class="alternative-card">
+                        <h4>استخدام NodeMailer</h4>
+                        <p>مكتبة Node.js لإرسال البريد الإلكتروني</p>
+                        <a href="https://nodemailer.com/" target="_blank" class="btn btn-outline">
+                            <i class="fas fa-external-link-alt"></i>
+                            زيارة NodeMailer
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCurrentConfig();
+        });
+
+        // Open EmailJS website
+        function openEmailJS() {
+            window.open('https://www.emailjs.com/', '_blank');
+        }
+
+        // Update EmailJS configuration
+        function updateEmailJSConfig() {
+            const serviceId = document.getElementById('serviceId').value.trim();
+            const templateId = document.getElementById('templateId').value.trim();
+            const userId = document.getElementById('userId').value.trim();
+
+            if (!serviceId || !templateId || !userId) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+
+            const config = {
+                serviceId: serviceId,
+                templateId: templateId,
+                userId: userId,
+                configured: true,
+                configuredAt: new Date().toISOString()
+            };
+
+            localStorage.setItem('emailJSConfig', JSON.stringify(config));
+            loadCurrentConfig();
+            
+            alert('تم حفظ الإعدادات بنجاح!');
+        }
+
+        // Load current configuration
+        function loadCurrentConfig() {
+            const config = JSON.parse(localStorage.getItem('emailJSConfig') || '{}');
+            const configDisplay = document.getElementById('currentConfig');
+
+            if (config.configured) {
+                configDisplay.innerHTML = `
+                    <div class="config-item">
+                        <strong>معرف الخدمة:</strong> ${config.serviceId}
+                    </div>
+                    <div class="config-item">
+                        <strong>معرف القالب:</strong> ${config.templateId}
+                    </div>
+                    <div class="config-item">
+                        <strong>معرف المستخدم:</strong> ${config.userId}
+                    </div>
+                    <div class="config-item">
+                        <strong>تاريخ الإعداد:</strong> ${new Date(config.configuredAt).toLocaleString('ar-SA')}
+                    </div>
+                    <div class="config-status success">
+                        <i class="fas fa-check-circle"></i>
+                        تم تكوين EmailJS بنجاح
+                    </div>
+                `;
+            } else {
+                configDisplay.innerHTML = '<p>لم يتم حفظ أي إعدادات بعد</p>';
+            }
+        }
+
+        // Test email sending
+        async function testEmailSending() {
+            const testEmail = document.getElementById('testEmail').value.trim();
+            
+            if (!testEmail) {
+                alert('يرجى إدخال بريد إلكتروني للاختبار');
+                return;
+            }
+
+            const config = JSON.parse(localStorage.getItem('emailJSConfig') || '{}');
+            
+            if (!config.configured) {
+                alert('يرجى إعداد EmailJS أولاً');
+                return;
+            }
+
+            try {
+                // Generate test code
+                const testCode = Math.floor(100000 + Math.random() * 900000).toString();
+                
+                // Send test email
+                const response = await EmailJS.send(
+                    config.serviceId,
+                    config.templateId,
+                    {
+                        to_email: testEmail,
+                        verification_code: testCode,
+                        to_name: 'مستخدم الاختبار'
+                    },
+                    config.userId
+                );
+
+                alert('تم إرسال بريد الاختبار بنجاح! تحقق من صندوق الوارد');
+                console.log('Test email sent:', response);
+                
+            } catch (error) {
+                alert('حدث خطأ في إرسال بريد الاختبار: ' + error.message);
+                console.error('Test email error:', error);
+            }
+        }
+    </script>
+
+    <style>
+        .setup-section {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+
+        .setup-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .setup-header h1 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .setup-header p {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        .setup-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: #3b82f6;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .step-content p {
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+        .step-details {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .step-details h4 {
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .step-details ol {
+            color: #6b7280;
+            padding-right: 20px;
+        }
+
+        .step-details li {
+            margin-bottom: 5px;
+        }
+
+        .email-template {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .config-form, .test-form {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #374151;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .current-config, .alternatives {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .current-config h3, .alternatives h3 {
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .config-display {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .config-item {
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .config-item:last-child {
+            border-bottom: none;
+        }
+
+        .config-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .config-status.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .alternatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .alternative-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .alternative-card h4 {
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .alternative-card p {
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .step-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .alternatives-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

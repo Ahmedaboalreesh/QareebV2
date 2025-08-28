@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأرباح - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="dashboard.html">لوحة التحكم</a></li>
+                    <li><a href="my-cars.html">سياراتي</a></li>
+                    <li><a href="bookings.html">الحجوزات</a></li>
+                    <li><a href="earnings.html" class="active">الأرباح</a></li>
+                    <li><a href="reviews.html">التقييمات</a></li>
+                    <li>
+                        <a href="notifications.html" class="notification-link">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Earnings Section -->
+    <section class="earnings-section">
+        <div class="container">
+            <div class="earnings-header">
+                <h1>الأرباح</h1>
+                <p>تتبع أرباحك وإحصائياتك المالية</p>
+            </div>
+
+            <!-- Earnings Overview -->
+            <div class="earnings-overview">
+                <div class="overview-card total-earnings">
+                    <div class="card-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 id="totalEarnings">0</h3>
+                        <p>إجمالي الأرباح</p>
+                        <span class="currency">ريال سعودي</span>
+                    </div>
+                </div>
+                
+                <div class="overview-card monthly-earnings">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 id="monthlyEarnings">0</h3>
+                        <p>أرباح هذا الشهر</p>
+                        <span class="currency">ريال سعودي</span>
+                    </div>
+                </div>
+                
+                <div class="overview-card completed-bookings">
+                    <div class="card-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 id="completedBookings">0</h3>
+                        <p>الحجوزات المكتملة</p>
+                        <span class="period">هذا الشهر</span>
+                    </div>
+                </div>
+                
+                <div class="overview-card average-per-booking">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 id="averagePerBooking">0</h3>
+                        <p>متوسط الربح للحجز</p>
+                        <span class="currency">ريال سعودي</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings Chart -->
+            <div class="earnings-chart">
+                <div class="chart-header">
+                    <h2>تطور الأرباح</h2>
+                    <div class="chart-filters">
+                        <button class="filter-btn active" data-period="week">أسبوع</button>
+                        <button class="filter-btn" data-period="month">شهر</button>
+                        <button class="filter-btn" data-period="year">سنة</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="earningsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="recent-transactions">
+                <div class="section-header">
+                    <h2>المعاملات الأخيرة</h2>
+                    <button class="btn btn-outline" onclick="exportEarnings()">
+                        <i class="fas fa-download"></i>
+                        تصدير التقرير
+                    </button>
+                </div>
+                
+                <div class="transactions-list" id="transactionsList">
+                    <!-- Transactions will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Earnings by Car -->
+            <div class="earnings-by-car">
+                <h2>الأرباح حسب السيارة</h2>
+                <div class="cars-earnings-grid" id="carsEarningsGrid">
+                    <!-- Car earnings will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="earnings.js"></script>
+</body>
+</html>

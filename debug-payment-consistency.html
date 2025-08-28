@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Payment Consistency</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .debug-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .summary-box {
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+        .summary-box h4 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Debug Payment Summary Consistency</h1>
+        
+        <div class="debug-section">
+            <h3>1. Create Test Data</h3>
+            <button class="btn" onclick="createTestData()">Create Test Data</button>
+            <button class="btn" onclick="showAllData()">Show All Data</button>
+            <div id="dataResult" class="result"></div>
+        </div>
+        
+        <div class="debug-section">
+            <h3>2. Test Calculations</h3>
+            <button class="btn" onclick="testCalculations()">Test Calculations</button>
+            <div id="calculationsResult" class="result"></div>
+        </div>
+        
+        <div class="debug-section">
+            <h3>3. Create Test Booking</h3>
+            <button class="btn btn-success" onclick="createTestBooking()">Create Test Booking</button>
+            <div id="bookingResult" class="result"></div>
+        </div>
+        
+        <div class="debug-section">
+            <h3>4. Test Payment Summary</h3>
+            <button class="btn btn-warning" onclick="testPaymentSummary()">Test Payment Summary</button>
+            <div id="paymentResult" class="result"></div>
+        </div>
+        
+        <div class="debug-section">
+            <h3>5. Open Pages</h3>
+            <button class="btn" onclick="openCarDetails()">Open Car Details</button>
+            <button class="btn" onclick="openPaymentPage()">Open Payment Page</button>
+        </div>
+    </div>
+
+    <script>
+        // Create test data
+        function createTestData() {
+            const testCars = [
+                {
+                    id: 1,
+                    brand: 'مرسيدس',
+                    model: 'S-Class',
+                    year: '2023',
+                    daily_rate: 500,
+                    deposit: 2000,
+                    delivery_service: true,
+                    delivery_fee: 100,
+                    owner_name: 'أحمد محمد',
+                    location: 'الرياض'
+                }
+            ];
+            
+            localStorage.setItem('mockCars', JSON.stringify(testCars));
+            localStorage.setItem('userToken', 'test-token');
+            localStorage.setItem('userType', 'renter');
+            
+            document.getElementById('dataResult').innerHTML = 
+                '<div class="success">✅ Test data created successfully</div>';
+        }
+        
+        // Show all data
+        function showAllData() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            
+            let result = '=== CARS ===\n';
+            result += JSON.stringify(cars, null, 2);
+            result += '\n\n=== BOOKINGS ===\n';
+            result += JSON.stringify(bookings, null, 2);
+            
+            document.getElementById('dataResult').innerHTML = result;
+        }
+        
+        // Test calculations
+        function testCalculations() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            if (cars.length === 0) {
+                document.getElementById('calculationsResult').innerHTML = 
+                    '<div class="error">❌ No cars found. Create test data first.</div>';
+                return;
+            }
+            
+            const car = cars[0];
+            const startDate = '2024-02-01';
+            const endDate = '2024-02-03';
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            
+            const baseAmount = days * car.daily_rate;
+            const deliveryFee = car.delivery_fee || 0;
+            const totalAmount = baseAmount + deliveryFee;
+            
+            let result = '=== CALCULATION TEST ===\n';
+            result += `Car: ${car.brand} ${car.model}\n`;
+            result += `Daily Rate: ${car.daily_rate} SAR\n`;
+            result += `Days: ${days}\n`;
+            result += `Base Amount: ${baseAmount} SAR\n`;
+            result += `Delivery Fee: ${deliveryFee} SAR\n`;
+            result += `Total Amount: ${totalAmount} SAR\n`;
+            
+            document.getElementById('calculationsResult').innerHTML = result;
+        }
+        
+        // Create test booking
+        function createTestBooking() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            if (cars.length === 0) {
+                document.getElementById('bookingResult').innerHTML = 
+                    '<div class="error">❌ No cars found. Create test data first.</div>';
+                return;
+            }
+            
+            const car = cars[0];
+            const startDate = '2024-02-01';
+            const endDate = '2024-02-03';
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            
+            const baseAmount = days * car.daily_rate;
+            const deliveryFee = car.delivery_fee || 0;
+            const totalAmount = baseAmount + deliveryFee;
+            
+            const testBooking = {
+                id: Date.now(),
+                car_id: car.id,
+                start_date: startDate,
+                end_date: endDate,
+                status: 'pending',
+                total_amount: totalAmount,
+                deposit_amount: car.deposit,
+                delivery_choice: 'yes',
+                delivery_fee: deliveryFee
+            };
+            
+            // Save booking
+            const existingBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            existingBookings.push(testBooking);
+            localStorage.setItem('mockBookings', JSON.stringify(existingBookings));
+            
+            let result = '=== TEST BOOKING CREATED ===\n';
+            result += JSON.stringify(testBooking, null, 2);
+            
+            document.getElementById('bookingResult').innerHTML = result;
+        }
+        
+        // Test payment summary
+        function testPaymentSummary() {
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            
+            if (bookings.length === 0) {
+                document.getElementById('paymentResult').innerHTML = 
+                    '<div class="error">❌ No bookings found. Create test booking first.</div>';
+                return;
+            }
+            
+            const booking = bookings[bookings.length - 1];
+            const car = cars.find(c => c.id == booking.car_id);
+            
+            let result = '=== PAYMENT SUMMARY TEST ===\n';
+            result += `Booking ID: ${booking.id}\n`;
+            result += `Car ID: ${booking.car_id}\n`;
+            result += `Car Found: ${car ? 'Yes' : 'No'}\n`;
+            result += `Car Details: ${car ? `${car.brand} ${car.model}` : 'N/A'}\n`;
+            result += `Booking Daily Rate: ${booking.daily_rate || 'Not set'}\n`;
+            result += `Car Daily Rate: ${car ? car.daily_rate : 'N/A'}\n`;
+            result += `Booking Delivery Fee: ${booking.delivery_fee}\n`;
+            result += `Car Delivery Fee: ${car ? car.delivery_fee : 'N/A'}\n`;
+            result += `Booking Total: ${booking.total_amount}\n`;
+            
+            // Simulate payment calculation
+            const startDate = new Date(booking.start_date);
+            const endDate = new Date(booking.end_date);
+            const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            const dailyRate = car ? car.daily_rate : 150;
+            const baseAmount = days * dailyRate;
+            const deliveryFee = booking.delivery_choice === 'yes' ? (booking.delivery_fee || 0) : 0;
+            const calculatedTotal = baseAmount + deliveryFee;
+            
+            result += `\n=== CALCULATION ===\n`;
+            result += `Days: ${days}\n`;
+            result += `Daily Rate: ${dailyRate}\n`;
+            result += `Base Amount: ${baseAmount}\n`;
+            result += `Delivery Fee: ${deliveryFee}\n`;
+            result += `Calculated Total: ${calculatedTotal}\n`;
+            result += `Stored Total: ${booking.total_amount}\n`;
+            result += `Match: ${calculatedTotal === booking.total_amount ? '✅' : '❌'}\n`;
+            
+            document.getElementById('paymentResult').innerHTML = result;
+        }
+        
+        // Open car details page
+        function openCarDetails() {
+            window.open('car-details.html?id=1', '_blank');
+        }
+        
+        // Open payment page
+        function openPaymentPage() {
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            if (bookings.length === 0) {
+                alert('No bookings found. Create test booking first.');
+                return;
+            }
+            
+            const latestBooking = bookings[bookings.length - 1];
+            window.open(`payment.html?booking_id=${latestBooking.id}`, '_blank');
+        }
+        
+        // Initialize on load
+        window.onload = function() {
+            showAllData();
+        };
+    </script>
+</body>
+</html>

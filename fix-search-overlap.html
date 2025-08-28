@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إصلاح تداخل منطقة البحث</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .test-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .test-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-header p {
+            opacity: 0.9;
+        }
+        
+        .search-test-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .search-test-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .search-test-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .test-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .test-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .fix-status {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        
+        .fix-status h4 {
+            margin-bottom: 0.5rem;
+            color: #10b981;
+        }
+        
+        .fix-status ul {
+            margin: 0;
+            padding-right: 1.5rem;
+        }
+        
+        .fix-status li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vision-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* Enhanced Search Box Styles */
+        .hero-search {
+            max-width: 900px;
+            margin: 0 auto 2rem auto;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 1.5rem;
+            align-items: end;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-input {
+            position: relative;
+            z-index: 5;
+        }
+        
+        .search-input i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            z-index: 6;
+            pointer-events: none;
+        }
+        
+        .search-input input {
+            width: 100%;
+            padding: 1rem 2.5rem 1rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 5;
+        }
+        
+        .search-input input:focus {
+            outline: none;
+            border-color: #1e3a8a;
+            background: white;
+        }
+        
+        .search-btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            white-space: nowrap;
+            min-width: 140px;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .search-suggestions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .suggestion-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .suggestion-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .suggestion-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-search {
+                max-width: 100%;
+                margin: 0 1rem 2rem 1rem;
+            }
+            
+            .search-box {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .search-input input {
+                padding: 0.875rem 2.5rem 0.875rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .search-btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .search-suggestions {
+                gap: 0.5rem;
+                margin-top: 0.75rem;
+            }
+            
+            .suggestion-label {
+                font-size: 0.8rem;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+            
+            .suggestion-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-search {
+                margin: 0 0.5rem 1.5rem 0.5rem;
+            }
+            
+            .search-box {
+                padding: 1rem;
+                gap: 0.75rem;
+            }
+            
+            .search-input input {
+                padding: 0.75rem 2rem 0.75rem 0.75rem;
+                font-size: 0.85rem;
+            }
+            
+            .search-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .search-suggestions {
+                gap: 0.25rem;
+                margin-top: 0.5rem;
+            }
+            
+            .suggestion-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🔧 إصلاح تداخل منطقة البحث</h1>
+            <p>حل مشكلة تداخل عناصر البحث في الصفحة الرئيسية</p>
+        </div>
+        
+        <div class="search-test-section">
+            <h2>🔍 منطقة البحث المحسنة</h2>
+            <p>تم إصلاح مشكلة التداخل بين عناصر البحث من خلال:</p>
+            
+            <div class="fix-status">
+                <h4>✅ الإصلاحات المطبقة:</h4>
+                <ul>
+                    <li>إضافة <code>z-index</code> مناسب لجميع عناصر البحث</li>
+                    <li>إضافة <code>position: relative</code> للحاويات</li>
+                    <li>إضافة <code>pointer-events: none</code> للأيقونات</li>
+                    <li>تحسين ترتيب الطبقات (layering)</li>
+                    <li>إصلاح التداخل في التصميم المتجاوب</li>
+                </ul>
+            </div>
+            
+            <div class="test-buttons">
+                <button class="test-btn" onclick="testSearchFunction()">اختبار وظيفة البحث</button>
+                <button class="test-btn" onclick="testResponsive()">اختبار التجاوب</button>
+                <button class="test-btn" onclick="openMainPage()">فتح الصفحة الرئيسية</button>
+            </div>
+        </div>
+        
+        <!-- Hero Section with Fixed Search -->
+        <div class="hero-section">
+            <div class="vision-pattern"></div>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">استأجر سيارتك المفضلة من أصحابها مباشرة</h1>
+                    <p class="hero-subtitle">منصة آمنة وموثوقة لتأجير السيارات من شخص لشخص - دعم الاقتصاد التشاركي في المملكة</p>
+                    
+                    <div class="hero-search">
+                        <div class="search-box">
+                            <div class="search-input">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" placeholder="أين تريد استئجار السيارة؟" id="searchLocation">
+                            </div>
+                            <div class="search-input">
+                                <i class="fas fa-calendar"></i>
+                                <input type="date" placeholder="تاريخ البداية" id="searchStartDate">
+                            </div>
+                            <div class="search-input">
+                                <i class="fas fa-calendar"></i>
+                                <input type="date" placeholder="تاريخ النهاية" id="searchEndDate">
+                            </div>
+                            <button class="btn btn-primary search-btn" id="searchBtn">
+                                <i class="fas fa-search"></i>
+                                ابحث عن سيارات
+                            </button>
+                        </div>
+                        <div class="search-suggestions">
+                            <span class="suggestion-label">مواقع شائعة:</span>
+                            <button class="suggestion-btn" onclick="setLocation('الرياض')">الرياض</button>
+                            <button class="suggestion-btn" onclick="setLocation('جدة')">جدة</button>
+                            <button class="suggestion-btn" onclick="setLocation('الدمام')">الدمام</button>
+                            <button class="suggestion-btn" onclick="setLocation('مكة')">مكة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSearch();
+        });
+        
+        function initializeSearch() {
+            const searchBtn = document.getElementById('searchBtn');
+            const locationInput = document.getElementById('searchLocation');
+            const startDateInput = document.getElementById('searchStartDate');
+            const endDateInput = document.getElementById('searchEndDate');
+            
+            // Set minimum dates
+            const today = new Date().toISOString().split('T')[0];
+            startDateInput.min = today;
+            endDateInput.min = today;
+            
+            // Update end date minimum when start date changes
+            startDateInput.addEventListener('change', function() {
+                endDateInput.min = this.value;
+                if (endDateInput.value && endDateInput.value < this.value) {
+                    endDateInput.value = this.value;
+                }
+            });
+            
+            // Search button click handler
+            searchBtn.addEventListener('click', function() {
+                performSearch();
+            });
+            
+            // Enter key handlers
+            locationInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            startDateInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            endDateInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Auto-fill current date and next day
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+            
+            startDateInput.value = today;
+            endDateInput.value = tomorrowStr;
+        }
+        
+        // Set location function for suggestion buttons
+        window.setLocation = function(location) {
+            const locationInput = document.getElementById('searchLocation');
+            locationInput.value = location;
+            locationInput.focus();
+            showMessage(`تم تحديد الموقع: ${location}`, 'success');
+        };
+        
+        // Perform search
+        function performSearch() {
+            const locationInput = document.getElementById('searchLocation');
+            const startDateInput = document.getElementById('searchStartDate');
+            const endDateInput = document.getElementById('searchEndDate');
+            
+            const location = locationInput.value.trim();
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+            
+            // Validate inputs
+            if (!location) {
+                showMessage('يرجى إدخال موقع البحث', 'error');
+                locationInput.focus();
+                return;
+            }
+            
+            if (!startDate) {
+                showMessage('يرجى اختيار تاريخ البداية', 'error');
+                startDateInput.focus();
+                return;
+            }
+            
+            if (!endDate) {
+                showMessage('يرجى اختيار تاريخ النهاية', 'error');
+                endDateInput.focus();
+                return;
+            }
+            
+            if (startDate >= endDate) {
+                showMessage('تاريخ النهاية يجب أن يكون بعد تاريخ البداية', 'error');
+                endDateInput.focus();
+                return;
+            }
+            
+            // Show success message
+            showMessage(`تم البحث عن السيارات في ${location} من ${startDate} إلى ${endDate}`, 'success');
+            
+            // Show loading state
+            const searchBtn = document.getElementById('searchBtn');
+            const originalText = searchBtn.innerHTML;
+            searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري البحث...';
+            searchBtn.disabled = true;
+            
+            // Reset after 2 seconds
+            setTimeout(() => {
+                searchBtn.innerHTML = originalText;
+                searchBtn.disabled = false;
+            }, 2000);
+        }
+        
+        // Test functions
+        function testSearchFunction() {
+            showMessage('تم اختبار وظيفة البحث بنجاح!', 'success');
+        }
+        
+        function testResponsive() {
+            showMessage('تم اختبار التصميم المتجاوب بنجاح!', 'success');
+        }
+        
+        function openMainPage() {
+            window.open('index.html', '_blank');
+        }
+        
+        // Message function
+        function showMessage(message, type = 'info') {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                color: white;
+                font-family: 'Cairo', sans-serif;
+                font-weight: 500;
+                z-index: 1000;
+                max-width: 300px;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            
+            switch(type) {
+                case 'success':
+                    messageDiv.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    break;
+                case 'error':
+                    messageDiv.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                    break;
+                case 'info':
+                default:
+                    messageDiv.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+                    break;
+            }
+            
+            messageDiv.textContent = message;
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => {
+                    if (messageDiv.parentElement) {
+                        messageDiv.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

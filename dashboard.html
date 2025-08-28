@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="dashboard.html" class="active">لوحة التحكم</a></li>
+                    <li><a href="my-cars.html">سياراتي</a></li>
+                    <li><a href="bookings.html">الحجوزات</a></li>
+                    <li><a href="earnings.html">الأرباح</a></li>
+                    <li><a href="reviews.html">التقييمات</a></li>
+                    <li>
+                        <a href="notifications.html" class="notification-link">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container">
+            <div class="dashboard-header">
+
+                <h1>مرحباً بك في لوحة التحكم</h1>
+                <p>إدارة سياراتك وحجوزاتك وأرباحك - دعم الاقتصاد التشاركي</p>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>0</h3>
+                        <p>السيارات المضافة</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>0</h3>
+                        <p>الحجوزات النشطة</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>0 ريال</h3>
+                        <p>الأرباح الشهرية</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>0.0</h3>
+                        <p>التقييم العام</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>إجراءات سريعة</h2>
+                <div class="actions-grid">
+                    <a href="add-car.html" class="action-card primary">
+                        <div class="action-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <h3>إضافة سيارة جديدة</h3>
+                        <p>أضف سيارتك وابدأ في ربح المال</p>
+                    </a>
+                    
+                    <a href="my-cars.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-car-side"></i>
+                        </div>
+                        <h3>إدارة سياراتي</h3>
+                        <p>عرض وتعديل سياراتك المضافة</p>
+                    </a>
+                    
+                    <a href="bookings.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>عرض الحجوزات</h3>
+                        <p>إدارة حجوزات سياراتك</p>
+                    </a>
+                    
+                    <a href="earnings.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>تقرير الأرباح</h3>
+                        <p>عرض إحصائيات أرباحك</p>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h2>النشاط الأخير</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>تم إنشاء حسابك بنجاح</h4>
+                            <p>مرحباً بك في منصة شارك سيارتك</p>
+                            <span class="activity-time">الآن</span>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item empty">
+                        <div class="activity-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>لا توجد أنشطة أخرى</h4>
+                            <p>ابدأ بإضافة سيارتك الأولى لرؤية النشاط هنا</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tips Section -->
+            <div class="tips-section">
+                <h2>نصائح لزيادة أرباحك</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>صور عالية الجودة</h3>
+                        <p>أضف صور واضحة وجذابة لسيارتك لجذب المزيد من العملاء</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <h3>أسعار منافسة</h3>
+                        <p>ضع أسعار مناسبة ومتنافسة لزيادة معدل الحجوزات</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>رد سريع</h3>
+                        <p>رد على طلبات الحجز بسرعة لتحسين تقييمك</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>صيانة دورية</h3>
+                        <p>احرص على صيانة سيارتك بانتظام لضمان رضا العملاء</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-car"></i>
+                        <span>شارك سيارتك</span>
+
+                    </div>
+                    <p>منصة آمنة وموثوقة لتأجير السيارات من شخص لشخص - دعم الاقتصاد التشاركي في المملكة العربية السعودية</p>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 شارك سيارتك. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

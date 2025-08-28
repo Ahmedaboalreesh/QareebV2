@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأسئلة الشائعة - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="index.html#cars">السيارات</a></li>
+                    <li><a href="index.html#how-it-works">كيف يعمل</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="window.location.href='login.html'">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </button>
+                    <button class="btn btn-primary" onclick="window.location.href='register.html'">
+                        <i class="fas fa-car"></i>
+                        شارك سيارتك
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <h1>الأسئلة الشائعة</h1>
+                <p>إجابات على أكثر الأسئلة شيوعاً حول منصة شارك سيارتك</p>
+            </div>
+            
+            <!-- Search Section -->
+            <div class="faq-search">
+                <div class="search-container">
+                    <input type="text" id="faqSearch" placeholder="ابحث في الأسئلة الشائعة..." class="search-input">
+                    <i class="fas fa-search"></i>
+                    <button class="search-btn" onclick="searchFAQ()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- FAQ Categories -->
+            <div class="faq-categories">
+                <button class="faq-category-btn active" data-category="all">
+                    <i class="fas fa-th-large"></i>
+                    جميع الأسئلة
+                </button>
+                <button class="faq-category-btn" data-category="general">
+                    <i class="fas fa-info-circle"></i>
+                    أسئلة عامة
+                </button>
+                <button class="faq-category-btn" data-category="booking">
+                    <i class="fas fa-calendar-check"></i>
+                    الحجز والدفع
+                </button>
+                <button class="faq-category-btn" data-category="safety">
+                    <i class="fas fa-shield-alt"></i>
+                    الأمان والتأمين
+                </button>
+                <button class="faq-category-btn" data-category="technical">
+                    <i class="fas fa-cog"></i>
+                    الدعم التقني
+                </button>
+            </div>
+            
+            <!-- FAQ Content -->
+            <div class="faq-content">
+                <!-- General Questions -->
+                <div class="faq-category" data-category="general">
+                    <h2>أسئلة عامة</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ما هي منصة شارك سيارتك؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>منصة شارك سيارتك هي منصة آمنة وموثوقة لتأجير السيارات من شخص لشخص، تهدف إلى دعم الاقتصاد التشاركي في المملكة العربية السعودية. تتيح المنصة لأصحاب السيارات تأجير سياراتهم للمستأجرين بطريقة آمنة ومربحة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني إنشاء حساب في المنصة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكنك إنشاء حساب بسهولة من خلال الضغط على زر "إنشاء حساب" في الصفحة الرئيسية، ثم ملء النموذج بالمعلومات المطلوبة (الاسم، البريد الإلكتروني، رقم الهاتف، كلمة المرور)، والموافقة على الشروط والأحكام.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ما هي رسوم الخدمة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>نحن نأخذ نسبة 10% من كل حجز ناجح كرسوم خدمة. هذه النسبة تشمل التأمين الشامل، الدعم الفني على مدار الساعة، والوساطة الآمنة بين المالك والمستأجر.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booking Questions -->
+                <div class="faq-category" data-category="booking">
+                    <h2>الحجز والدفع</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني حجز سيارة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>لحجز سيارة، اتبع الخطوات التالية: 1) ابحث عن السيارة المناسبة في الصفحة الرئيسية، 2) اختر التواريخ المطلوبة، 3) اضغط على "احجز الآن"، 4) أكمل عملية الدفع، 5) ستتلقى تأكيد الحجز عبر البريد الإلكتروني.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ما هي طرق الدفع المتاحة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>نحن نقدم عدة طرق دفع آمنة: الدفع النقدي، بطاقة مدى، البطاقات الائتمانية (فيزا، ماستركارد)، وأبل باي. جميع المدفوعات تتم بشكل آمن ومشفر.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ما هي سياسة الإلغاء؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكن إلغاء الحجز مجاناً قبل 24 ساعة من موعد الاستلام. الإلغاء خلال 24 ساعة يخضع لرسوم 50% من قيمة الحجز. الإلغاء في نفس اليوم يخضع لرسوم 100% من قيمة الحجز.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني إضافة سيارتي للتأجير؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>لإضافة سيارتك: 1) سجل دخولك أو أنشئ حساب جديد، 2) اذهب إلى "إضافة سيارة"، 3) املأ النموذج بجميع المعلومات المطلوبة، 4) ارفع صور واضحة للسيارة، 5) حدد السعر اليومي، 6) انتظر الموافقة من فريقنا.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Safety Questions -->
+                <div class="faq-category" data-category="safety">
+                    <h2>الأمان والتأمين</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يتم التأمين على السيارات؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>جميع السيارات مؤمنة تأميناً شاملاً خلال فترة التأجير. يغطي التأمين الأضرار الجسدية، الأضرار المادية، والمسؤولية المدنية. في حالة حدوث حادث، يتم التعامل مع المطالبات بسرعة وكفاءة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ما هي إجراءات الأمان المتبعة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>نتبع إجراءات أمان صارمة: 1) التحقق من هوية جميع المستخدمين، 2) تقييم السائقين، 3) فحص السيارات دورياً، 4) نظام تتبع GPS، 5) تأمين شامل، 6) دعم على مدار الساعة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ماذا لو حدث حادث للسيارة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>في حالة حدوث حادث: 1) اتصل بنا فوراً على الرقم المخصص، 2) لا تتحرك بالسيارة إذا كانت الأضرار كبيرة، 3) التقط صوراً للضرر، 4) احصل على تقرير الشرطة إذا لزم الأمر، 5) سنتعامل مع التأمين نيابة عنك.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technical Questions -->
+                <div class="faq-category" data-category="technical">
+                    <h2>الدعم التقني</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني التواصل مع الدعم الفني؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكنك التواصل معنا عبر: الهاتف: +966 50 123 4567، البريد الإلكتروني: support@shareyourcar.sa، الدردشة المباشرة في التطبيق، أو من خلال صفحة "اتصل بنا". فريق الدعم متاح على مدار الساعة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ماذا لو نسيت كلمة المرور؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>إذا نسيت كلمة المرور: 1) اضغط على "نسيت كلمة المرور" في صفحة تسجيل الدخول، 2) أدخل بريدك الإلكتروني، 3) ستتلقى رابط إعادة تعيين كلمة المرور، 4) اتبع التعليمات لإنشاء كلمة مرور جديدة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>هل التطبيق متوفر على الهواتف الذكية؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>نعم، تطبيق شارك سيارتك متوفر على متجر App Store للأجهزة التي تعمل بنظام iOS، ومتجر Google Play للأجهزة التي تعمل بنظام Android. يمكنك تحميل التطبيق والاستفادة من جميع المميزات.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Support -->
+            <div class="faq-support">
+                <h2>لم تجد إجابة لسؤالك؟</h2>
+                <p>فريق الدعم متاح لمساعدتك على مدار الساعة</p>
+                <div class="support-buttons">
+                    <button class="btn btn-primary" onclick="window.location.href='contact.html'">
+                        <i class="fas fa-headset"></i>
+                        تواصل معنا
+                    </button>
+                    <button class="btn btn-outline" onclick="window.location.href='index.html'">
+                        <i class="fas fa-home"></i>
+                        العودة للرئيسية
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-car"></i>
+                        <span>شارك سيارتك</span>
+                    </div>
+                    <p>منصة آمنة وموثوقة لتأجير السيارات من شخص لشخص - دعم الاقتصاد التشاركي في المملكة العربية السعودية</p>
+                    
+                    <!-- Social Media Links -->
+                    <div class="social-media">
+                        <h4>تابعنا على</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="فيسبوك">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-link" title="تويتر">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" title="إنستغرام">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" title="لينكد إن">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link" title="يوتيوب">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="social-link" title="واتساب">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="index.html#cars">السيارات</a></li>
+                        <li><a href="index.html#how-it-works">كيف يعمل</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="login.html">تسجيل الدخول</a></li>
+                        <li><a href="register.html">إنشاء حساب</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>الدعم والمساعدة</h4>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                                                  <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                          <li><a href="terms.html">الشروط والأحكام</a></li>
+                          <li><a href="cancellation-policy.html">سياسة الإلغاء</a></li>
+                                                      <li><a href="user-guide.html">دليل الاستخدام</a></li>
+                            <li><a href="report-problem.html">الإبلاغ عن مشكلة</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>معلومات التواصل</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+966 50 123 4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@shareyourcar.sa</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>الرياض، المملكة العربية السعودية</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>الأحد - الخميس: 8:00 ص - 6:00 م</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 شارك سيارتك. جميع الحقوق محفوظة.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">سياسة الخصوصية</a>
+                        <a href="#">الشروط والأحكام</a>
+                        <a href="#">خريطة الموقع</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="faq.js"></script>
+</body>
+</html>

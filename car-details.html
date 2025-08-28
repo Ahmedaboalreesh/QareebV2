@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل السيارة - شارك سيارتك</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-car"></i>
+                    <span>شارك سيارتك</span>
+
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="renter-dashboard.html">لوحة التحكم</a></li>
+                    <li><a href="browse-cars.html">تصفح السيارات</a></li>
+                    <li><a href="my-bookings.html">حجوزاتي</a></li>
+                    <li><a href="favorites.html">المفضلة</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Car Details Section -->
+    <section class="car-details-section">
+        <div class="container">
+            <div class="car-details-container">
+                <!-- Left Column: Car Images and Info -->
+                <div class="car-content-left">
+                    <!-- Car Images -->
+                    <div class="car-images">
+                        <div class="main-image">
+                            <img id="mainCarImage" src="" alt="صورة السيارة الرئيسية">
+                        </div>
+                        <div class="image-gallery" id="imageGallery">
+                            <!-- Additional images will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Car Information -->
+                    <div class="car-info">
+                        <div class="car-header">
+                            <div class="car-title-section">
+                                <h1 id="carName">اسم السيارة</h1>
+                                <div class="car-rating">
+                                    <span class="rating-text">التقييم:</span>
+                                    <span id="carRating">0.0</span>
+                                </div>
+                            </div>
+                            <div class="car-actions">
+                                <button class="btn btn-outline btn-favorite" id="favoriteBtn" onclick="toggleFavorite()" title="إضافة للمفضلة">
+                                    <i class="far fa-heart"></i>
+                                    <span class="favorite-text">أضف للمفضلة</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="car-price">
+                            <span class="price" id="carPrice">0</span>
+                            <span class="currency">ريال/يوم</span>
+                        </div>
+
+                        <div class="car-details-grid">
+                            <div class="detail-item">
+                                <i class="fas fa-user"></i>
+                                <span>المالك: <span id="carOwner">اسم المالك</span></span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>الموقع: <span id="carLocation">الموقع</span></span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>السنة: <span id="carYear">2023</span></span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-cog"></i>
+                                <span>ناقل الحركة: <span id="carTransmission">أوتوماتيك</span></span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>نوع الوقود: <span id="carFuelType">بنزين</span></span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-road"></i>
+                                <span>المسافة المقطوعة: <span id="carMileage">0</span> كم</span>
+                            </div>
+                        </div>
+
+                        <div class="car-features">
+                            <h3>المميزات</h3>
+                            <div class="features-list" id="carFeatures">
+                                <!-- Features will be loaded here -->
+                            </div>
+                        </div>
+
+                        <div class="car-description">
+                            <h3>الوصف</h3>
+                            <p id="carDescription">وصف السيارة</p>
+                        </div>
+
+                        <!-- Delivery Service Section -->
+                        <div class="delivery-service-section">
+                            <h3>خدمة التوصيل</h3>
+                            <div class="delivery-info" id="deliveryInfo">
+                                <!-- Delivery information will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Reviews Section -->
+                        <div class="reviews-section">
+                            <h3>التقييمات</h3>
+                            <div class="average-rating" id="averageRating">
+                                <!-- Average rating will be loaded here -->
+                            </div>
+                            <div class="reviews-list" id="reviewsList">
+                                <!-- Reviews will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Booking Form -->
+                <div class="booking-form-container">
+                    <div class="booking-form">
+                        <h2>احجز هذه السيارة</h2>
+                        
+                        <form id="bookingForm">
+                            <div class="form-group">
+                                <label for="startDate">
+                                    <i class="fas fa-calendar"></i>
+                                    تاريخ البداية
+                                </label>
+                                <input type="date" id="startDate" name="startDate" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="endDate">
+                                    <i class="fas fa-calendar"></i>
+                                    تاريخ النهاية
+                                </label>
+                                <input type="date" id="endDate" name="endDate" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pickupLocation">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    موقع الاستلام
+                                </label>
+                                <input type="text" id="pickupLocation" name="pickupLocation" placeholder="موقع استلام السيارة" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="returnLocation">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    موقع الإرجاع
+                                </label>
+                                <input type="text" id="returnLocation" name="returnLocation" placeholder="موقع إرجاع السيارة" required>
+                            </div>
+
+                            <!-- Delivery Option -->
+                            <div class="delivery-option-section" id="deliveryOptionSection" style="display: none;">
+                                <h3>خيارات التوصيل</h3>
+                                <div class="delivery-options">
+                                    <div class="delivery-option">
+                                        <input type="radio" id="noDelivery" name="deliveryChoice" value="no" checked>
+                                        <label for="noDelivery">
+                                            <i class="fas fa-times-circle"></i>
+                                            <span>استلام السيارة من موقع المالك</span>
+                                        </label>
+                                    </div>
+                                    <div class="delivery-option" id="deliveryOption">
+                                        <input type="radio" id="withDelivery" name="deliveryChoice" value="yes">
+                                        <label for="withDelivery">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>توصيل السيارة إلى موقعي</span>
+                                            <span class="delivery-fee-display" id="deliveryFeeDisplay"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="delivery-note-display" id="deliveryNoteDisplay"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="renterNotes">
+                                    <i class="fas fa-comment"></i>
+                                    ملاحظات إضافية
+                                </label>
+                                <textarea id="renterNotes" name="renterNotes" rows="3" placeholder="أي ملاحظات إضافية..."></textarea>
+                            </div>
+
+                            <div class="booking-summary">
+                                <h3>ملخص الحجز</h3>
+                                <div class="summary-item">
+                                    <span>عدد الأيام:</span>
+                                    <span id="totalDays">0</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>السعر الإجمالي:</span>
+                                    <span id="totalPrice">0 ريال</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>الوديعة:</span>
+                                    <span id="depositAmount">0 ريال</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <i class="fas fa-calendar-check"></i>
+                                احجز السيارة
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Container -->
+    <div id="messageContainer" class="message-container" style="display: none;">
+        <div class="message-content">
+            <i class="message-icon"></i>
+            <span class="message-text"></span>
+        </div>
+    </div>
+
+    <script src="car-details.js"></script>
+</body>
+</html>

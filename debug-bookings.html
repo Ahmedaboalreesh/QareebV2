@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصحيح بيانات الحجوزات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .debug-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+        
+        .debug-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e3a8a;
+        }
+        
+        .debug-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            background: #f9fafb;
+        }
+        
+        .debug-section h3 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #2563eb;
+        }
+        
+        .btn.success {
+            background: #10b981;
+        }
+        
+        .btn.success:hover {
+            background: #059669;
+        }
+        
+        .btn.danger {
+            background: #ef4444;
+        }
+        
+        .btn.danger:hover {
+            background: #dc2626;
+        }
+        
+        .data-display {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0.5rem;
+        }
+        
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .booking-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .booking-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1e3a8a;
+        }
+        
+        .booking-details {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        
+        .booking-details p {
+            margin: 0.25rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <div class="debug-header">
+            <h1>🐛 تصحيح بيانات الحجوزات</h1>
+            <p>فحص وإصلاح مشكلة عدم ظهور الحجوزات في صفحة my-bookings.html</p>
+        </div>
+        
+        <div class="debug-section">
+            <h3>👤 معلومات المستخدم الحالي</h3>
+            <div id="userInfo">جاري التحميل...</div>
+            <button class="btn" onclick="checkUser()">فحص المستخدم</button>
+            <button class="btn success" onclick="createTestUser()">إنشاء مستخدم تجريبي</button>
+        </div>
+        
+        <div class="debug-section">
+            <h3>🚗 بيانات السيارات</h3>
+            <div id="carsInfo">جاري التحميل...</div>
+            <button class="btn" onclick="loadCars()">تحميل السيارات</button>
+            <button class="btn success" onclick="createTestCars()">إنشاء سيارات تجريبية</button>
+        </div>
+        
+        <div class="debug-section">
+            <h3>📋 بيانات الحجوزات</h3>
+            <div id="bookingsInfo">جاري التحميل...</div>
+            <button class="btn" onclick="loadBookings()">تحميل الحجوزات</button>
+            <button class="btn success" onclick="createTestBooking()">إنشاء حجز تجريبي</button>
+            <button class="btn danger" onclick="clearBookings()">مسح جميع الحجوزات</button>
+        </div>
+        
+        <div class="debug-section">
+            <h3>🔍 فحص البيانات التفصيلي</h3>
+            <div id="detailedInfo">اضغط على "فحص تفصيلي" لرؤية البيانات</div>
+            <button class="btn" onclick="detailedCheck()">فحص تفصيلي</button>
+            <button class="btn" onclick="exportData()">تصدير البيانات</button>
+        </div>
+        
+        <div class="debug-section">
+            <h3>🔧 إصلاح المشاكل</h3>
+            <div id="fixInfo">اضغط على "إصلاح تلقائي" لحل المشاكل</div>
+            <button class="btn success" onclick="autoFix()">إصلاح تلقائي</button>
+            <button class="btn" onclick="fixUserBookings()">إصلاح حجوزات المستخدم</button>
+        </div>
+        
+        <div class="debug-section">
+            <h3>📱 اختبار الصفحات</h3>
+            <button class="btn" onclick="openMyBookings()">فتح صفحة حجوزاتي</button>
+            <button class="btn" onclick="openCarDetails()">فتح صفحة تفاصيل السيارة</button>
+            <button class="btn" onclick="testBookingFlow()">اختبار سير الحجز</button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUser();
+            loadCars();
+            loadBookings();
+        });
+        
+        // Check user
+        function checkUser() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const userType = localStorage.getItem('userType');
+            const userToken = localStorage.getItem('userToken');
+            
+            const userInfo = document.getElementById('userInfo');
+            
+            if (userToken && userData.id) {
+                userInfo.innerHTML = `
+                    <span class="status success">✅ مسجل الدخول</span>
+                    <div class="booking-card">
+                        <h4>معلومات المستخدم</h4>
+                        <div class="booking-details">
+                            <p><strong>المعرف:</strong> ${userData.id}</p>
+                            <p><strong>الاسم:</strong> ${userData.name || 'غير محدد'}</p>
+                            <p><strong>النوع:</strong> ${userType === 'renter' ? 'مستأجر' : userType}</p>
+                            <p><strong>البريد:</strong> ${userData.email || 'غير محدد'}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                userInfo.innerHTML = `
+                    <span class="status error">❌ غير مسجل الدخول</span>
+                    <p>يجب تسجيل الدخول أولاً</p>
+                `;
+            }
+        }
+        
+        // Create test user
+        function createTestUser() {
+            const userData = {
+                id: 1,
+                name: 'أحمد المستأجر',
+                email: 'ahmed@example.com',
+                phone: '+966501234567'
+            };
+            
+            localStorage.setItem('userData', JSON.stringify(userData));
+            localStorage.setItem('userType', 'renter');
+            localStorage.setItem('userToken', 'test-token-' + Date.now());
+            
+            checkUser();
+            showMessage('تم إنشاء المستخدم التجريبي بنجاح');
+        }
+        
+        // Load cars
+        function loadCars() {
+            const cars = JSON.parse(localStorage.getItem('mockCars') || '[]');
+            const carsInfo = document.getElementById('carsInfo');
+            
+            if (cars.length === 0) {
+                carsInfo.innerHTML = `
+                    <span class="status error">❌ لا توجد سيارات</span>
+                    <p>لا توجد سيارات في قاعدة البيانات</p>
+                `;
+            } else {
+                let html = `<span class="status success">✅ ${cars.length} سيارة</span>`;
+                
+                cars.forEach(car => {
+                    html += `
+                        <div class="booking-card">
+                            <h4>${car.brand} ${car.model} ${car.year}</h4>
+                            <div class="booking-details">
+                                <p><strong>المعرف:</strong> ${car.id}</p>
+                                <p><strong>السعر اليومي:</strong> ${car.daily_rate} ريال</p>
+                                <p><strong>الموقع:</strong> ${car.location || 'غير محدد'}</p>
+                                <p><strong>المالك:</strong> ${car.owner_name || 'غير محدد'}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                carsInfo.innerHTML = html;
+            }
+        }
+        
+        // Create test cars
+        function createTestCars() {
+            const testCars = [
+                {
+                    id: 1,
+                    brand: 'هوندا',
+                    model: 'أكورد',
+                    year: '2023',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: '15000',
+                    location: 'الرياض',
+                    description: 'هوندا أكورد 2023 بحالة ممتازة',
+                    features: ['ac', 'bluetooth', 'gps'],
+                    daily_rate: 200,
+                    deposit: 1000,
+                    delivery_service: true,
+                    delivery_fee: 50,
+                    owner_name: 'أحمد محمد',
+                    owner_phone: '+966501234567'
+                },
+                {
+                    id: 2,
+                    brand: 'تويوتا',
+                    model: 'كامري',
+                    year: '2023',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: '12000',
+                    location: 'جدة',
+                    description: 'تويوتا كامري 2023 اقتصادية ومريحة',
+                    features: ['ac', 'bluetooth'],
+                    daily_rate: 180,
+                    deposit: 800,
+                    delivery_service: false,
+                    owner_name: 'فاطمة علي',
+                    owner_phone: '+966507654321'
+                },
+                {
+                    id: 3,
+                    brand: 'مرسيدس',
+                    model: 'C-Class',
+                    year: '2022',
+                    transmission: 'أوتوماتيك',
+                    fuel_type: 'بنزين',
+                    mileage: '25000',
+                    location: 'الدمام',
+                    description: 'مرسيدس C-Class فاخرة ومميزة',
+                    features: ['ac', 'bluetooth', 'leather_seats'],
+                    daily_rate: 350,
+                    deposit: 1500,
+                    delivery_service: true,
+                    delivery_fee: 80,
+                    owner_name: 'خالد عبدالله',
+                    owner_phone: '+966509876543'
+                }
+            ];
+            
+            localStorage.setItem('mockCars', JSON.stringify(testCars));
+            loadCars();
+            showMessage('تم إنشاء السيارات التجريبية بنجاح');
+        }
+        
+        // Load bookings
+        function loadBookings() {
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            const userBookings = bookings.filter(booking => booking.renter_id === currentUserId);
+            const allBookings = bookings;
+            
+            const bookingsInfo = document.getElementById('bookingsInfo');
+            
+            let html = `
+                <span class="status info">📊 إجمالي الحجوزات: ${allBookings.length}</span>
+                <span class="status success">👤 حجوزات المستخدم: ${userBookings.length}</span>
+            `;
+            
+            if (userBookings.length === 0) {
+                html += `
+                    <div class="booking-card">
+                        <h4>لا توجد حجوزات للمستخدم الحالي</h4>
+                        <p>المعرف: ${currentUserId}</p>
+                    </div>
+                `;
+            } else {
+                userBookings.forEach(booking => {
+                    const statusText = {
+                        'pending': 'في الانتظار',
+                        'approved': 'موافق عليها',
+                        'rejected': 'مرفوضة',
+                        'completed': 'مكتملة'
+                    };
+                    
+                    html += `
+                        <div class="booking-card">
+                            <h4>${booking.car_name || 'سيارة غير محددة'}</h4>
+                            <div class="booking-details">
+                                <p><strong>معرف الحجز:</strong> ${booking.id}</p>
+                                <p><strong>معرف السيارة:</strong> ${booking.car_id}</p>
+                                <p><strong>معرف المستأجر:</strong> ${booking.renter_id}</p>
+                                <p><strong>الحالة:</strong> ${statusText[booking.status] || booking.status}</p>
+                                <p><strong>التاريخ:</strong> ${booking.start_date} - ${booking.end_date}</p>
+                                <p><strong>المبلغ:</strong> ${booking.total_amount} ريال</p>
+                                <p><strong>تاريخ الإنشاء:</strong> ${booking.created_at || 'غير محدد'}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            bookingsInfo.innerHTML = html;
+        }
+        
+        // Create test booking
+        function createTestBooking() {
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            const testBooking = {
+                id: Date.now(),
+                car_id: 1,
+                renter_id: currentUserId,
+                car_name: 'هوندا أكورد 2023',
+                car_brand: 'هوندا',
+                car_model: 'أكورد',
+                car_year: '2023',
+                start_date: '2024-02-15',
+                end_date: '2024-02-18',
+                total_amount: 600,
+                deposit_amount: 1000,
+                status: 'pending',
+                pickup_location: 'مطار الملك خالد الدولي',
+                return_location: 'مطار الملك خالد الدولي',
+                renter_notes: 'حجز تجريبي للهوندا أكورد',
+                created_at: new Date().toISOString(),
+                owner_name: 'أحمد محمد',
+                owner_phone: '+966501234567',
+                daily_rate: 200,
+                delivery_choice: 'no',
+                delivery_fee: 0
+            };
+            
+            const existingBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            existingBookings.push(testBooking);
+            localStorage.setItem('mockBookings', JSON.stringify(existingBookings));
+            
+            loadBookings();
+            showMessage('تم إنشاء الحجز التجريبي بنجاح');
+        }
+        
+        // Clear bookings
+        function clearBookings() {
+            if (confirm('هل أنت متأكد من مسح جميع الحجوزات؟')) {
+                localStorage.removeItem('mockBookings');
+                loadBookings();
+                showMessage('تم مسح جميع الحجوزات');
+            }
+        }
+        
+        // Detailed check
+        function detailedCheck() {
+            const detailedInfo = document.getElementById('detailedInfo');
+            
+            const debugData = {
+                localStorage: {
+                    userData: JSON.parse(localStorage.getItem('userData') || '{}'),
+                    userType: localStorage.getItem('userType'),
+                    userToken: localStorage.getItem('userToken'),
+                    mockCars: JSON.parse(localStorage.getItem('mockCars') || '[]'),
+                    mockBookings: JSON.parse(localStorage.getItem('mockBookings') || '[]')
+                },
+                analysis: {
+                    totalCars: JSON.parse(localStorage.getItem('mockCars') || '[]').length,
+                    totalBookings: JSON.parse(localStorage.getItem('mockBookings') || '[]').length,
+                    currentUserId: JSON.parse(localStorage.getItem('userData') || '{}').id || 1,
+                    userBookings: (() => {
+                        const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                        const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+                        const currentUserId = currentUser.id || 1;
+                        return bookings.filter(booking => booking.renter_id === currentUserId);
+                    })(),
+                    bookingsWithoutRenterId: (() => {
+                        const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+                        return bookings.filter(booking => !booking.renter_id);
+                    })()
+                }
+            };
+            
+            detailedInfo.innerHTML = `
+                <div class="data-display">${JSON.stringify(debugData, null, 2)}</div>
+            `;
+        }
+        
+        // Export data
+        function exportData() {
+            const data = {
+                userData: JSON.parse(localStorage.getItem('userData') || '{}'),
+                mockCars: JSON.parse(localStorage.getItem('mockCars') || '[]'),
+                mockBookings: JSON.parse(localStorage.getItem('mockBookings') || '[]'),
+                timestamp: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'debug-data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showMessage('تم تصدير البيانات بنجاح');
+        }
+        
+        // Auto fix
+        function autoFix() {
+            const bookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            let fixed = false;
+            
+            // Fix bookings without renter_id
+            bookings.forEach(booking => {
+                if (!booking.renter_id) {
+                    booking.renter_id = currentUserId;
+                    fixed = true;
+                }
+            });
+            
+            if (fixed) {
+                localStorage.setItem('mockBookings', JSON.stringify(bookings));
+                showMessage('تم إصلاح الحجوزات التي لا تحتوي على معرف المستأجر');
+            } else {
+                showMessage('لا توجد مشاكل تحتاج إصلاح');
+            }
+            
+            loadBookings();
+        }
+        
+        // Fix user bookings
+        function fixUserBookings() {
+            const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+            const currentUserId = currentUser.id || 1;
+            
+            // Create a test booking for current user
+            const testBooking = {
+                id: Date.now(),
+                car_id: 1,
+                renter_id: currentUserId,
+                car_name: 'هوندا أكورد 2023',
+                car_brand: 'هوندا',
+                car_model: 'أكورد',
+                car_year: '2023',
+                start_date: '2024-02-20',
+                end_date: '2024-02-23',
+                total_amount: 600,
+                deposit_amount: 1000,
+                status: 'approved',
+                pickup_location: 'مطار الملك خالد الدولي',
+                return_location: 'مطار الملك خالد الدولي',
+                renter_notes: 'حجز ثابت للمستخدم الحالي',
+                created_at: new Date().toISOString(),
+                owner_name: 'أحمد محمد',
+                owner_phone: '+966501234567',
+                daily_rate: 200,
+                delivery_choice: 'no',
+                delivery_fee: 0
+            };
+            
+            const existingBookings = JSON.parse(localStorage.getItem('mockBookings') || '[]');
+            existingBookings.push(testBooking);
+            localStorage.setItem('mockBookings', JSON.stringify(existingBookings));
+            
+            loadBookings();
+            showMessage('تم إنشاء حجز ثابت للمستخدم الحالي');
+        }
+        
+        // Open my bookings
+        function openMyBookings() {
+            window.open('my-bookings.html', '_blank');
+        }
+        
+        // Open car details
+        function openCarDetails() {
+            window.open('car-details.html?id=1', '_blank');
+        }
+        
+        // Test booking flow
+        function testBookingFlow() {
+            showMessage('جاري اختبار سير الحجز...');
+            setTimeout(() => {
+                showMessage('تم اختبار سير الحجز بنجاح');
+            }, 2000);
+        }
+        
+        // Show message
+        function showMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                background: #10b981;
+                color: white;
+                font-family: 'Cairo', sans-serif;
+                font-weight: 500;
+                z-index: 1000;
+                max-width: 300px;
+            `;
+            
+            messageDiv.textContent = message;
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المفضلة - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="renter-dashboard.html">لوحة التحكم</a></li>
+                    <li><a href="browse-cars.html">تصفح السيارات</a></li>
+                    <li><a href="my-bookings.html">حجوزاتي</a></li>
+                    <li><a href="favorites.html" class="active">المفضلة</a></li>
+                    <li><a href="reviews.html">التقييمات</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Favorites Section -->
+    <section class="favorites-section">
+        <div class="container">
+            <div class="favorites-header">
+                <h1><i class="fas fa-heart"></i> المفضلة</h1>
+                <p>السيارات التي أضفتها إلى قائمة المفضلة</p>
+            </div>
+
+            <!-- Filters and Search -->
+            <div class="filters-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="البحث في المفضلة..." onkeyup="filterFavorites()">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-buttons">
+                    <button class="btn btn-outline active" onclick="filterByAll()">
+                        <i class="fas fa-list"></i>
+                        الكل
+                    </button>
+                    <button class="btn btn-outline" onclick="filterByPrice()">
+                        <i class="fas fa-sort-amount-down"></i>
+                        حسب السعر
+                    </button>
+                    <button class="btn btn-outline" onclick="filterByRating()">
+                        <i class="fas fa-star"></i>
+                        حسب التقييم
+                    </button>
+                </div>
+            </div>
+
+            <!-- Favorites Count -->
+            <div class="favorites-count">
+                <span id="favoritesCount">0</span> سيارة في المفضلة
+            </div>
+
+            <!-- Favorites Grid -->
+            <div class="favorites-grid" id="favoritesGrid">
+                <!-- سيتم تحميل السيارات المفضلة هنا -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">
+                    <i class="far fa-heart"></i>
+                </div>
+                <h3>لا توجد سيارات في المفضلة</h3>
+                <p>لم تقم بإضافة أي سيارة إلى المفضلة بعد</p>
+                <button class="btn btn-primary" onclick="window.location.href='browse-cars.html'">
+                    <i class="fas fa-car"></i>
+                    تصفح السيارات
+                </button>
+            </div>
+
+            <!-- Clear All Button -->
+            <div class="clear-favorites" id="clearFavorites" style="display: none;">
+                <button class="btn btn-outline btn-danger" onclick="clearAllFavorites()">
+                    <i class="fas fa-trash"></i>
+                    مسح جميع المفضلة
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Container -->
+    <div id="messageContainer" class="message-container" style="display: none;">
+        <div class="message-content">
+            <i class="message-icon"></i>
+            <span class="message-text"></span>
+        </div>
+    </div>
+
+    <script src="favorites.js"></script>
+</body>
+</html>

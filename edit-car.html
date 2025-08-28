@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل السيارة - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add-car.html" class="nav-link">إضافة سيارة</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my-cars.html" class="nav-link">سياراتي</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Edit Car Section -->
+    <section class="edit-car-section">
+        <div class="container">
+            <div class="edit-car-header">
+                <div class="header-content">
+                    <h1>
+                        <i class="fas fa-edit"></i>
+                        تعديل السيارة
+                    </h1>
+                    <p>قم بتحديث معلومات سيارتك للحصول على أفضل النتائج</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="goBack()">
+                        <i class="fas fa-arrow-right"></i>
+                        رجوع
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <span>معلومات السيارة</span>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <span>معلومات التأجير</span>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <span>التوفر</span>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <span>خدمة التوصيل</span>
+                </div>
+                <div class="step" data-step="5">
+                    <div class="step-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <span>الوصف</span>
+                </div>
+            </div>
+
+            <!-- Edit Car Form -->
+            <form id="editCarForm" class="edit-car-form">
+                <input type="hidden" id="carId" name="carId">
+                
+                <!-- Step 1: Basic Car Information -->
+                <div class="form-section active" data-step="1">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-info-circle"></i>
+                            معلومات السيارة الأساسية
+                        </h2>
+                        <p>أدخل المعلومات الأساسية لسيارتك</p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carBrand">
+                                <i class="fas fa-tag field-icon"></i>
+                                الماركة
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="carBrand" name="carBrand" required>
+                                    <option value="">اختر الماركة</option>
+                                    <option value="تويوتا">تويوتا</option>
+                                    <option value="هوندا">هوندا</option>
+                                    <option value="نيسان">نيسان</option>
+                                    <option value="فورد">فورد</option>
+                                    <option value="شيفروليه">شيفروليه</option>
+                                    <option value="هيونداي">هيونداي</option>
+                                    <option value="كيا">كيا</option>
+                                    <option value="مرسيدس">مرسيدس</option>
+                                    <option value="بي إم دبليو">بي إم دبليو</option>
+                                    <option value="أودي">أودي</option>
+                                    <option value="فولكس فاجن">فولكس فاجن</option>
+                                    <option value="لكزس">لكزس</option>
+                                    <option value="إنفينيتي">إنفينيتي</option>
+                                    <option value="أخرى">أخرى</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="carModel">
+                                <i class="fas fa-car field-icon"></i>
+                                الموديل
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="text" id="carModel" name="carModel" placeholder="مثال: كامري" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carYear">
+                                <i class="fas fa-calendar field-icon"></i>
+                                سنة الصنع
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="carYear" name="carYear" required>
+                                    <option value="">اختر السنة</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="carColor">
+                                <i class="fas fa-palette field-icon"></i>
+                                اللون
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="carColor" name="carColor" required>
+                                    <option value="">اختر اللون</option>
+                                    <option value="أبيض">أبيض</option>
+                                    <option value="أسود">أسود</option>
+                                    <option value="رمادي">رمادي</option>
+                                    <option value="فضي">فضي</option>
+                                    <option value="أزرق">أزرق</option>
+                                    <option value="أحمر">أحمر</option>
+                                    <option value="أخضر">أخضر</option>
+                                    <option value="أصفر">أصفر</option>
+                                    <option value="برتقالي">برتقالي</option>
+                                    <option value="بني">بني</option>
+                                    <option value="أخرى">أخرى</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carType">
+                                <i class="fas fa-car-side field-icon"></i>
+                                نوع السيارة
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="carType" name="carType" required>
+                                    <option value="">اختر النوع</option>
+                                    <option value="سيدان">سيدان</option>
+                                    <option value="SUV">SUV</option>
+                                    <option value="هاتشباك">هاتشباك</option>
+                                    <option value="كوبيه">كوبيه</option>
+                                    <option value="فان">فان</option>
+                                    <option value="بيك أب">بيك أب</option>
+                                    <option value="أخرى">أخرى</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transmission">
+                                <i class="fas fa-cog field-icon"></i>
+                                ناقل الحركة
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="transmission" name="transmission" required>
+                                    <option value="">اختر الناقل</option>
+                                    <option value="أوتوماتيك">أوتوماتيك</option>
+                                    <option value="يدوي">يدوي</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fuelType">
+                                <i class="fas fa-gas-pump field-icon"></i>
+                                نوع الوقود
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="fuelType" name="fuelType" required>
+                                    <option value="">اختر الوقود</option>
+                                    <option value="بنزين">بنزين</option>
+                                    <option value="ديزل">ديزل</option>
+                                    <option value="كهربائي">كهربائي</option>
+                                    <option value="هجين">هجين</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mileage">
+                                <i class="fas fa-tachometer-alt field-icon"></i>
+                                عدد الكيلومترات
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="number" id="mileage" name="mileage" placeholder="مثال: 50000" required>
+                                <span class="input-suffix">كم</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Rental Information -->
+                <div class="form-section" data-step="2">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-coins"></i>
+                            معلومات التأجير
+                        </h2>
+                        <p>حدد أسعار التأجير والوديعة المطلوبة</p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dailyRate">
+                                <i class="fas fa-coins field-icon"></i>
+                                السعر اليومي
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="number" id="dailyRate" name="dailyRate" placeholder="مثال: 150" required>
+                                <span class="input-suffix">ريال</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="weeklyRate">
+                                <i class="fas fa-calendar-week field-icon"></i>
+                                السعر الأسبوعي (اختياري)
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="number" id="weeklyRate" name="weeklyRate" placeholder="مثال: 900">
+                                <span class="input-suffix">ريال</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="monthlyRate">
+                                <i class="fas fa-calendar-alt field-icon"></i>
+                                السعر الشهري (اختياري)
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="number" id="monthlyRate" name="monthlyRate" placeholder="مثال: 3000">
+                                <span class="input-suffix">ريال</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="deposit">
+                                <i class="fas fa-shield-alt field-icon"></i>
+                                الوديعة المطلوبة
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="number" id="deposit" name="deposit" placeholder="مثال: 500" required>
+                                <span class="input-suffix">ريال</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Availability -->
+                <div class="form-section" data-step="3">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-calendar"></i>
+                            التوفر
+                        </h2>
+                        <p>حدد فترات توفر سيارتك</p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="availableFrom">
+                                <i class="fas fa-calendar-plus field-icon"></i>
+                                متاح من تاريخ
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="date" id="availableFrom" name="availableFrom" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="availableTo">
+                                <i class="fas fa-calendar-minus field-icon"></i>
+                                متاح حتى تاريخ
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="date" id="availableTo" name="availableTo" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="location">
+                                <i class="fas fa-map-marker-alt field-icon"></i>
+                                موقع السيارة
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="location" name="location" required>
+                                    <option value="">اختر المدينة</option>
+                                    <option value="الرياض">الرياض</option>
+                                    <option value="جدة">جدة</option>
+                                    <option value="الدمام">الدمام</option>
+                                    <option value="مكة المكرمة">مكة المكرمة</option>
+                                    <option value="المدينة المنورة">المدينة المنورة</option>
+                                    <option value="تبوك">تبوك</option>
+                                    <option value="أبها">أبها</option>
+                                    <option value="حائل">حائل</option>
+                                    <option value="القصيم">القصيم</option>
+                                    <option value="الجوف">الجوف</option>
+                                    <option value="جازان">جازان</option>
+                                    <option value="نجران">نجران</option>
+                                    <option value="الباحة">الباحة</option>
+                                    <option value="الحدود الشمالية">الحدود الشمالية</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pickupLocation">
+                                <i class="fas fa-map-pin field-icon"></i>
+                                موقع الاستلام
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="text" id="pickupLocation" name="pickupLocation" placeholder="مثال: مطار الملك خالد" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Delivery Service -->
+                <div class="form-section" data-step="4">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-truck"></i>
+                            خدمة التوصيل
+                        </h2>
+                        <p>اختر ما إذا كنت تريد تقديم خدمة توصيل السيارة</p>
+                    </div>
+                    
+                    <div class="delivery-service-section">
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="deliveryService" name="deliveryService">
+                                <span class="checkmark"></span>
+                                أستطيع مساعدة المستأجر في توصيل السيارة إلى موقع الاستلام
+                            </label>
+                        </div>
+                        
+                        <div class="delivery-fields" id="deliveryFields" style="display: none;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="deliveryFee">
+                                        <i class="fas fa-money-bill field-icon"></i>
+                                        رسوم التوصيل
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="deliveryFee" name="deliveryFee" placeholder="مثال: 50">
+                                        <span class="input-suffix">ريال</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="deliveryNote">
+                                    <i class="fas fa-edit field-icon"></i>
+                                    ملاحظات التوصيل (اختياري)
+                                </label>
+                                <div class="input-wrapper">
+                                    <textarea id="deliveryNote" name="deliveryNote" rows="3" placeholder="أضف أي ملاحظات حول خدمة التوصيل..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Car Description -->
+                <div class="form-section" data-step="5">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-edit"></i>
+                            وصف السيارة
+                        </h2>
+                        <p>أضف وصفاً مفصلاً لسيارتك لجذب المستأجرين</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="carDescription">
+                            <i class="fas fa-edit field-icon"></i>
+                            وصف مفصل للسيارة
+                        </label>
+                        <div class="input-wrapper">
+                            <textarea id="carDescription" name="carDescription" rows="6" placeholder="اكتب وصفاً مفصلاً لسيارتك يتضمن الحالة والمميزات والخدمات المقدمة..." required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>مميزات السيارة</label>
+                        <div class="features-grid">
+                            <label class="feature-checkbox">
+                                <input type="checkbox" name="features" value="ac">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-snowflake"></i>
+                                مكيف
+                            </label>
+                            <label class="feature-checkbox">
+                                <input type="checkbox" name="features" value="bluetooth">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-bluetooth"></i>
+                                بلوتوث
+                            </label>
+                            <label class="feature-checkbox">
+                                <input type="checkbox" name="features" value="gps">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-map-marker-alt"></i>
+                                ملاحة
+                            </label>
+                            <label class="feature-checkbox">
+                                <input type="checkbox" name="features" value="backup_camera">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-video"></i>
+                                كاميرا خلفية
+                            </label>
+                            <label class="feature-checkbox">
+                                <input type="checkbox" name="features" value="cruise_control">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-tachometer-alt"></i>
+                                تحكم في السرعة
+                            </label>
+                            <label class="feature-checkbox">
+                                <input type="checkbox" name="features" value="leather_seats">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-chair"></i>
+                                مقاعد جلدية
+                            </label>
+                            <label class="feature-checkbox">
+                                <input type="checkbox" name="features" value="sunroof">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-sun"></i>
+                                سقف قابل للفتح
+                            </label>
+                            <label class="feature-checkbox">
+                                <input type="checkbox" name="features" value="child_seat">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-baby"></i>
+                                مقعد أطفال
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-outline" id="prevBtn" onclick="previousStep()" style="display: none;">
+                            <div class="btn-icon">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                            <div class="btn-content">
+                                <span class="btn-title">السابق</span>
+                                <span class="btn-subtitle">العودة للخطوة السابقة</span>
+                            </div>
+                        </button>
+                        <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+                            <div class="btn-icon">
+                                <i class="fas fa-arrow-left"></i>
+                            </div>
+                            <div class="btn-content">
+                                <span class="btn-title">التالي</span>
+                                <span class="btn-subtitle">الانتقال للخطوة التالية</span>
+                            </div>
+                        </button>
+                        <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">
+                            <div class="btn-icon">
+                                <i class="fas fa-save"></i>
+                            </div>
+                            <div class="btn-content">
+                                <span class="btn-title">حفظ التعديلات</span>
+                                <span class="btn-subtitle">تحديث معلومات السيارة</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="edit-car.js"></script>
+</body>
+</html>

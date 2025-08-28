@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة الإلغاء - منصة تأجير السيارات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-car"></i>
+                        <span>منصة تأجير السيارات</span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#how-it-works" class="nav-link">كيف يعمل</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#cars" class="nav-link">السيارات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">اتصل بنا</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+                    </li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">إنشاء حساب</a>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="cancellation-policy-section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="policy-header">
+                <h1>سياسة الإلغاء</h1>
+                <p>تعرف على شروط وإجراءات إلغاء الحجوزات في منصة تأجير السيارات</p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="btn btn-outline" onclick="window.print()">
+                    <i class="fas fa-print"></i>
+                    طباعة السياسة
+                </button>
+                <button class="btn btn-outline" onclick="window.location.href='contact.html'">
+                    <i class="fas fa-envelope"></i>
+                    تواصل معنا
+                </button>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="table-of-contents">
+                <h3>محتويات السياسة</h3>
+                <ul id="toc-list">
+                    <!-- Will be populated by JavaScript -->
+                </ul>
+            </div>
+
+            <!-- Policy Content -->
+            <div class="policy-content">
+                <!-- Introduction -->
+                <div class="policy-section" id="introduction">
+                    <h2>مقدمة</h2>
+                    <p>تعتبر سياسة الإلغاء جزءاً أساسياً من شروط استخدام منصة تأجير السيارات. تهدف هذه السياسة إلى توضيح حقوق وواجبات كل من مالك السيارة والمستأجر فيما يتعلق بإلغاء الحجوزات.</p>
+                    <p>نحن نلتزم بتوفير تجربة شفافة وعادلة لجميع المستخدمين، مع ضمان حماية حقوق جميع الأطراف المعنية.</p>
+                </div>
+
+                <!-- Cancellation by Renter -->
+                <div class="policy-section" id="renter-cancellation">
+                    <h2>إلغاء الحجز من قبل المستأجر</h2>
+                    
+                    <h3>الإلغاء المجاني</h3>
+                    <ul>
+                        <li>يمكن إلغاء الحجز مجاناً خلال 24 ساعة من وقت الحجز</li>
+                        <li>الإلغاء قبل 48 ساعة من موعد الاستلام</li>
+                        <li>في حالة وجود مشاكل تقنية في المنصة</li>
+                        <li>في حالة عدم توفر السيارة من قبل المالك</li>
+                    </ul>
+
+                    <h3>الإلغاء مع رسوم</h3>
+                    <ul>
+                        <li>الإلغاء خلال 24-48 ساعة من موعد الاستلام: 25% من إجمالي المبلغ</li>
+                        <li>الإلغاء خلال 12-24 ساعة من موعد الاستلام: 50% من إجمالي المبلغ</li>
+                        <li>الإلغاء خلال أقل من 12 ساعة من موعد الاستلام: 75% من إجمالي المبلغ</li>
+                        <li>عدم الحضور في الموعد المحدد: 100% من إجمالي المبلغ</li>
+                    </ul>
+
+                    <h3>حالات الإلغاء الاستثنائية</h3>
+                    <ul>
+                        <li>الظروف الطبية الطارئة (مع تقديم وثائق طبية)</li>
+                        <li>الظروف الجوية القاسية</li>
+                        <li>الأحداث الطارئة أو الكوارث الطبيعية</li>
+                        <li>مشاكل في السيارة تؤثر على السلامة</li>
+                    </ul>
+                </div>
+
+                <!-- Cancellation by Owner -->
+                <div class="policy-section" id="owner-cancellation">
+                    <h2>إلغاء الحجز من قبل مالك السيارة</h2>
+                    
+                    <h3>الإلغاء المسموح</h3>
+                    <ul>
+                        <li>مشاكل تقنية في السيارة تؤثر على السلامة</li>
+                        <li>الحوادث أو الأضرار غير المتوقعة</li>
+                        <li>الظروف الطارئة التي تمنع توفير السيارة</li>
+                    </ul>
+
+                    <h3>الالتزامات على المالك</h3>
+                    <ul>
+                        <li>الإشعار المبكر للمستأجر (على الأقل 24 ساعة مقدماً)</li>
+                        <li>تقديم بديل مناسب أو ترتيب بديل</li>
+                        <li>إعادة المبلغ كاملاً للمستأجر</li>
+                        <li>دفع رسوم إضافية للمنصة في حالة الإلغاء المتكرر</li>
+                    </ul>
+
+                    <h3>العقوبات على الإلغاء المتكرر</h3>
+                    <ul>
+                        <li>الإلغاء الأول: تحذير</li>
+                        <li>الإلغاء الثاني: تعليق الحساب لمدة أسبوع</li>
+                        <li>الإلغاء الثالث: تعليق الحساب لمدة شهر</li>
+                        <li>الإلغاء الرابع: إغلاق الحساب نهائياً</li>
+                    </ul>
+                </div>
+
+                <!-- Refund Process -->
+                <div class="policy-section" id="refund-process">
+                    <h2>إجراءات استرداد المبلغ</h2>
+                    
+                    <h3>وقت الاسترداد</h3>
+                    <ul>
+                        <li>البطاقات الائتمانية: 3-5 أيام عمل</li>
+                        <li>بطاقات مدى: 1-3 أيام عمل</li>
+                        <li>المحافظ الإلكترونية: 1-2 يوم عمل</li>
+                        <li>التحويل البنكي: 5-7 أيام عمل</li>
+                    </ul>
+
+                    <h3>رسوم المعاملات</h3>
+                    <ul>
+                        <li>رسوم المنصة: 5% من المبلغ المسترد</li>
+                        <li>رسوم البنك: حسب سياسة البنك المصدر</li>
+                        <li>في حالة الإلغاء من قبل المالك: لا توجد رسوم على المستأجر</li>
+                    </ul>
+
+                    <h3>تتبع الاسترداد</h3>
+                    <p>يمكن للمستخدمين تتبع حالة استرداد المبلغ من خلال:</p>
+                    <ul>
+                        <li>لوحة التحكم الشخصية</li>
+                        <li>الإشعارات عبر البريد الإلكتروني</li>
+                        <li>الرسائل النصية</li>
+                        <li>التواصل مع خدمة العملاء</li>
+                    </ul>
+                </div>
+
+                <!-- Dispute Resolution -->
+                <div class="policy-section" id="dispute-resolution">
+                    <h2>حل النزاعات</h2>
+                    
+                    <h3>إجراءات التظلم</h3>
+                    <ol>
+                        <li>تقديم شكوى مفصلة عبر المنصة</li>
+                        <li>رفع الوثائق والمستندات الداعمة</li>
+                        <li>مراجعة الشكوى من قبل فريق الدعم</li>
+                        <li>التواصل مع الطرفين لحل النزاع</li>
+                        <li>إصدار قرار نهائي خلال 7 أيام عمل</li>
+                    </ol>
+
+                    <h3>الوساطة</h3>
+                    <p>في حالة عدم التوصل لحل، يمكن اللجوء إلى:</p>
+                    <ul>
+                        <li>الوساطة من قبل المنصة</li>
+                        <li>اللجوء للجهات المختصة</li>
+                        <li>التواصل مع جمعية حماية المستهلك</li>
+                    </ul>
+                </div>
+
+                <!-- Special Circumstances -->
+                <div class="policy-section" id="special-circumstances">
+                    <h2>الظروف الخاصة</h2>
+                    
+                    <h3>الأحداث الطارئة</h3>
+                    <ul>
+                        <li>الأوبئة والجوائح</li>
+                        <li>الكوارث الطبيعية</li>
+                        <li>الأحداث السياسية أو الأمنية</li>
+                        <li>التغييرات في القوانين والأنظمة</li>
+                    </ul>
+
+                    <h3>التعويضات</h3>
+                    <ul>
+                        <li>إعادة المبلغ كاملاً في الظروف الطارئة</li>
+                        <li>تقديم قسائم خصم للمستقبل</li>
+                        <li>ترتيب بدائل مناسبة</li>
+                        <li>التعويض عن الأضرار المباشرة</li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="policy-section" id="contact-info">
+                    <h2>معلومات التواصل</h2>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>الهاتف</h4>
+                                <p>+966 50 123 4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>البريد الإلكتروني</h4>
+                                <p>support@carrental.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>ساعات العمل</h4>
+                                <p>الأحد - الخميس: 8:00 ص - 6:00 م</p>
+                                <p>الجمعة - السبت: 10:00 ص - 4:00 م</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>منصة تأجير السيارات</h3>
+                <p>منصة آمنة وموثوقة لتأجير السيارات بين الأفراد</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>الخدمات</h4>
+                <ul>
+                    <li><a href="index.html#how-it-works">كيف يعمل</a></li>
+                    <li><a href="index.html#cars">السيارات المتاحة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>الدعم والمساعدة</h4>
+                <ul>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="terms.html">الشروط والأحكام</a></li>
+                    <li><a href="cancellation-policy.html">سياسة الإلغاء</a></li>
+                                          <li><a href="user-guide.html">دليل الاستخدام</a></li>
+                      <li><a href="report-problem.html">الإبلاغ عن مشكلة</a></li>
+                  </ul>
+              </div>
+            <div class="footer-section">
+                <h4>الحساب</h4>
+                <ul>
+                    <li><a href="login.html">تسجيل الدخول</a></li>
+                    <li><a href="register.html">إنشاء حساب</a></li>
+                    <li><a href="renter-dashboard.html">لوحة التحكم</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="privacy.html">سياسة الخصوصية</a>
+                <a href="terms.html">الشروط والأحكام</a>
+                <a href="cancellation-policy.html">سياسة الإلغاء</a>
+            </div>
+            <p>&copy; 2024 منصة تأجير السيارات. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="cancellation-policy.js"></script>
+</body>
+</html>
