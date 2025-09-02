@@ -245,17 +245,13 @@
                     return;
                 }
 
-                // Check Authentication - بدون تسجيل دخول مجهول
+                // Check Authentication
                 try {
-                    // فقط تحقق من أن Authentication متاح
-                    if (firebase.auth) {
-                        updateStatus('authStatus', 'متصل', 'success');
-                    } else {
-                        updateStatus('authStatus', 'غير متاح', 'warning');
-                    }
+                    await firebase.auth().signInAnonymously();
+                    updateStatus('authStatus', 'متصل', 'success');
+                    await firebase.auth().signOut();
                 } catch (error) {
-                    console.log('Authentication check error:', error);
-                    updateStatus('authStatus', 'غير متاح', 'warning');
+                    updateStatus('authStatus', 'خطأ في المصادقة', 'error');
                 }
 
                 // Check Database
@@ -265,7 +261,6 @@
                     await testRef.remove();
                     updateStatus('databaseStatus', 'متصل', 'success');
                 } catch (error) {
-                    console.log('Database check error:', error);
                     updateStatus('databaseStatus', 'خطأ في قاعدة البيانات', 'error');
                 }
 
@@ -277,40 +272,25 @@
 
         // Update status display
         function updateStatus(elementId, value, type) {
-            try {
-                const element = document.getElementById(elementId);
-                if (element) {
-                    const statusValue = element.querySelector('.status-value');
-                    if (statusValue) {
-                        statusValue.textContent = value;
-                        statusValue.className = `status-value ${type}`;
-                    }
-                }
-            } catch (error) {
-                console.error('Error updating status:', error);
-            }
+            const element = document.getElementById(elementId);
+            const statusValue = element.querySelector('.status-value');
+            statusValue.textContent = value;
+            statusValue.className = `status-value ${type}`;
         }
 
         // Setup event listeners
         function setupEventListeners() {
-            try {
-                // Confirmation text validation
-                const confirmationText = document.getElementById('confirmationText');
-                if (confirmationText) {
-                    confirmationText.addEventListener('input', function() {
-                        validateDeleteButton();
-                    });
-                }
+            // Confirmation text validation
+            document.getElementById('confirmationText').addEventListener('input', function() {
+                validateDeleteButton();
+            });
 
-                // Delete option change
-                document.querySelectorAll('input[name="deleteOption"]').forEach(radio => {
-                    radio.addEventListener('change', function() {
-                        updateDeleteButtonText();
-                    });
+            // Delete option change
+            document.querySelectorAll('input[name="deleteOption"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    updateDeleteButtonText();
                 });
-            } catch (error) {
-                console.error('Error setting up event listeners:', error);
-            }
+            });
         }
 
         // Load Firebase users
@@ -329,166 +309,109 @@
                 } else {
                     updateStatistics([]);
                     displayUsers([]);
-                    updateTestResults('💡 لا توجد مستخدمين في Firebase حالياً', 'info');
                 }
             } catch (error) {
                 console.error('Error loading Firebase users:', error);
-                updateTestResults('❌ خطأ في تحميل بيانات المستخدمين من Firebase: ' + error.message, 'error');
-                
-                // عرض رسالة أكثر تفصيلاً
-                if (error.code === 'PERMISSION_DENIED') {
-                    updateTestResults('❌ خطأ في الصلاحيات: تأكد من قواعد الأمان في Firebase', 'error');
-                } else if (error.code === 'UNAVAILABLE') {
-                    updateTestResults('❌ خطأ في الاتصال: تأكد من اتصال الإنترنت', 'error');
-                }
+                updateTestResults('❌ خطأ في تحميل بيانات المستخدمين من Firebase', 'error');
             }
         }
 
         // Update statistics
         function updateStatistics(users) {
-            try {
-                const totalUsers = users.length;
-                const rentersCount = users.filter(user => user.user_type === 'renter').length;
-                const ownersCount = users.filter(user => user.user_type === 'owner').length;
+            const totalUsers = users.length;
+            const rentersCount = users.filter(user => user.user_type === 'renter').length;
+            const ownersCount = users.filter(user => user.user_type === 'owner').length;
 
-                const totalUsersElement = document.getElementById('totalUsers');
-                const rentersCountElement = document.getElementById('rentersCount');
-                const ownersCountElement = document.getElementById('ownersCount');
-
-                if (totalUsersElement) totalUsersElement.textContent = totalUsers;
-                if (rentersCountElement) rentersCountElement.textContent = rentersCount;
-                if (ownersCountElement) ownersCountElement.textContent = ownersCount;
-            } catch (error) {
-                console.error('Error updating statistics:', error);
-            }
+            document.getElementById('totalUsers').textContent = totalUsers;
+            document.getElementById('rentersCount').textContent = rentersCount;
+            document.getElementById('ownersCount').textContent = ownersCount;
         }
 
         // Display users
         function displayUsers(users) {
-            try {
-                const usersList = document.getElementById('usersList');
-                
-                if (!usersList) {
-                    console.error('Users list element not found');
-                    return;
-                }
-                
-                if (users.length === 0) {
-                    usersList.innerHTML = '<p class="no-data">لا توجد مستخدمين في Firebase</p>';
-                    return;
-                }
-                
-                usersList.innerHTML = users.map(user => `
-                    <div class="user-item">
-                        <div class="user-info">
-                            <div class="user-main">
-                                <strong>${user.full_name || 'غير محدد'}</strong>
-                                <span class="user-type ${user.user_type}">${user.user_type === 'renter' ? 'مستأجر' : 'صاحب سيارة'}</span>
-                            </div>
-                            <div class="user-details">
-                                <small><i class="fas fa-envelope"></i> ${user.email}</small>
-                                <small><i class="fas fa-phone"></i> ${user.phone || 'غير محدد'}</small>
-                                <small><i class="fas fa-map-marker-alt"></i> ${user.city || 'غير محدد'}</small>
-                                <small><i class="fas fa-id-card"></i> UID: ${user.uid}</small>
-                            </div>
+            const usersList = document.getElementById('usersList');
+            
+            if (users.length === 0) {
+                usersList.innerHTML = '<p class="no-data">لا توجد مستخدمين في Firebase</p>';
+                return;
+            }
+            
+            usersList.innerHTML = users.map(user => `
+                <div class="user-item">
+                    <div class="user-info">
+                        <div class="user-main">
+                            <strong>${user.full_name || 'غير محدد'}</strong>
+                            <span class="user-type ${user.user_type}">${user.user_type === 'renter' ? 'مستأجر' : 'صاحب سيارة'}</span>
                         </div>
-                        <div class="user-actions">
-                            <button class="btn btn-sm btn-outline" onclick="viewUserDetails('${user.uid}')">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                        <div class="user-details">
+                            <small><i class="fas fa-envelope"></i> ${user.email}</small>
+                            <small><i class="fas fa-phone"></i> ${user.phone || 'غير محدد'}</small>
+                            <small><i class="fas fa-map-marker-alt"></i> ${user.city || 'غير محدد'}</small>
+                            <small><i class="fas fa-id-card"></i> UID: ${user.uid}</small>
                         </div>
                     </div>
-                `).join('');
-            } catch (error) {
-                console.error('Error displaying users:', error);
-                const usersList = document.getElementById('usersList');
-                if (usersList) {
-                    usersList.innerHTML = '<p class="no-data">خطأ في عرض المستخدمين</p>';
-                }
-            }
+                    <div class="user-actions">
+                        <button class="btn btn-sm btn-outline" onclick="viewUserDetails('${user.uid}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
         }
 
         // Validate delete button
         function validateDeleteButton() {
-            try {
-                const confirmationText = document.getElementById('confirmationText');
-                const deleteBtn = document.getElementById('deleteBtn');
-                
-                if (confirmationText && deleteBtn) {
-                    const text = confirmationText.value.trim();
-                    
-                    if (text === 'حذف Firebase') {
-                        deleteBtn.disabled = false;
-                        deleteBtn.classList.remove('btn-disabled');
-                    } else {
-                        deleteBtn.disabled = true;
-                        deleteBtn.classList.add('btn-disabled');
-                    }
-                }
-            } catch (error) {
-                console.error('Error validating delete button:', error);
+            const confirmationText = document.getElementById('confirmationText').value.trim();
+            const deleteBtn = document.getElementById('deleteBtn');
+            
+            if (confirmationText === 'حذف Firebase') {
+                deleteBtn.disabled = false;
+                deleteBtn.classList.remove('btn-disabled');
+            } else {
+                deleteBtn.disabled = true;
+                deleteBtn.classList.add('btn-disabled');
             }
         }
 
         // Update delete button text
         function updateDeleteButtonText() {
-            try {
-                const selectedOption = document.querySelector('input[name="deleteOption"]:checked');
-                const deleteBtn = document.getElementById('deleteBtn');
-                
-                if (selectedOption && deleteBtn) {
-                    let buttonText = '';
-                    switch (selectedOption.value) {
-                        case 'all':
-                            buttonText = 'حذف جميع المستخدمين من Firebase';
-                            break;
-                        case 'renters':
-                            buttonText = 'حذف المستأجرين من Firebase';
-                            break;
-                        case 'owners':
-                            buttonText = 'حذف أصحاب السيارات من Firebase';
-                            break;
-                        default:
-                            buttonText = 'حذف المستخدمين من Firebase';
-                    }
-                    
-                    deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i> ${buttonText}`;
-                }
-            } catch (error) {
-                console.error('Error updating delete button text:', error);
+            const selectedOption = document.querySelector('input[name="deleteOption"]:checked').value;
+            const deleteBtn = document.getElementById('deleteBtn');
+            
+            let buttonText = '';
+            switch (selectedOption) {
+                case 'all':
+                    buttonText = 'حذف جميع المستخدمين من Firebase';
+                    break;
+                case 'renters':
+                    buttonText = 'حذف المستأجرين من Firebase';
+                    break;
+                case 'owners':
+                    buttonText = 'حذف أصحاب السيارات من Firebase';
+                    break;
             }
+            
+            deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i> ${buttonText}`;
         }
 
         // Delete Firebase users
         async function deleteFirebaseUsers() {
-            try {
-                const confirmationTextElement = document.getElementById('confirmationText');
-                const selectedOptionElement = document.querySelector('input[name="deleteOption"]:checked');
-                const deleteRelatedDataElement = document.getElementById('deleteRelatedData');
-                const deleteCarsElement = document.getElementById('deleteCars');
-                const deletePhotosElement = document.getElementById('deletePhotos');
-                
-                if (!confirmationTextElement || !selectedOptionElement) {
-                    alert('خطأ في تحميل عناصر النموذج');
-                    return;
-                }
-                
-                const confirmationText = confirmationTextElement.value.trim();
-                const selectedOption = selectedOptionElement.value;
-                const deleteRelatedData = deleteRelatedDataElement ? deleteRelatedDataElement.checked : false;
-                const deleteCars = deleteCarsElement ? deleteCarsElement.checked : false;
-                const deletePhotos = deletePhotosElement ? deletePhotosElement.checked : false;
-                
-                if (confirmationText !== 'حذف Firebase') {
-                    alert('يرجى كتابة "حذف Firebase" للتأكيد');
-                    return;
-                }
+            const confirmationText = document.getElementById('confirmationText').value.trim();
+            const selectedOption = document.querySelector('input[name="deleteOption"]:checked').value;
+            const deleteRelatedData = document.getElementById('deleteRelatedData').checked;
+            const deleteCars = document.getElementById('deleteCars').checked;
+            const deletePhotos = document.getElementById('deletePhotos').checked;
+            
+            if (confirmationText !== 'حذف Firebase') {
+                alert('يرجى كتابة "حذف Firebase" للتأكيد');
+                return;
+            }
 
-                // Final confirmation
-                const confirmMessage = getConfirmMessage(selectedOption, deleteRelatedData, deleteCars, deletePhotos);
-                if (!confirm(confirmMessage)) {
-                    return;
-                }
+            // Final confirmation
+            const confirmMessage = getConfirmMessage(selectedOption, deleteRelatedData, deleteCars, deletePhotos);
+            if (!confirm(confirmMessage)) {
+                return;
+            }
 
             try {
                 // Get all users from Firebase
@@ -496,8 +419,7 @@
                 const users = snapshot.val();
                 
                 if (!users) {
-                    updateTestResults('❌ لا توجد مستخدمين في Firebase', 'warning');
-                    updateTestResults('💡 قم بتسجيل بعض المستخدمين أولاً ثم حاول الحذف', 'info');
+                    updateTestResults('❌ لا توجد مستخدمين في Firebase', 'error');
                     return;
                 }
 
@@ -526,8 +448,7 @@
                 }
 
                 if (usersToDelete.length === 0) {
-                    updateTestResults('❌ لا توجد مستخدمين للحذف حسب المعايير المحددة', 'warning');
-                    updateTestResults('💡 جرب تغيير خيارات الحذف أو تحقق من وجود مستخدمين في Firebase', 'info');
+                    updateTestResults('❌ لا توجد مستخدمين للحذف حسب المعايير المحددة', 'error');
                     return;
                 }
 
@@ -541,16 +462,7 @@
                         // Note: This is limited in client-side, would need backend
                         updateTestResults(`✅ تم حذف المستخدم: ${user.email}`, 'success');
                     } catch (error) {
-                        console.error(`Error deleting user ${user.email}:`, error);
-                        
-                        // رسائل خطأ أكثر تفصيلاً
-                        if (error.code === 'PERMISSION_DENIED') {
-                            updateTestResults(`❌ خطأ في الصلاحيات لحذف المستخدم ${user.email}`, 'error');
-                        } else if (error.code === 'UNAVAILABLE') {
-                            updateTestResults(`❌ خطأ في الاتصال لحذف المستخدم ${user.email}`, 'error');
-                        } else {
-                            updateTestResults(`❌ خطأ في حذف المستخدم ${user.email}: ${error.message}`, 'error');
-                        }
+                        updateTestResults(`❌ خطأ في حذف المستخدم ${user.email}: ${error.message}`, 'error');
                     }
                 }
 
@@ -571,91 +483,56 @@
 
                 updateTestResults(`✅ تم حذف ${usersToDelete.length} مستخدم من Firebase بنجاح`, 'success');
                 
-                // إضافة رسالة إضافية
-                if (usersToDelete.length > 0) {
-                    updateTestResults(`📊 تم حذف ${usersToDelete.length} مستخدم بنجاح`, 'info');
-                }
-                
                 // Refresh display
-                try {
-                    loadFirebaseUsers();
-                } catch (error) {
-                    console.error('Error refreshing display:', error);
-                }
+                loadFirebaseUsers();
                 
                 // Clear form
-                try {
-                    const confirmationTextElement = document.getElementById('confirmationText');
-                    if (confirmationTextElement) {
-                        confirmationTextElement.value = '';
-                        validateDeleteButton();
-                    }
-                } catch (error) {
-                    console.error('Error clearing form:', error);
-                }
+                document.getElementById('confirmationText').value = '';
+                validateDeleteButton();
 
             } catch (error) {
                 console.error('Error deleting Firebase users:', error);
-                
-                if (error.code === 'PERMISSION_DENIED') {
-                    updateTestResults('❌ خطأ في الصلاحيات: تأكد من قواعد الأمان في Firebase', 'error');
-                } else if (error.code === 'UNAVAILABLE') {
-                    updateTestResults('❌ خطأ في الاتصال: تأكد من اتصال الإنترنت', 'error');
-                } else {
-                    updateTestResults('❌ خطأ في حذف المستخدمين من Firebase: ' + error.message, 'error');
-                }
+                updateTestResults('❌ خطأ في حذف المستخدمين من Firebase: ' + error.message, 'error');
             }
-        } catch (error) {
-            console.error('Error in deleteFirebaseUsers function:', error);
-            alert('حدث خطأ في دالة حذف المستخدمين: ' + error.message);
-        }
         }
 
         // Get confirmation message
         function getConfirmMessage(selectedOption, deleteRelatedData, deleteCars, deletePhotos) {
-            try {
-                let message = 'هل أنت متأكد من حذف ';
-                
-                switch (selectedOption) {
-                    case 'all':
-                        message += 'جميع المستخدمين من Firebase';
-                        break;
-                    case 'renters':
-                        message += 'المستأجرين من Firebase';
-                        break;
-                    case 'owners':
-                        message += 'أصحاب السيارات من Firebase';
-                        break;
-                    default:
-                        message += 'المستخدمين من Firebase';
-                }
-                
-                if (deleteRelatedData) {
-                    message += ' مع البيانات المرتبطة';
-                }
-                
-                if (deleteCars) {
-                    message += ' والسيارات';
-                }
-
-                if (deletePhotos) {
-                    message += ' والصور';
-                }
-                
-                message += '؟\n\nهذا الإجراء لا يمكن التراجع عنه!';
-                
-                return message;
-            } catch (error) {
-                console.error('Error getting confirmation message:', error);
-                return 'هل أنت متأكد من حذف المستخدمين من Firebase؟\n\nهذا الإجراء لا يمكن التراجع عنه!';
+            let message = 'هل أنت متأكد من حذف ';
+            
+            switch (selectedOption) {
+                case 'all':
+                    message += 'جميع المستخدمين من Firebase';
+                    break;
+                case 'renters':
+                    message += 'المستأجرين من Firebase';
+                    break;
+                case 'owners':
+                    message += 'أصحاب السيارات من Firebase';
+                    break;
             }
+            
+            if (deleteRelatedData) {
+                message += ' مع البيانات المرتبطة';
+            }
+            
+            if (deleteCars) {
+                message += ' والسيارات';
+            }
+
+            if (deletePhotos) {
+                message += ' والصور';
+            }
+            
+            message += '؟\n\nهذا الإجراء لا يمكن التراجع عنه!';
+            
+            return message;
         }
 
         // Delete related Firebase data
         async function deleteRelatedFirebaseData(deletedUsers) {
             try {
                 const userIds = deletedUsers.map(user => user.uid);
-                let deletedCount = 0;
                 
                 // Delete related bookings
                 const bookingsSnapshot = await firebase.database().ref('bookings').once('value');
@@ -664,28 +541,16 @@
                 if (bookings) {
                     for (const [bookingId, booking] of Object.entries(bookings)) {
                         if (userIds.includes(booking.renter_id) || userIds.includes(booking.owner_id)) {
-                            try {
-                                await firebase.database().ref(`bookings/${bookingId}`).remove();
-                                deletedCount++;
-                            } catch (bookingError) {
-                                console.error(`Error deleting booking ${bookingId}:`, bookingError);
-                            }
+                            await firebase.database().ref(`bookings/${bookingId}`).remove();
                         }
                     }
                 }
                 
-                updateTestResults(`✅ تم حذف ${deletedCount} حجز مرتبط من Firebase`, 'success');
+                updateTestResults(`✅ تم حذف البيانات المرتبطة من Firebase`, 'success');
                 
             } catch (error) {
                 console.error('Error deleting related Firebase data:', error);
-                
-                if (error.code === 'PERMISSION_DENIED') {
-                    updateTestResults('❌ خطأ في الصلاحيات لحذف البيانات المرتبطة', 'error');
-                } else if (error.code === 'UNAVAILABLE') {
-                    updateTestResults('❌ خطأ في الاتصال لحذف البيانات المرتبطة', 'error');
-                } else {
-                    updateTestResults('❌ خطأ في حذف البيانات المرتبطة من Firebase: ' + error.message, 'error');
-                }
+                updateTestResults('❌ خطأ في حذف البيانات المرتبطة من Firebase', 'error');
             }
         }
 
@@ -693,7 +558,6 @@
         async function deleteUserCarsFromFirebase(deletedUsers) {
             try {
                 const userIds = deletedUsers.map(user => user.uid);
-                let deletedCount = 0;
                 
                 // Delete cars owned by deleted users
                 const carsSnapshot = await firebase.database().ref('cars').once('value');
@@ -702,28 +566,16 @@
                 if (cars) {
                     for (const [carId, car] of Object.entries(cars)) {
                         if (userIds.includes(car.owner_id)) {
-                            try {
-                                await firebase.database().ref(`cars/${carId}`).remove();
-                                deletedCount++;
-                            } catch (carError) {
-                                console.error(`Error deleting car ${carId}:`, carError);
-                            }
+                            await firebase.database().ref(`cars/${carId}`).remove();
                         }
                     }
                 }
                 
-                updateTestResults(`✅ تم حذف ${deletedCount} سيارة من Firebase`, 'success');
+                updateTestResults(`✅ تم حذف سيارات المستخدمين من Firebase`, 'success');
                 
             } catch (error) {
                 console.error('Error deleting user cars from Firebase:', error);
-                
-                if (error.code === 'PERMISSION_DENIED') {
-                    updateTestResults('❌ خطأ في الصلاحيات لحذف السيارات', 'error');
-                } else if (error.code === 'UNAVAILABLE') {
-                    updateTestResults('❌ خطأ في الاتصال لحذف السيارات', 'error');
-                } else {
-                    updateTestResults('❌ خطأ في حذف سيارات المستخدمين من Firebase: ' + error.message, 'error');
-                }
+                updateTestResults('❌ خطأ في حذف سيارات المستخدمين من Firebase', 'error');
             }
         }
 
@@ -731,7 +583,6 @@
         async function deleteUserPhotosFromFirebase(deletedUsers) {
             try {
                 const userIds = deletedUsers.map(user => user.uid);
-                let deletedCount = 0;
                 
                 // Delete photos uploaded by deleted users
                 const photosSnapshot = await firebase.database().ref('car_photos').once('value');
@@ -740,49 +591,32 @@
                 if (photos) {
                     for (const [photoId, photo] of Object.entries(photos)) {
                         if (userIds.includes(photo.uploaded_by)) {
+                            // Delete from Storage
                             try {
-                                // Delete from Storage
-                                try {
-                                    const storageRef = firebase.storage().ref().child(photo.filename);
-                                    await storageRef.delete();
-                                } catch (storageError) {
-                                    console.log('Photo not found in storage:', photo.filename);
-                                }
-                                
-                                // Delete from Database
-                                await firebase.database().ref(`car_photos/${photoId}`).remove();
-                                deletedCount++;
-                            } catch (photoError) {
-                                console.error(`Error deleting photo ${photoId}:`, photoError);
+                                const storageRef = firebase.storage().ref().child(photo.filename);
+                                await storageRef.delete();
+                            } catch (storageError) {
+                                console.log('Photo not found in storage:', photo.filename);
                             }
+                            
+                            // Delete from Database
+                            await firebase.database().ref(`car_photos/${photoId}`).remove();
                         }
                     }
                 }
                 
-                updateTestResults(`✅ تم حذف ${deletedCount} صورة من Firebase`, 'success');
+                updateTestResults(`✅ تم حذف صور المستخدمين من Firebase`, 'success');
                 
             } catch (error) {
                 console.error('Error deleting user photos from Firebase:', error);
-                
-                if (error.code === 'PERMISSION_DENIED') {
-                    updateTestResults('❌ خطأ في الصلاحيات لحذف الصور', 'error');
-                } else if (error.code === 'UNAVAILABLE') {
-                    updateTestResults('❌ خطأ في الاتصال لحذف الصور', 'error');
-                } else {
-                    updateTestResults('❌ خطأ في حذف صور المستخدمين من Firebase: ' + error.message, 'error');
-                }
+                updateTestResults('❌ خطأ في حذف صور المستخدمين من Firebase', 'error');
             }
         }
 
         // Refresh Firebase data
         function refreshFirebaseData() {
-            try {
-                loadFirebaseUsers();
-                updateTestResults('🔄 تم تحديث البيانات من Firebase', 'info');
-            } catch (error) {
-                console.error('Error refreshing Firebase data:', error);
-                updateTestResults('❌ خطأ في تحديث البيانات من Firebase', 'error');
-            }
+            loadFirebaseUsers();
+            updateTestResults('🔄 تم تحديث البيانات من Firebase', 'info');
         }
 
         // Export Firebase users
@@ -805,22 +639,14 @@
                     link.download = `firebase_users_backup_${new Date().toISOString().split('T')[0]}.json`;
                     link.click();
                     
-                    updateTestResults(`📥 تم تصدير ${usersArray.length} مستخدم من Firebase`, 'success');
+                    updateTestResults('📥 تم تصدير قائمة مستخدمي Firebase', 'success');
                 } else {
-                    updateTestResults('❌ لا توجد مستخدمين في Firebase للتصدير', 'warning');
-                    updateTestResults('💡 قم بتسجيل بعض المستخدمين أولاً ثم حاول التصدير', 'info');
+                    updateTestResults('❌ لا توجد مستخدمين في Firebase للتصدير', 'error');
                 }
                 
             } catch (error) {
                 console.error('Error exporting Firebase users:', error);
-                
-                if (error.code === 'PERMISSION_DENIED') {
-                    updateTestResults('❌ خطأ في الصلاحيات لتصدير المستخدمين', 'error');
-                } else if (error.code === 'UNAVAILABLE') {
-                    updateTestResults('❌ خطأ في الاتصال لتصدير المستخدمين', 'error');
-                } else {
-                    updateTestResults('❌ خطأ في تصدير مستخدمي Firebase: ' + error.message, 'error');
-                }
+                updateTestResults('❌ خطأ في تصدير مستخدمي Firebase', 'error');
             }
         }
 
@@ -841,45 +667,26 @@
 تاريخ التسجيل: ${user.created_at || 'غير محدد'}
                     `;
                     alert(details);
-                } else {
-                    alert('لم يتم العثور على المستخدم');
                 }
             } catch (error) {
                 console.error('Error viewing user details:', error);
-                
-                if (error.code === 'PERMISSION_DENIED') {
-                    alert('خطأ في الصلاحيات: لا يمكن عرض تفاصيل المستخدم');
-                } else if (error.code === 'UNAVAILABLE') {
-                    alert('خطأ في الاتصال: تأكد من اتصال الإنترنت');
-                } else {
-                    alert('خطأ في عرض تفاصيل المستخدم: ' + error.message);
-                }
             }
         }
 
         // Update test results
         function updateTestResults(message, type) {
-            try {
-                const resultsList = document.getElementById('resultsList');
-                const timestamp = new Date().toLocaleTimeString('ar-SA');
-                
-                const resultElement = document.createElement('div');
-                resultElement.className = `result-item ${type}`;
-                resultElement.innerHTML = `
-                    <span class="timestamp">${timestamp}</span>
-                    <span class="message">${message}</span>
-                `;
-                
-                resultsList.appendChild(resultElement);
-                resultsList.scrollTop = resultsList.scrollHeight;
-                
-                // إضافة صوت تنبيه للأخطاء
-                if (type === 'error') {
-                    console.warn('Firebase Error:', message);
-                }
-            } catch (error) {
-                console.error('Error updating test results:', error);
-            }
+            const resultsList = document.getElementById('resultsList');
+            const timestamp = new Date().toLocaleTimeString('ar-SA');
+            
+            const resultElement = document.createElement('div');
+            resultElement.className = `result-item ${type}`;
+            resultElement.innerHTML = `
+                <span class="timestamp">${timestamp}</span>
+                <span class="message">${message}</span>
+            `;
+            
+            resultsList.appendChild(resultElement);
+            resultsList.scrollTop = resultsList.scrollHeight;
         }
     </script>
 
@@ -1298,3 +1105,4 @@
     </style>
 </body>
 </html>
+

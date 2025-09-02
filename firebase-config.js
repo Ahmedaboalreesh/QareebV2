@@ -5,13 +5,11 @@ const admin = require('firebase-admin');
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyXXXXX",
-  authDomain: "your-project-id.firebaseapp.com",
-  databaseURL: "https://your-project-id.firebaseio.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef123456"
+  databaseURL: "https://qareeb-aba0c-default-rtdb.firebaseio.com/",
+  projectId: "qareeb-aba0c",
+  storageBucket: "qareeb-aba0c.appspot.com",
+  messagingSenderId: "1234567890", // Replace with actual sender ID
+  appId: "1:1234567890:web:abcdef123456" // Replace with actual app ID
 };
 
 // Initialize Firebase

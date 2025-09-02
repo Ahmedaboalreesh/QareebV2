@@ -197,33 +197,7 @@
     
     <script>
         // Registration page functionality - Updated to use Firebase
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Initialize Firebase Service
-            let firebaseService;
-            try {
-                // Wait for Firebase to be ready
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                firebaseService = new FirebaseService();
-                console.log('✅ Firebase Service initialized in register page');
-                
-                // Test Firebase connection
-                try {
-                    const testRef = firebase.database().ref('test');
-                    await testRef.set({ timestamp: Date.now() });
-                    await testRef.remove();
-                    console.log('✅ Firebase connection test successful');
-                } catch (testError) {
-                    console.warn('⚠️ Firebase connection test failed:', testError);
-                    showMessage('تحذير: قد تكون هناك مشاكل في الاتصال بـ Firebase', 'warning');
-                }
-                
-            } catch (error) {
-                console.error('❌ Failed to initialize Firebase Service:', error);
-                showMessage('خطأ في تهيئة Firebase، يرجى تحديث الصفحة', 'error');
-                return;
-            }
-            
+        document.addEventListener('DOMContentLoaded', function() {
             const registerForm = document.getElementById('registerForm');
             const inputs = document.querySelectorAll('.input-group input, .input-group select');
             const userTypeOptions = document.querySelectorAll('.type-option');
@@ -385,18 +359,8 @@
                         newsletter: formData.get('newsletter') === 'on'
                     };
                     
-                    console.log('📝 User data to register:', { ...userData, password: '***' });
-                    
-                    // Validate Firebase service
-                    if (!firebaseService || !firebaseService.auth) {
-                        throw new Error('Firebase service not properly initialized');
-                    }
-                    
                     // Register user with Firebase
-                    console.log('🔄 Calling firebaseService.registerUser...');
                     const result = await firebaseService.registerUser(userData);
-                    
-                    console.log('✅ Registration result:', result);
                     
                     if (result && result.user && result.profile) {
                         showMessage('تم إنشاء الحساب بنجاح!', 'success');
@@ -419,83 +383,29 @@
                         }, 2000);
                         
                     } else {
-                        console.error('❌ Registration result is invalid:', result);
-                        showMessage('فشل في إنشاء الحساب - نتيجة غير صحيحة', 'error');
+                        showMessage('فشل في إنشاء الحساب', 'error');
                     }
                     
                 } catch (error) {
-                    console.error('❌ Registration error:', error);
+                    console.error('Registration error:', error);
                     
-                    let errorMessage = 'خطأ في تسجيل الحساب';
+                    let errorMessage = 'حدث خطأ في إنشاء الحساب';
                     
                     // Handle specific Firebase auth errors
-                    if (error.code) {
-                        switch (error.code) {
-                            case 'auth/email-already-in-use':
-                                errorMessage = 'البريد الإلكتروني مستخدم بالفعل';
-                                break;
-                            case 'auth/invalid-email':
-                                errorMessage = 'البريد الإلكتروني غير صحيح';
-                                break;
-                            case 'auth/weak-password':
-                                errorMessage = 'كلمة المرور ضعيفة جداً (يجب أن تكون 6 أحرف على الأقل)';
-                                break;
-                            case 'auth/operation-not-allowed':
-                                errorMessage = 'إنشاء الحساب غير مسموح حالياً';
-                                break;
-                            case 'auth/network-request-failed':
-                                errorMessage = 'خطأ في الاتصال بالشبكة';
-                                break;
-                            case 'auth/too-many-requests':
-                                errorMessage = 'تم تجاوز الحد الأقصى للمحاولات، حاول لاحقاً';
-                                break;
-                            case 'auth/user-disabled':
-                                errorMessage = 'تم تعطيل هذا الحساب';
-                                break;
-                            case 'auth/user-not-found':
-                                errorMessage = 'لم يتم العثور على المستخدم';
-                                break;
-                            case 'auth/wrong-password':
-                                errorMessage = 'كلمة المرور غير صحيحة';
-                                break;
-                            case 'auth/invalid-credential':
-                                errorMessage = 'بيانات الاعتماد غير صحيحة';
-                                break;
-                            case 'auth/account-exists-with-different-credential':
-                                errorMessage = 'يوجد حساب بنفس البريد الإلكتروني مع طريقة تسجيل دخول مختلفة';
-                                break;
-                            case 'auth/requires-recent-login':
-                                errorMessage = 'يتطلب تسجيل دخول حديث';
-                                break;
-                            case 'auth/too-many-requests':
-                                errorMessage = 'تم تجاوز الحد الأقصى للمحاولات، حاول لاحقاً';
-                                break;
-                            case 'auth/quota-exceeded':
-                                errorMessage = 'تم تجاوز الحد الأقصى للاستخدام';
-                                break;
-                            case 'auth/unavailable':
-                                errorMessage = 'الخدمة غير متاحة حالياً';
-                                break;
-                                                    case 'auth/unimplemented':
-                            errorMessage = 'هذه العملية غير مدعومة';
+                    switch (error.code) {
+                        case 'auth/email-already-in-use':
+                            errorMessage = 'البريد الإلكتروني مستخدم بالفعل';
                             break;
-                        case 'auth/identity-toolkit-api-has-not-been-used-in-project-382655918338-before-or-it-is-disabled.-enable-it-by-visiting-https://console.developers.google.com/apis/api/identitytoolkit.googleapis.com/overview?project=382655918338-then-retry.-if-you-enabled-this-api-recently,-wait-a-few-minutes-for-the-action-to-propagate-to-our-systems-and-retry.':
-                            errorMessage = 'خطأ في إعدادات Firebase: يجب تفعيل Identity Toolkit API. اضغط على الرابط في Console للحصول على التعليمات.';
+                        case 'auth/invalid-email':
+                            errorMessage = 'البريد الإلكتروني غير صحيح';
                             break;
-                        default:
-                            errorMessage = `خطأ في Firebase: ${error.message}`;
-                        }
-                    } else if (error.message) {
-                        errorMessage = error.message;
+                        case 'auth/weak-password':
+                            errorMessage = 'كلمة المرور ضعيفة جداً';
+                            break;
+                        case 'auth/operation-not-allowed':
+                            errorMessage = 'إنشاء الحساب غير مسموح حالياً';
+                            break;
                     }
-                    
-                    console.error('🔍 Detailed error analysis:', {
-                        code: error.code,
-                        message: error.message,
-                        stack: error.stack,
-                        name: error.name,
-                        firebaseError: error.firebaseError
-                    });
                     
                     showMessage(errorMessage, 'error');
                 } finally {

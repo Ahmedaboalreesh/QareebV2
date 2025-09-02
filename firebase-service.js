@@ -29,14 +29,7 @@ class FirebaseService {
                     messagingSenderId: "1234567890",
                     appId: "1:1234567890:web:abcdef123456"
                 };
-                
-                try {
-                    firebase.initializeApp(firebaseConfig);
-                    console.log('✅ Firebase initialized with config');
-                } catch (initError) {
-                    console.error('❌ Firebase initialization error:', initError);
-                    throw initError;
-                }
+                firebase.initializeApp(firebaseConfig);
             }
 
             this.db = firebase.database();
@@ -62,53 +55,34 @@ class FirebaseService {
     // Register new user
     async registerUser(userData) {
         try {
-            console.log('🔄 Starting user registration for:', userData.email);
-            
-            // Validate required fields
-            if (!userData.email || !userData.password || !userData.full_name) {
-                throw new Error('Missing required fields: email, password, or full_name');
-            }
-
             // Create Firebase Auth user
-            console.log('🔄 Creating Firebase Auth user...');
             const userCredential = await this.auth.createUserWithEmailAndPassword(
                 userData.email, 
                 userData.password
             );
 
             const user = userCredential.user;
-            console.log('✅ Firebase Auth user created:', user.uid);
 
             // Store additional user data in Realtime Database
             const userProfile = {
                 uid: user.uid,
                 email: userData.email,
                 full_name: userData.full_name,
-                phone: userData.phone || '',
-                city: userData.city || '',
-                user_type: userData.user_type || 'renter', // 'renter' or 'owner'
+                phone: userData.phone,
+                city: userData.city,
+                user_type: userData.user_type, // 'renter' or 'owner'
                 created_at: new Date().toISOString(),
                 is_active: true,
-                profile_photo: userData.profile_photo || null,
-                newsletter: userData.newsletter || false
+                profile_photo: userData.profile_photo || null
             };
 
-            console.log('🔄 Saving user profile to database...');
             await this.db.ref(`users/${user.uid}`).set(userProfile);
-            console.log('✅ User profile saved to database');
 
             console.log('✅ User registered successfully:', user.uid);
             return { user, profile: userProfile };
 
         } catch (error) {
             console.error('❌ Registration failed:', error);
-            
-            // Log specific error details
-            if (error.code) {
-                console.error('Error code:', error.code);
-                console.error('Error message:', error.message);
-            }
-            
             throw error;
         }
     }

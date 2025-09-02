@@ -1,0 +1,62 @@
+# GitHub Pages Configuration
+# This file configures how GitHub Pages builds your site
+
+# Site settings
+title: "شارك سيارتك - منصة تأجير السيارات"
+description: "منصة آمنة وموثوقة لتأجير السيارات من شخص لشخص - دعم الاقتصاد التشاركي في المملكة"
+url: "https://ahmedaboalreesh.github.io/QareebV2"
+baseurl: "/QareebV2"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Collections
+collections:
+  guides:
+    output: true
+    permalink: /:collection/:name/
+
+# Include files
+include:
+  - _includes
+  - _layouts
+  - _sass
+  - assets
+  - *.html
+  - *.css
+  - *.js
+  - *.md
+  - *.png
+  - *.jpg
+  - *.jpeg
+  - *.gif
+  - *.svg
+  - *.ico
+  - *.pdf
+
+# Exclude files
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - .gitignore
+  - .github
+  - README.md
+  - LICENSE
+  - .nojekyll
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "guides"
+    values:
+      layout: "default"
+      author: "Car Rental Platform Team"
